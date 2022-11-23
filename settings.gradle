@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'grpc-2d-sample'
-include("shared", "server", "client")
+include 'shared', 'server', 'client'
