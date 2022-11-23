@@ -1,0 +1,5 @@
+grpc:
+  client:
+    greet-server:
+      address: static://localhost:6565
+      negotiationType: PLAINTEXT
