@@ -16,7 +16,6 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'net.devh:grpc-client-spring-boot-starter:2.14.0.RELEASE'
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.7.5'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation project(':shared')
 }
