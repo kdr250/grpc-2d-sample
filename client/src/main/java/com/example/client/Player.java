@@ -11,6 +11,10 @@ public class Player {
     location = location.shift(vector);
   }
 
+  public void warp(final Location location) {
+    this.location = location;
+  }
+
   public Location getLocation() {
     return location;
   }

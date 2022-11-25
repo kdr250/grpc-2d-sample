@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class GreetClientService {
 
-  @GrpcClient("greet-server")
+  @GrpcClient("server")
   private GreetStub clientGreetStub;
 
   public String receiveGreeting(String name) {

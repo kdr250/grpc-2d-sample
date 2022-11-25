@@ -25,12 +25,17 @@ public class GamePanel extends JPanel implements Runnable {
 
   private final KeyInputHandler keyInputHandler;
 
+  private final LocationClientService locationClientService;
+
   private final Player player = new Player(new Location(200, 200));
+
+  private final Player player2 = new Player(new Location(100, 100));
 
   private boolean isUpdateFinished = false;
 
-  public GamePanel(final KeyInputHandler keyInputHandler) {
+  public GamePanel(final KeyInputHandler keyInputHandler, final LocationClientService locationClientService) {
     this.keyInputHandler = keyInputHandler;
+    this.locationClientService = locationClientService;
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
     this.setBackground(Color.black);
     this.setDoubleBuffered(true);
@@ -70,13 +75,18 @@ public class GamePanel extends JPanel implements Runnable {
   private void update() {
     Vector vector = keyInputHandler.getKeyInputType().getVector();
     player.move(vector);
+    locationClientService.receiveLocation(player2);
   }
 
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D)g;
+    // プレイヤー1
     g2.setColor(Color.white);
     g2.fillRect(player.getLocation().getX(), player.getLocation().getY(), TILE_SIZE, TILE_SIZE);
+    // プレイヤー2
+    g2.setColor(Color.red);
+    g2.fillRect(player2.getLocation().getX(), player2.getLocation().getY(), TILE_SIZE, TILE_SIZE);
     g2.dispose();
   }
 }
