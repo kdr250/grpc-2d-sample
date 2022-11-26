@@ -4,26 +4,27 @@
 package com.example.shared;
 
 /**
- * Protobuf type {@code InitializeRequest}
+ * Protobuf type {@code GrpcTile}
  */
-public final class InitializeRequest extends
+public final class GrpcTile extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:InitializeRequest)
-    InitializeRequestOrBuilder {
+    // @@protoc_insertion_point(message_implements:GrpcTile)
+    GrpcTileOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use InitializeRequest.newBuilder() to construct.
-  private InitializeRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use GrpcTile.newBuilder() to construct.
+  private GrpcTile(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private InitializeRequest() {
+  private GrpcTile() {
     name_ = "";
+    base64Image_ = "";
   }
 
   @java.lang.Override
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new InitializeRequest();
+    return new GrpcTile();
   }
 
   @java.lang.Override
@@ -31,7 +32,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private InitializeRequest(
+  private GrpcTile(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -55,6 +56,17 @@ private static final long serialVersionUID = 0L;
             name_ = s;
             break;
           }
+          case 18: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            base64Image_ = s;
+            break;
+          }
+          case 24: {
+
+            collision_ = input.readBool();
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -76,15 +88,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.example.shared.WorldMapProto.internal_static_InitializeRequest_descriptor;
+    return com.example.shared.WorldMapProto.internal_static_GrpcTile_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.example.shared.WorldMapProto.internal_static_InitializeRequest_fieldAccessorTable
+    return com.example.shared.WorldMapProto.internal_static_GrpcTile_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.example.shared.InitializeRequest.class, com.example.shared.InitializeRequest.Builder.class);
+            com.example.shared.GrpcTile.class, com.example.shared.GrpcTile.Builder.class);
   }
 
   public static final int NAME_FIELD_NUMBER = 1;
@@ -125,6 +137,55 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int BASE64IMAGE_FIELD_NUMBER = 2;
+  private volatile java.lang.Object base64Image_;
+  /**
+   * <code>string base64image = 2;</code>
+   * @return The base64image.
+   */
+  @java.lang.Override
+  public java.lang.String getBase64Image() {
+    java.lang.Object ref = base64Image_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      base64Image_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string base64image = 2;</code>
+   * @return The bytes for base64image.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getBase64ImageBytes() {
+    java.lang.Object ref = base64Image_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      base64Image_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int COLLISION_FIELD_NUMBER = 3;
+  private boolean collision_;
+  /**
+   * <code>bool collision = 3;</code>
+   * @return The collision.
+   */
+  @java.lang.Override
+  public boolean getCollision() {
+    return collision_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -142,6 +203,12 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
     }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(base64Image_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, base64Image_);
+    }
+    if (collision_ != false) {
+      output.writeBool(3, collision_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -154,6 +221,13 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
     }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(base64Image_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, base64Image_);
+    }
+    if (collision_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(3, collision_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -164,13 +238,17 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.example.shared.InitializeRequest)) {
+    if (!(obj instanceof com.example.shared.GrpcTile)) {
       return super.equals(obj);
     }
-    com.example.shared.InitializeRequest other = (com.example.shared.InitializeRequest) obj;
+    com.example.shared.GrpcTile other = (com.example.shared.GrpcTile) obj;
 
     if (!getName()
         .equals(other.getName())) return false;
+    if (!getBase64Image()
+        .equals(other.getBase64Image())) return false;
+    if (getCollision()
+        != other.getCollision()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -184,74 +262,79 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + NAME_FIELD_NUMBER;
     hash = (53 * hash) + getName().hashCode();
+    hash = (37 * hash) + BASE64IMAGE_FIELD_NUMBER;
+    hash = (53 * hash) + getBase64Image().hashCode();
+    hash = (37 * hash) + COLLISION_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getCollision());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static com.example.shared.InitializeRequest parseFrom(
+  public static com.example.shared.GrpcTile parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.shared.InitializeRequest parseFrom(
+  public static com.example.shared.GrpcTile parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.shared.InitializeRequest parseFrom(
+  public static com.example.shared.GrpcTile parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.shared.InitializeRequest parseFrom(
+  public static com.example.shared.GrpcTile parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.shared.InitializeRequest parseFrom(byte[] data)
+  public static com.example.shared.GrpcTile parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.shared.InitializeRequest parseFrom(
+  public static com.example.shared.GrpcTile parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.shared.InitializeRequest parseFrom(java.io.InputStream input)
+  public static com.example.shared.GrpcTile parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.example.shared.InitializeRequest parseFrom(
+  public static com.example.shared.GrpcTile parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.example.shared.InitializeRequest parseDelimitedFrom(java.io.InputStream input)
+  public static com.example.shared.GrpcTile parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.example.shared.InitializeRequest parseDelimitedFrom(
+  public static com.example.shared.GrpcTile parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.example.shared.InitializeRequest parseFrom(
+  public static com.example.shared.GrpcTile parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.example.shared.InitializeRequest parseFrom(
+  public static com.example.shared.GrpcTile parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -264,7 +347,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.example.shared.InitializeRequest prototype) {
+  public static Builder newBuilder(com.example.shared.GrpcTile prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -280,26 +363,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code InitializeRequest}
+   * Protobuf type {@code GrpcTile}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:InitializeRequest)
-      com.example.shared.InitializeRequestOrBuilder {
+      // @@protoc_insertion_point(builder_implements:GrpcTile)
+      com.example.shared.GrpcTileOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.example.shared.WorldMapProto.internal_static_InitializeRequest_descriptor;
+      return com.example.shared.WorldMapProto.internal_static_GrpcTile_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.example.shared.WorldMapProto.internal_static_InitializeRequest_fieldAccessorTable
+      return com.example.shared.WorldMapProto.internal_static_GrpcTile_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.example.shared.InitializeRequest.class, com.example.shared.InitializeRequest.Builder.class);
+              com.example.shared.GrpcTile.class, com.example.shared.GrpcTile.Builder.class);
     }
 
-    // Construct using com.example.shared.InitializeRequest.newBuilder()
+    // Construct using com.example.shared.GrpcTile.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -319,23 +402,27 @@ private static final long serialVersionUID = 0L;
       super.clear();
       name_ = "";
 
+      base64Image_ = "";
+
+      collision_ = false;
+
       return this;
     }
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.example.shared.WorldMapProto.internal_static_InitializeRequest_descriptor;
+      return com.example.shared.WorldMapProto.internal_static_GrpcTile_descriptor;
     }
 
     @java.lang.Override
-    public com.example.shared.InitializeRequest getDefaultInstanceForType() {
-      return com.example.shared.InitializeRequest.getDefaultInstance();
+    public com.example.shared.GrpcTile getDefaultInstanceForType() {
+      return com.example.shared.GrpcTile.getDefaultInstance();
     }
 
     @java.lang.Override
-    public com.example.shared.InitializeRequest build() {
-      com.example.shared.InitializeRequest result = buildPartial();
+    public com.example.shared.GrpcTile build() {
+      com.example.shared.GrpcTile result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -343,9 +430,11 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public com.example.shared.InitializeRequest buildPartial() {
-      com.example.shared.InitializeRequest result = new com.example.shared.InitializeRequest(this);
+    public com.example.shared.GrpcTile buildPartial() {
+      com.example.shared.GrpcTile result = new com.example.shared.GrpcTile(this);
       result.name_ = name_;
+      result.base64Image_ = base64Image_;
+      result.collision_ = collision_;
       onBuilt();
       return result;
     }
@@ -384,19 +473,26 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.example.shared.InitializeRequest) {
-        return mergeFrom((com.example.shared.InitializeRequest)other);
+      if (other instanceof com.example.shared.GrpcTile) {
+        return mergeFrom((com.example.shared.GrpcTile)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.example.shared.InitializeRequest other) {
-      if (other == com.example.shared.InitializeRequest.getDefaultInstance()) return this;
+    public Builder mergeFrom(com.example.shared.GrpcTile other) {
+      if (other == com.example.shared.GrpcTile.getDefaultInstance()) return this;
       if (!other.getName().isEmpty()) {
         name_ = other.name_;
         onChanged();
+      }
+      if (!other.getBase64Image().isEmpty()) {
+        base64Image_ = other.base64Image_;
+        onChanged();
+      }
+      if (other.getCollision() != false) {
+        setCollision(other.getCollision());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -413,11 +509,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.example.shared.InitializeRequest parsedMessage = null;
+      com.example.shared.GrpcTile parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.example.shared.InitializeRequest) e.getUnfinishedMessage();
+        parsedMessage = (com.example.shared.GrpcTile) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -502,6 +598,113 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
+
+    private java.lang.Object base64Image_ = "";
+    /**
+     * <code>string base64image = 2;</code>
+     * @return The base64image.
+     */
+    public java.lang.String getBase64Image() {
+      java.lang.Object ref = base64Image_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        base64Image_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string base64image = 2;</code>
+     * @return The bytes for base64image.
+     */
+    public com.google.protobuf.ByteString
+        getBase64ImageBytes() {
+      java.lang.Object ref = base64Image_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        base64Image_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string base64image = 2;</code>
+     * @param value The base64image to set.
+     * @return This builder for chaining.
+     */
+    public Builder setBase64Image(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      base64Image_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string base64image = 2;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearBase64Image() {
+      
+      base64Image_ = getDefaultInstance().getBase64Image();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string base64image = 2;</code>
+     * @param value The bytes for base64image to set.
+     * @return This builder for chaining.
+     */
+    public Builder setBase64ImageBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      base64Image_ = value;
+      onChanged();
+      return this;
+    }
+
+    private boolean collision_ ;
+    /**
+     * <code>bool collision = 3;</code>
+     * @return The collision.
+     */
+    @java.lang.Override
+    public boolean getCollision() {
+      return collision_;
+    }
+    /**
+     * <code>bool collision = 3;</code>
+     * @param value The collision to set.
+     * @return This builder for chaining.
+     */
+    public Builder setCollision(boolean value) {
+      
+      collision_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bool collision = 3;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearCollision() {
+      
+      collision_ = false;
+      onChanged();
+      return this;
+    }
     @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -515,41 +718,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:InitializeRequest)
+    // @@protoc_insertion_point(builder_scope:GrpcTile)
   }
 
-  // @@protoc_insertion_point(class_scope:InitializeRequest)
-  private static final com.example.shared.InitializeRequest DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:GrpcTile)
+  private static final com.example.shared.GrpcTile DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.example.shared.InitializeRequest();
+    DEFAULT_INSTANCE = new com.example.shared.GrpcTile();
   }
 
-  public static com.example.shared.InitializeRequest getDefaultInstance() {
+  public static com.example.shared.GrpcTile getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<InitializeRequest>
-      PARSER = new com.google.protobuf.AbstractParser<InitializeRequest>() {
+  private static final com.google.protobuf.Parser<GrpcTile>
+      PARSER = new com.google.protobuf.AbstractParser<GrpcTile>() {
     @java.lang.Override
-    public InitializeRequest parsePartialFrom(
+    public GrpcTile parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new InitializeRequest(input, extensionRegistry);
+      return new GrpcTile(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<InitializeRequest> parser() {
+  public static com.google.protobuf.Parser<GrpcTile> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<InitializeRequest> getParserForType() {
+  public com.google.protobuf.Parser<GrpcTile> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.example.shared.InitializeRequest getDefaultInstanceForType() {
+  public com.example.shared.GrpcTile getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 
