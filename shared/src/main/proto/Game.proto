@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+option java_package = "com.example.shared";
+
+option java_outer_classname = "GameProto";
+
+service Game {
+    rpc Connect (InitializeRequest) returns (InitializeResponse);
+}
+
+message InitializeRequest {
+    string id = 1;
+    string name = 2;
+    string password = 3;
+}
+
+message InitializeResponse {
+    GrpcWorldMap worldMap = 1;
+    GrpcTileImage tileImage = 2;
+}
+
+message GrpcWorldMap {
+    string id = 1;
+    int32 width = 2;
+    int32 height = 3;
+    string tiles = 4;
+}
+
+message GrpcTileImage {
+    string name = 1;
+    string base64image = 2;
+}
+
