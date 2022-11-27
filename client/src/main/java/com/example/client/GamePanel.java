@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class GamePanel extends JPanel implements Runnable {
@@ -28,15 +30,20 @@ public class GamePanel extends JPanel implements Runnable {
 
   private final WorldMapService worldMapService;
 
+  private final PlayerService playerService;
+
   private WorldMap worldMap;
 
-  private final Player player = new Player(new Location(200, 200));
+  private final Player player = new Player("Taro", new Location(200, 200));
+
+  List<Player> otherPlayers = new ArrayList<>();
 
   private boolean isUpdateFinished = false;
 
-  public GamePanel(final KeyInputHandler keyInputHandler, final WorldMapService worldMapService) {
+  public GamePanel(final KeyInputHandler keyInputHandler, final WorldMapService worldMapService, final PlayerService playerService) {
     this.keyInputHandler = keyInputHandler;
     this.worldMapService = worldMapService;
+    this.playerService = playerService;
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
     this.setBackground(Color.black);
     this.setDoubleBuffered(true);
@@ -82,6 +89,7 @@ public class GamePanel extends JPanel implements Runnable {
   private void update() {
     Vector vector = keyInputHandler.getKeyInputType().getVector();
     player.move(vector);
+    playerService.synchronize(player, otherPlayers);
   }
 
   public void paintComponent(Graphics g) {
@@ -106,6 +114,14 @@ public class GamePanel extends JPanel implements Runnable {
     // プレイヤー1
     g2.setColor(Color.white);
     g2.fillRect(screenCenterX, screenCenterY, Tile.TILE_SIZE, Tile.TILE_SIZE);
+
+    otherPlayers.forEach(others -> {
+      g2.setColor(Color.green);
+      Triple<Boolean, Integer, Integer> result = canDisplayAndDistanceFromPlayer(others.location(), player.location());
+      if (Boolean.TRUE.equals(result.getLeft())) {
+        g2.fillRect(screenCenterX + result.getMiddle(), screenCenterY + result.getRight(), Tile.TILE_SIZE, Tile.TILE_SIZE);
+      }
+    });
   }
 
   private Triple<Boolean, Integer, Integer> canDisplayAndDistanceFromPlayer(Location location, Location playerLocation) {
