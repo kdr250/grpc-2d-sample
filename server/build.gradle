@@ -15,6 +15,8 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'commons-io:commons-io:2.11.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation project(':shared')
 }
