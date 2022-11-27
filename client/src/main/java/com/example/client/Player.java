@@ -15,7 +15,7 @@ public class Player {
     this.location = location;
   }
 
-  public Location getLocation() {
+  public Location location() {
     return location;
   }
 }

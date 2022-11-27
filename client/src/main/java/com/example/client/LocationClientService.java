@@ -18,7 +18,7 @@ public class LocationClientService {
   private LocationSyncStub locationSyncStub;
 
   public void receiveLocation(Player player) {
-    Location location = player.getLocation();
+    Location location = player.location();
     GrpcLocation grpcLocation = GrpcLocation.newBuilder()
       .setX(location.getX())
       .setY(location.getY())
