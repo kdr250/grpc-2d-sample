@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -28,10 +29,14 @@ public class RegisterPlayerToRedisComponent {
   public void register(String worldId, GrpcPlayer player) {
     ListOperations<String, String> listOperations = stringRedisTemplate.opsForList();
     HashOperations<String, String, Object> hashOperations = objectRedisTemplate.opsForHash();
+
     listOperations.rightPush(worldId + "_player", player.getId());
+    stringRedisTemplate.expire(worldId + "_player", 5, TimeUnit.SECONDS);
+
     hashOperations.put(player.getId(), "name", player.getName());
     hashOperations.put(player.getId(), "locationX", player.getLocation().getX());
     hashOperations.put(player.getId(), "locationY", player.getLocation().getY());
+    objectRedisTemplate.expire(worldId + "_player", 5, TimeUnit.SECONDS);
   }
 
   public List<Supplier<GrpcPlayer>> get(String worldId, String playerId) {
