@@ -8,7 +8,6 @@ import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 
 import java.util.List;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 @GRpcService
