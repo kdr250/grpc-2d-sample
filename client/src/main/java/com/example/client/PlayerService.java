@@ -51,7 +51,7 @@ public class PlayerService {
     streamObserver.onCompleted();;
 
     try {
-      finishLatch.await(10, TimeUnit.SECONDS);
+      finishLatch.await(5, TimeUnit.SECONDS);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
