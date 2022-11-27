@@ -13,9 +13,8 @@ public class GamePanel extends JPanel implements Runnable {
   // スクリーン設定
   private static final int maxScreenCol = 16;
   private static final int maxScreenRow = 12;
-  public static final int TILE_SIZE = 48;
-  public static final int screenWidth = TILE_SIZE * maxScreenCol; // 768 px
-  public static final int screenHeight = TILE_SIZE * maxScreenRow; // 576 px
+  public static final int screenWidth = Tile.TILE_SIZE * maxScreenCol; // 768 px
+  public static final int screenHeight = Tile.TILE_SIZE * maxScreenRow; // 576 px
   public static final int screenCenterX = screenWidth / 2;
   public static final int screenCenterY = screenHeight / 2;
 
@@ -112,10 +111,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     // プレイヤー1
     g2.setColor(Color.white);
-    g2.fillRect(screenCenterX, screenCenterY, TILE_SIZE, TILE_SIZE);
+    g2.fillRect(screenCenterX, screenCenterY, Tile.TILE_SIZE, Tile.TILE_SIZE);
     // プレイヤー2
     g2.setColor(Color.red);
-    g2.fillRect(player2.location().getX(), player2.location().getY(), TILE_SIZE, TILE_SIZE);
+    g2.fillRect(player2.location().getX(), player2.location().getY(), Tile.TILE_SIZE, Tile.TILE_SIZE);
     g2.dispose();
   }
 
