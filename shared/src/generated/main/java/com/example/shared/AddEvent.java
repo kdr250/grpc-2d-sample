@@ -4,25 +4,25 @@
 package com.example.shared;
 
 /**
- * Protobuf type {@code GrpcLocation}
+ * Protobuf type {@code AddEvent}
  */
-public final class GrpcLocation extends
+public final class AddEvent extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:GrpcLocation)
-    GrpcLocationOrBuilder {
+    // @@protoc_insertion_point(message_implements:AddEvent)
+    AddEventOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use GrpcLocation.newBuilder() to construct.
-  private GrpcLocation(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use AddEvent.newBuilder() to construct.
+  private AddEvent(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private GrpcLocation() {
+  private AddEvent() {
   }
 
   @java.lang.Override
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new GrpcLocation();
+    return new AddEvent();
   }
 
   @java.lang.Override
@@ -30,7 +30,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private GrpcLocation(
+  private AddEvent(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -48,14 +48,17 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
+          case 10: {
+            com.example.shared.GrpcPlayer.Builder subBuilder = null;
+            if (player_ != null) {
+              subBuilder = player_.toBuilder();
+            }
+            player_ = input.readMessage(com.example.shared.GrpcPlayer.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(player_);
+              player_ = subBuilder.buildPartial();
+            }
 
-            x_ = input.readInt32();
-            break;
-          }
-          case 16: {
-
-            y_ = input.readInt32();
             break;
           }
           default: {
@@ -79,37 +82,41 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.example.shared.PlayerProto.internal_static_GrpcLocation_descriptor;
+    return com.example.shared.PlayerProto.internal_static_AddEvent_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.example.shared.PlayerProto.internal_static_GrpcLocation_fieldAccessorTable
+    return com.example.shared.PlayerProto.internal_static_AddEvent_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.example.shared.GrpcLocation.class, com.example.shared.GrpcLocation.Builder.class);
+            com.example.shared.AddEvent.class, com.example.shared.AddEvent.Builder.class);
   }
 
-  public static final int X_FIELD_NUMBER = 1;
-  private int x_;
+  public static final int PLAYER_FIELD_NUMBER = 1;
+  private com.example.shared.GrpcPlayer player_;
   /**
-   * <code>int32 x = 1;</code>
-   * @return The x.
+   * <code>.GrpcPlayer player = 1;</code>
+   * @return Whether the player field is set.
    */
   @java.lang.Override
-  public int getX() {
-    return x_;
+  public boolean hasPlayer() {
+    return player_ != null;
   }
-
-  public static final int Y_FIELD_NUMBER = 2;
-  private int y_;
   /**
-   * <code>int32 y = 2;</code>
-   * @return The y.
+   * <code>.GrpcPlayer player = 1;</code>
+   * @return The player.
    */
   @java.lang.Override
-  public int getY() {
-    return y_;
+  public com.example.shared.GrpcPlayer getPlayer() {
+    return player_ == null ? com.example.shared.GrpcPlayer.getDefaultInstance() : player_;
+  }
+  /**
+   * <code>.GrpcPlayer player = 1;</code>
+   */
+  @java.lang.Override
+  public com.example.shared.GrpcPlayerOrBuilder getPlayerOrBuilder() {
+    return getPlayer();
   }
 
   private byte memoizedIsInitialized = -1;
@@ -126,11 +133,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (x_ != 0) {
-      output.writeInt32(1, x_);
-    }
-    if (y_ != 0) {
-      output.writeInt32(2, y_);
+    if (player_ != null) {
+      output.writeMessage(1, getPlayer());
     }
     unknownFields.writeTo(output);
   }
@@ -141,13 +145,9 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (x_ != 0) {
+    if (player_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, x_);
-    }
-    if (y_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, y_);
+        .computeMessageSize(1, getPlayer());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -159,15 +159,16 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.example.shared.GrpcLocation)) {
+    if (!(obj instanceof com.example.shared.AddEvent)) {
       return super.equals(obj);
     }
-    com.example.shared.GrpcLocation other = (com.example.shared.GrpcLocation) obj;
+    com.example.shared.AddEvent other = (com.example.shared.AddEvent) obj;
 
-    if (getX()
-        != other.getX()) return false;
-    if (getY()
-        != other.getY()) return false;
+    if (hasPlayer() != other.hasPlayer()) return false;
+    if (hasPlayer()) {
+      if (!getPlayer()
+          .equals(other.getPlayer())) return false;
+    }
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -179,78 +180,78 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + X_FIELD_NUMBER;
-    hash = (53 * hash) + getX();
-    hash = (37 * hash) + Y_FIELD_NUMBER;
-    hash = (53 * hash) + getY();
+    if (hasPlayer()) {
+      hash = (37 * hash) + PLAYER_FIELD_NUMBER;
+      hash = (53 * hash) + getPlayer().hashCode();
+    }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static com.example.shared.GrpcLocation parseFrom(
+  public static com.example.shared.AddEvent parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.shared.GrpcLocation parseFrom(
+  public static com.example.shared.AddEvent parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.shared.GrpcLocation parseFrom(
+  public static com.example.shared.AddEvent parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.shared.GrpcLocation parseFrom(
+  public static com.example.shared.AddEvent parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.shared.GrpcLocation parseFrom(byte[] data)
+  public static com.example.shared.AddEvent parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.shared.GrpcLocation parseFrom(
+  public static com.example.shared.AddEvent parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.shared.GrpcLocation parseFrom(java.io.InputStream input)
+  public static com.example.shared.AddEvent parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.example.shared.GrpcLocation parseFrom(
+  public static com.example.shared.AddEvent parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.example.shared.GrpcLocation parseDelimitedFrom(java.io.InputStream input)
+  public static com.example.shared.AddEvent parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.example.shared.GrpcLocation parseDelimitedFrom(
+  public static com.example.shared.AddEvent parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.example.shared.GrpcLocation parseFrom(
+  public static com.example.shared.AddEvent parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.example.shared.GrpcLocation parseFrom(
+  public static com.example.shared.AddEvent parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -263,7 +264,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.example.shared.GrpcLocation prototype) {
+  public static Builder newBuilder(com.example.shared.AddEvent prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -279,26 +280,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code GrpcLocation}
+   * Protobuf type {@code AddEvent}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:GrpcLocation)
-      com.example.shared.GrpcLocationOrBuilder {
+      // @@protoc_insertion_point(builder_implements:AddEvent)
+      com.example.shared.AddEventOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.example.shared.PlayerProto.internal_static_GrpcLocation_descriptor;
+      return com.example.shared.PlayerProto.internal_static_AddEvent_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.example.shared.PlayerProto.internal_static_GrpcLocation_fieldAccessorTable
+      return com.example.shared.PlayerProto.internal_static_AddEvent_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.example.shared.GrpcLocation.class, com.example.shared.GrpcLocation.Builder.class);
+              com.example.shared.AddEvent.class, com.example.shared.AddEvent.Builder.class);
     }
 
-    // Construct using com.example.shared.GrpcLocation.newBuilder()
+    // Construct using com.example.shared.AddEvent.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -316,27 +317,29 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      x_ = 0;
-
-      y_ = 0;
-
+      if (playerBuilder_ == null) {
+        player_ = null;
+      } else {
+        player_ = null;
+        playerBuilder_ = null;
+      }
       return this;
     }
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.example.shared.PlayerProto.internal_static_GrpcLocation_descriptor;
+      return com.example.shared.PlayerProto.internal_static_AddEvent_descriptor;
     }
 
     @java.lang.Override
-    public com.example.shared.GrpcLocation getDefaultInstanceForType() {
-      return com.example.shared.GrpcLocation.getDefaultInstance();
+    public com.example.shared.AddEvent getDefaultInstanceForType() {
+      return com.example.shared.AddEvent.getDefaultInstance();
     }
 
     @java.lang.Override
-    public com.example.shared.GrpcLocation build() {
-      com.example.shared.GrpcLocation result = buildPartial();
+    public com.example.shared.AddEvent build() {
+      com.example.shared.AddEvent result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -344,10 +347,13 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public com.example.shared.GrpcLocation buildPartial() {
-      com.example.shared.GrpcLocation result = new com.example.shared.GrpcLocation(this);
-      result.x_ = x_;
-      result.y_ = y_;
+    public com.example.shared.AddEvent buildPartial() {
+      com.example.shared.AddEvent result = new com.example.shared.AddEvent(this);
+      if (playerBuilder_ == null) {
+        result.player_ = player_;
+      } else {
+        result.player_ = playerBuilder_.build();
+      }
       onBuilt();
       return result;
     }
@@ -386,21 +392,18 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.example.shared.GrpcLocation) {
-        return mergeFrom((com.example.shared.GrpcLocation)other);
+      if (other instanceof com.example.shared.AddEvent) {
+        return mergeFrom((com.example.shared.AddEvent)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.example.shared.GrpcLocation other) {
-      if (other == com.example.shared.GrpcLocation.getDefaultInstance()) return this;
-      if (other.getX() != 0) {
-        setX(other.getX());
-      }
-      if (other.getY() != 0) {
-        setY(other.getY());
+    public Builder mergeFrom(com.example.shared.AddEvent other) {
+      if (other == com.example.shared.AddEvent.getDefaultInstance()) return this;
+      if (other.hasPlayer()) {
+        mergePlayer(other.getPlayer());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -417,11 +420,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.example.shared.GrpcLocation parsedMessage = null;
+      com.example.shared.AddEvent parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.example.shared.GrpcLocation) e.getUnfinishedMessage();
+        parsedMessage = (com.example.shared.AddEvent) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -431,66 +434,123 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int x_ ;
+    private com.example.shared.GrpcPlayer player_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.shared.GrpcPlayer, com.example.shared.GrpcPlayer.Builder, com.example.shared.GrpcPlayerOrBuilder> playerBuilder_;
     /**
-     * <code>int32 x = 1;</code>
-     * @return The x.
+     * <code>.GrpcPlayer player = 1;</code>
+     * @return Whether the player field is set.
      */
-    @java.lang.Override
-    public int getX() {
-      return x_;
+    public boolean hasPlayer() {
+      return playerBuilder_ != null || player_ != null;
     }
     /**
-     * <code>int32 x = 1;</code>
-     * @param value The x to set.
-     * @return This builder for chaining.
+     * <code>.GrpcPlayer player = 1;</code>
+     * @return The player.
      */
-    public Builder setX(int value) {
-      
-      x_ = value;
-      onChanged();
-      return this;
+    public com.example.shared.GrpcPlayer getPlayer() {
+      if (playerBuilder_ == null) {
+        return player_ == null ? com.example.shared.GrpcPlayer.getDefaultInstance() : player_;
+      } else {
+        return playerBuilder_.getMessage();
+      }
     }
     /**
-     * <code>int32 x = 1;</code>
-     * @return This builder for chaining.
+     * <code>.GrpcPlayer player = 1;</code>
      */
-    public Builder clearX() {
-      
-      x_ = 0;
-      onChanged();
-      return this;
-    }
+    public Builder setPlayer(com.example.shared.GrpcPlayer value) {
+      if (playerBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        player_ = value;
+        onChanged();
+      } else {
+        playerBuilder_.setMessage(value);
+      }
 
-    private int y_ ;
-    /**
-     * <code>int32 y = 2;</code>
-     * @return The y.
-     */
-    @java.lang.Override
-    public int getY() {
-      return y_;
-    }
-    /**
-     * <code>int32 y = 2;</code>
-     * @param value The y to set.
-     * @return This builder for chaining.
-     */
-    public Builder setY(int value) {
-      
-      y_ = value;
-      onChanged();
       return this;
     }
     /**
-     * <code>int32 y = 2;</code>
-     * @return This builder for chaining.
+     * <code>.GrpcPlayer player = 1;</code>
      */
-    public Builder clearY() {
-      
-      y_ = 0;
-      onChanged();
+    public Builder setPlayer(
+        com.example.shared.GrpcPlayer.Builder builderForValue) {
+      if (playerBuilder_ == null) {
+        player_ = builderForValue.build();
+        onChanged();
+      } else {
+        playerBuilder_.setMessage(builderForValue.build());
+      }
+
       return this;
+    }
+    /**
+     * <code>.GrpcPlayer player = 1;</code>
+     */
+    public Builder mergePlayer(com.example.shared.GrpcPlayer value) {
+      if (playerBuilder_ == null) {
+        if (player_ != null) {
+          player_ =
+            com.example.shared.GrpcPlayer.newBuilder(player_).mergeFrom(value).buildPartial();
+        } else {
+          player_ = value;
+        }
+        onChanged();
+      } else {
+        playerBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.GrpcPlayer player = 1;</code>
+     */
+    public Builder clearPlayer() {
+      if (playerBuilder_ == null) {
+        player_ = null;
+        onChanged();
+      } else {
+        player_ = null;
+        playerBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.GrpcPlayer player = 1;</code>
+     */
+    public com.example.shared.GrpcPlayer.Builder getPlayerBuilder() {
+      
+      onChanged();
+      return getPlayerFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.GrpcPlayer player = 1;</code>
+     */
+    public com.example.shared.GrpcPlayerOrBuilder getPlayerOrBuilder() {
+      if (playerBuilder_ != null) {
+        return playerBuilder_.getMessageOrBuilder();
+      } else {
+        return player_ == null ?
+            com.example.shared.GrpcPlayer.getDefaultInstance() : player_;
+      }
+    }
+    /**
+     * <code>.GrpcPlayer player = 1;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.shared.GrpcPlayer, com.example.shared.GrpcPlayer.Builder, com.example.shared.GrpcPlayerOrBuilder> 
+        getPlayerFieldBuilder() {
+      if (playerBuilder_ == null) {
+        playerBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.example.shared.GrpcPlayer, com.example.shared.GrpcPlayer.Builder, com.example.shared.GrpcPlayerOrBuilder>(
+                getPlayer(),
+                getParentForChildren(),
+                isClean());
+        player_ = null;
+      }
+      return playerBuilder_;
     }
     @java.lang.Override
     public final Builder setUnknownFields(
@@ -505,41 +565,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:GrpcLocation)
+    // @@protoc_insertion_point(builder_scope:AddEvent)
   }
 
-  // @@protoc_insertion_point(class_scope:GrpcLocation)
-  private static final com.example.shared.GrpcLocation DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:AddEvent)
+  private static final com.example.shared.AddEvent DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.example.shared.GrpcLocation();
+    DEFAULT_INSTANCE = new com.example.shared.AddEvent();
   }
 
-  public static com.example.shared.GrpcLocation getDefaultInstance() {
+  public static com.example.shared.AddEvent getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<GrpcLocation>
-      PARSER = new com.google.protobuf.AbstractParser<GrpcLocation>() {
+  private static final com.google.protobuf.Parser<AddEvent>
+      PARSER = new com.google.protobuf.AbstractParser<AddEvent>() {
     @java.lang.Override
-    public GrpcLocation parsePartialFrom(
+    public AddEvent parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new GrpcLocation(input, extensionRegistry);
+      return new AddEvent(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<GrpcLocation> parser() {
+  public static com.google.protobuf.Parser<AddEvent> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<GrpcLocation> getParserForType() {
+  public com.google.protobuf.Parser<AddEvent> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.example.shared.GrpcLocation getDefaultInstanceForType() {
+  public com.example.shared.AddEvent getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

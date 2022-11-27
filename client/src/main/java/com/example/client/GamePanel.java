@@ -26,21 +26,16 @@ public class GamePanel extends JPanel implements Runnable {
 
   private final KeyInputHandler keyInputHandler;
 
-  private final LocationClientService locationClientService;
-
   private final WorldMapService worldMapService;
 
   private WorldMap worldMap;
 
   private final Player player = new Player(new Location(200, 200));
 
-  private final Player player2 = new Player(new Location(100, 100));
-
   private boolean isUpdateFinished = false;
 
-  public GamePanel(final KeyInputHandler keyInputHandler, final LocationClientService locationClientService, final WorldMapService worldMapService) {
+  public GamePanel(final KeyInputHandler keyInputHandler, final WorldMapService worldMapService) {
     this.keyInputHandler = keyInputHandler;
-    this.locationClientService = locationClientService;
     this.worldMapService = worldMapService;
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
     this.setBackground(Color.black);
@@ -87,7 +82,6 @@ public class GamePanel extends JPanel implements Runnable {
   private void update() {
     Vector vector = keyInputHandler.getKeyInputType().getVector();
     player.move(vector);
-    locationClientService.receiveLocation(player2);
   }
 
   public void paintComponent(Graphics g) {
@@ -112,10 +106,6 @@ public class GamePanel extends JPanel implements Runnable {
     // プレイヤー1
     g2.setColor(Color.white);
     g2.fillRect(screenCenterX, screenCenterY, Tile.TILE_SIZE, Tile.TILE_SIZE);
-    // プレイヤー2
-    g2.setColor(Color.red);
-    g2.fillRect(player2.location().getX(), player2.location().getY(), Tile.TILE_SIZE, Tile.TILE_SIZE);
-    g2.dispose();
   }
 
   private Triple<Boolean, Integer, Integer> canDisplayAndDistanceFromPlayer(Location location, Location playerLocation) {
