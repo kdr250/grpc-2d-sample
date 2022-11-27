@@ -15,18 +15,7 @@ message PlayerSyncRequest {
 }
 
 message PlayerSyncResponse {
-    oneof event {
-        AddEvent addEvent = 1;
-        MoveEvent moveEvent = 2;
-    }
-}
-
-message AddEvent {
-    GrpcPlayer player = 1;
-}
-
-message MoveEvent {
-    GrpcPlayer player = 1;
+    GrpcPlayer otherPlayer = 1;
 }
 
 message GrpcPlayer {

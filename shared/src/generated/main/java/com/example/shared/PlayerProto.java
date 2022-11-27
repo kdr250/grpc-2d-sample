@@ -25,16 +25,6 @@ public final class PlayerProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_PlayerSyncResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_AddEvent_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_AddEvent_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_MoveEvent_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_MoveEvent_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_GrpcPlayer_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -54,17 +44,14 @@ public final class PlayerProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\014Player.proto\"0\n\021PlayerSyncRequest\022\033\n\006p" +
-      "layer\030\001 \001(\0132\013.GrpcPlayer\"]\n\022PlayerSyncRe" +
-      "sponse\022\035\n\010addEvent\030\001 \001(\0132\t.AddEventH\000\022\037\n" +
-      "\tmoveEvent\030\002 \001(\0132\n.MoveEventH\000B\007\n\005event\"" +
-      "\'\n\010AddEvent\022\033\n\006player\030\001 \001(\0132\013.GrpcPlayer" +
-      "\"(\n\tMoveEvent\022\033\n\006player\030\001 \001(\0132\013.GrpcPlay" +
-      "er\"G\n\nGrpcPlayer\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001" +
-      "(\t\022\037\n\010location\030\003 \001(\0132\r.GrpcLocation\"$\n\014G" +
-      "rpcLocation\022\t\n\001x\030\001 \001(\005\022\t\n\001y\030\002 \001(\0052=\n\006Pla" +
-      "yer\0223\n\004Sync\022\022.PlayerSyncRequest\032\023.Player" +
-      "SyncResponse(\0010\001B#\n\022com.example.sharedB\013" +
-      "PlayerProtoP\001b\006proto3"
+      "layer\030\001 \001(\0132\013.GrpcPlayer\"6\n\022PlayerSyncRe" +
+      "sponse\022 \n\013otherPlayer\030\001 \001(\0132\013.GrpcPlayer" +
+      "\"G\n\nGrpcPlayer\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t" +
+      "\022\037\n\010location\030\003 \001(\0132\r.GrpcLocation\"$\n\014Grp" +
+      "cLocation\022\t\n\001x\030\001 \001(\005\022\t\n\001y\030\002 \001(\0052=\n\006Playe" +
+      "r\0223\n\004Sync\022\022.PlayerSyncRequest\032\023.PlayerSy" +
+      "ncResponse(\0010\001B#\n\022com.example.sharedB\013Pl" +
+      "ayerProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -81,27 +68,15 @@ public final class PlayerProto {
     internal_static_PlayerSyncResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_PlayerSyncResponse_descriptor,
-        new java.lang.String[] { "AddEvent", "MoveEvent", "Event", });
-    internal_static_AddEvent_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_AddEvent_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_AddEvent_descriptor,
-        new java.lang.String[] { "Player", });
-    internal_static_MoveEvent_descriptor =
-      getDescriptor().getMessageTypes().get(3);
-    internal_static_MoveEvent_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_MoveEvent_descriptor,
-        new java.lang.String[] { "Player", });
+        new java.lang.String[] { "OtherPlayer", });
     internal_static_GrpcPlayer_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_GrpcPlayer_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_GrpcPlayer_descriptor,
         new java.lang.String[] { "Id", "Name", "Location", });
     internal_static_GrpcLocation_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_GrpcLocation_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_GrpcLocation_descriptor,
