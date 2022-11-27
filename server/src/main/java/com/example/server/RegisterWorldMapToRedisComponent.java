@@ -69,15 +69,15 @@ public class RegisterWorldMapToRedisComponent {
     String tilePlacementWithLine = valueOperations.get(worldId);
     assert tilePlacementWithLine != null;
     String[] tilePlacementArray = tilePlacementWithLine.split("\r\n|[\n\r]");
-    int width = (tilePlacementArray[0].split(",").length) / 2 - 1;
+    int width = tilePlacementArray[0].split(",").length;
     int height = tilePlacementArray.length;
-    String tilePlacement = tilePlacementWithLine.replaceAll("[,\n\r]", "");
+    String tilePlacement = tilePlacementWithLine.replaceAll("[0-9,\n\r]", "");
     String[] tilePlacementOnlyCharacter = tilePlacementWithLine.replaceAll("[\n\r]", "").split(",");
     Set<Pair<Character, Integer>> characterAndCollision = Arrays.stream(tilePlacementOnlyCharacter)
       .map(t -> Pair.of(t.charAt(0), (int)t.charAt(1)))
       .collect(Collectors.toSet());
     List<GrpcTile> tiles = characterAndCollision.stream().map(pair -> {
-      String tileImageBase64 = valueOperations.get(pair.getFirst());
+      String tileImageBase64 = valueOperations.get(pair.getFirst().toString());
       boolean collision = pair.getSecond() != 0;
       return GrpcTile.newBuilder()
         .setName(pair.getFirst().toString())
