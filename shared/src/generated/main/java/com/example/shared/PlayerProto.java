@@ -45,7 +45,7 @@ public final class PlayerProto {
     java.lang.String[] descriptorData = {
       "\n\014Player.proto\"0\n\021PlayerSyncRequest\022\033\n\006p" +
       "layer\030\001 \001(\0132\013.GrpcPlayer\"6\n\022PlayerSyncRe" +
-      "sponse\022 \n\013otherPlayer\030\001 \001(\0132\013.GrpcPlayer" +
+      "sponse\022 \n\013otherPlayer\030\001 \003(\0132\013.GrpcPlayer" +
       "\"G\n\nGrpcPlayer\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t" +
       "\022\037\n\010location\030\003 \001(\0132\r.GrpcLocation\"$\n\014Grp" +
       "cLocation\022\t\n\001x\030\001 \001(\005\022\t\n\001y\030\002 \001(\0052=\n\006Playe" +

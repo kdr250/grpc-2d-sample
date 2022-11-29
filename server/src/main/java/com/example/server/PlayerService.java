@@ -8,7 +8,6 @@ import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 @GRpcService
 public class PlayerService extends PlayerGrpc.PlayerImplBase {
@@ -27,11 +26,9 @@ public class PlayerService extends PlayerGrpc.PlayerImplBase {
         GrpcPlayer grpcPlayer = value.getPlayer();
         registerPlayerToRedisComponent.register("world1", grpcPlayer);
 
-        List<Supplier<GrpcPlayer>> playerGetFunctionList = registerPlayerToRedisComponent.get("world1", grpcPlayer.getId());
-        for (Supplier<GrpcPlayer> s : playerGetFunctionList) {
-          PlayerSyncResponse playerSyncResponse = PlayerSyncResponse.newBuilder().setOtherPlayer(s.get()).build();
-          responseObserver.onNext(playerSyncResponse);
-        }
+        List<GrpcPlayer> otherPlayerList = registerPlayerToRedisComponent.get("world1", grpcPlayer.getId());
+        PlayerSyncResponse playerSyncResponse = PlayerSyncResponse.newBuilder().addAllOtherPlayer(otherPlayerList).build();
+        responseObserver.onNext(playerSyncResponse);
       }
 
       @Override

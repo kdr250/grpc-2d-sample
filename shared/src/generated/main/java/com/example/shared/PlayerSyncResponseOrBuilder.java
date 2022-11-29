@@ -8,17 +8,26 @@ public interface PlayerSyncResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>.GrpcPlayer otherPlayer = 1;</code>
-   * @return Whether the otherPlayer field is set.
+   * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
    */
-  boolean hasOtherPlayer();
+  java.util.List<com.example.shared.GrpcPlayer> 
+      getOtherPlayerList();
   /**
-   * <code>.GrpcPlayer otherPlayer = 1;</code>
-   * @return The otherPlayer.
+   * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
    */
-  com.example.shared.GrpcPlayer getOtherPlayer();
+  com.example.shared.GrpcPlayer getOtherPlayer(int index);
   /**
-   * <code>.GrpcPlayer otherPlayer = 1;</code>
+   * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
    */
-  com.example.shared.GrpcPlayerOrBuilder getOtherPlayerOrBuilder();
+  int getOtherPlayerCount();
+  /**
+   * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
+   */
+  java.util.List<? extends com.example.shared.GrpcPlayerOrBuilder> 
+      getOtherPlayerOrBuilderList();
+  /**
+   * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
+   */
+  com.example.shared.GrpcPlayerOrBuilder getOtherPlayerOrBuilder(
+      int index);
 }

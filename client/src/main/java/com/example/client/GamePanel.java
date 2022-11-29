@@ -21,7 +21,7 @@ public class GamePanel extends JPanel implements Runnable {
   public static final int screenCenterY = screenHeight / 2;
 
   // FPS設定
-  private static final int FPS = 60;
+  private static final int FPS = 20;
   private static final double DRAW_INTERVAL = 1000000000 / FPS;
 
   private Thread gameThread;
@@ -89,7 +89,7 @@ public class GamePanel extends JPanel implements Runnable {
   private void update() {
     Vector vector = keyInputHandler.getKeyInputType().getVector();
     player.move(vector);
-    playerService.synchronize(player, otherPlayers);
+    otherPlayers = playerService.synchronize(player);
   }
 
   public void paintComponent(Graphics g) {
@@ -115,9 +115,9 @@ public class GamePanel extends JPanel implements Runnable {
     g2.setColor(Color.white);
     g2.fillRect(screenCenterX, screenCenterY, Tile.TILE_SIZE, Tile.TILE_SIZE);
 
-    otherPlayers.forEach(others -> {
+    otherPlayers.forEach(other -> {
       g2.setColor(Color.green);
-      Triple<Boolean, Integer, Integer> result = canDisplayAndDistanceFromPlayer(others.location(), player.location());
+      Triple<Boolean, Integer, Integer> result = canDisplayAndDistanceFromPlayer(other.location(), player.location());
       if (Boolean.TRUE.equals(result.getLeft())) {
         g2.fillRect(screenCenterX + result.getMiddle(), screenCenterY + result.getRight(), Tile.TILE_SIZE, Tile.TILE_SIZE);
       }

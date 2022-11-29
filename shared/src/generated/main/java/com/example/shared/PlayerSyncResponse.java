@@ -16,6 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private PlayerSyncResponse() {
+    otherPlayer_ = java.util.Collections.emptyList();
   }
 
   @java.lang.Override
@@ -38,6 +39,7 @@ private static final long serialVersionUID = 0L;
     if (extensionRegistry == null) {
       throw new java.lang.NullPointerException();
     }
+    int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
     try {
@@ -49,16 +51,12 @@ private static final long serialVersionUID = 0L;
             done = true;
             break;
           case 10: {
-            com.example.shared.GrpcPlayer.Builder subBuilder = null;
-            if (otherPlayer_ != null) {
-              subBuilder = otherPlayer_.toBuilder();
+            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+              otherPlayer_ = new java.util.ArrayList<com.example.shared.GrpcPlayer>();
+              mutable_bitField0_ |= 0x00000001;
             }
-            otherPlayer_ = input.readMessage(com.example.shared.GrpcPlayer.parser(), extensionRegistry);
-            if (subBuilder != null) {
-              subBuilder.mergeFrom(otherPlayer_);
-              otherPlayer_ = subBuilder.buildPartial();
-            }
-
+            otherPlayer_.add(
+                input.readMessage(com.example.shared.GrpcPlayer.parser(), extensionRegistry));
             break;
           }
           default: {
@@ -76,6 +74,9 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
+      if (((mutable_bitField0_ & 0x00000001) != 0)) {
+        otherPlayer_ = java.util.Collections.unmodifiableList(otherPlayer_);
+      }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
     }
@@ -94,29 +95,43 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int OTHERPLAYER_FIELD_NUMBER = 1;
-  private com.example.shared.GrpcPlayer otherPlayer_;
+  private java.util.List<com.example.shared.GrpcPlayer> otherPlayer_;
   /**
-   * <code>.GrpcPlayer otherPlayer = 1;</code>
-   * @return Whether the otherPlayer field is set.
+   * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
    */
   @java.lang.Override
-  public boolean hasOtherPlayer() {
-    return otherPlayer_ != null;
+  public java.util.List<com.example.shared.GrpcPlayer> getOtherPlayerList() {
+    return otherPlayer_;
   }
   /**
-   * <code>.GrpcPlayer otherPlayer = 1;</code>
-   * @return The otherPlayer.
+   * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
    */
   @java.lang.Override
-  public com.example.shared.GrpcPlayer getOtherPlayer() {
-    return otherPlayer_ == null ? com.example.shared.GrpcPlayer.getDefaultInstance() : otherPlayer_;
+  public java.util.List<? extends com.example.shared.GrpcPlayerOrBuilder> 
+      getOtherPlayerOrBuilderList() {
+    return otherPlayer_;
   }
   /**
-   * <code>.GrpcPlayer otherPlayer = 1;</code>
+   * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
    */
   @java.lang.Override
-  public com.example.shared.GrpcPlayerOrBuilder getOtherPlayerOrBuilder() {
-    return getOtherPlayer();
+  public int getOtherPlayerCount() {
+    return otherPlayer_.size();
+  }
+  /**
+   * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
+   */
+  @java.lang.Override
+  public com.example.shared.GrpcPlayer getOtherPlayer(int index) {
+    return otherPlayer_.get(index);
+  }
+  /**
+   * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
+   */
+  @java.lang.Override
+  public com.example.shared.GrpcPlayerOrBuilder getOtherPlayerOrBuilder(
+      int index) {
+    return otherPlayer_.get(index);
   }
 
   private byte memoizedIsInitialized = -1;
@@ -133,8 +148,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (otherPlayer_ != null) {
-      output.writeMessage(1, getOtherPlayer());
+    for (int i = 0; i < otherPlayer_.size(); i++) {
+      output.writeMessage(1, otherPlayer_.get(i));
     }
     unknownFields.writeTo(output);
   }
@@ -145,9 +160,9 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (otherPlayer_ != null) {
+    for (int i = 0; i < otherPlayer_.size(); i++) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(1, getOtherPlayer());
+        .computeMessageSize(1, otherPlayer_.get(i));
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -164,11 +179,8 @@ private static final long serialVersionUID = 0L;
     }
     com.example.shared.PlayerSyncResponse other = (com.example.shared.PlayerSyncResponse) obj;
 
-    if (hasOtherPlayer() != other.hasOtherPlayer()) return false;
-    if (hasOtherPlayer()) {
-      if (!getOtherPlayer()
-          .equals(other.getOtherPlayer())) return false;
-    }
+    if (!getOtherPlayerList()
+        .equals(other.getOtherPlayerList())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -180,9 +192,9 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    if (hasOtherPlayer()) {
+    if (getOtherPlayerCount() > 0) {
       hash = (37 * hash) + OTHERPLAYER_FIELD_NUMBER;
-      hash = (53 * hash) + getOtherPlayer().hashCode();
+      hash = (53 * hash) + getOtherPlayerList().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -312,16 +324,17 @@ private static final long serialVersionUID = 0L;
     private void maybeForceBuilderInitialization() {
       if (com.google.protobuf.GeneratedMessageV3
               .alwaysUseFieldBuilders) {
+        getOtherPlayerFieldBuilder();
       }
     }
     @java.lang.Override
     public Builder clear() {
       super.clear();
       if (otherPlayerBuilder_ == null) {
-        otherPlayer_ = null;
+        otherPlayer_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
       } else {
-        otherPlayer_ = null;
-        otherPlayerBuilder_ = null;
+        otherPlayerBuilder_.clear();
       }
       return this;
     }
@@ -349,7 +362,12 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.example.shared.PlayerSyncResponse buildPartial() {
       com.example.shared.PlayerSyncResponse result = new com.example.shared.PlayerSyncResponse(this);
+      int from_bitField0_ = bitField0_;
       if (otherPlayerBuilder_ == null) {
+        if (((bitField0_ & 0x00000001) != 0)) {
+          otherPlayer_ = java.util.Collections.unmodifiableList(otherPlayer_);
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
         result.otherPlayer_ = otherPlayer_;
       } else {
         result.otherPlayer_ = otherPlayerBuilder_.build();
@@ -402,8 +420,31 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.example.shared.PlayerSyncResponse other) {
       if (other == com.example.shared.PlayerSyncResponse.getDefaultInstance()) return this;
-      if (other.hasOtherPlayer()) {
-        mergeOtherPlayer(other.getOtherPlayer());
+      if (otherPlayerBuilder_ == null) {
+        if (!other.otherPlayer_.isEmpty()) {
+          if (otherPlayer_.isEmpty()) {
+            otherPlayer_ = other.otherPlayer_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureOtherPlayerIsMutable();
+            otherPlayer_.addAll(other.otherPlayer_);
+          }
+          onChanged();
+        }
+      } else {
+        if (!other.otherPlayer_.isEmpty()) {
+          if (otherPlayerBuilder_.isEmpty()) {
+            otherPlayerBuilder_.dispose();
+            otherPlayerBuilder_ = null;
+            otherPlayer_ = other.otherPlayer_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+            otherPlayerBuilder_ = 
+              com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                 getOtherPlayerFieldBuilder() : null;
+          } else {
+            otherPlayerBuilder_.addAllMessages(other.otherPlayer_);
+          }
+        }
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -433,119 +474,241 @@ private static final long serialVersionUID = 0L;
       }
       return this;
     }
+    private int bitField0_;
 
-    private com.example.shared.GrpcPlayer otherPlayer_;
-    private com.google.protobuf.SingleFieldBuilderV3<
-        com.example.shared.GrpcPlayer, com.example.shared.GrpcPlayer.Builder, com.example.shared.GrpcPlayerOrBuilder> otherPlayerBuilder_;
-    /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
-     * @return Whether the otherPlayer field is set.
-     */
-    public boolean hasOtherPlayer() {
-      return otherPlayerBuilder_ != null || otherPlayer_ != null;
+    private java.util.List<com.example.shared.GrpcPlayer> otherPlayer_ =
+      java.util.Collections.emptyList();
+    private void ensureOtherPlayerIsMutable() {
+      if (!((bitField0_ & 0x00000001) != 0)) {
+        otherPlayer_ = new java.util.ArrayList<com.example.shared.GrpcPlayer>(otherPlayer_);
+        bitField0_ |= 0x00000001;
+       }
     }
+
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        com.example.shared.GrpcPlayer, com.example.shared.GrpcPlayer.Builder, com.example.shared.GrpcPlayerOrBuilder> otherPlayerBuilder_;
+
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
-     * @return The otherPlayer.
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
      */
-    public com.example.shared.GrpcPlayer getOtherPlayer() {
+    public java.util.List<com.example.shared.GrpcPlayer> getOtherPlayerList() {
       if (otherPlayerBuilder_ == null) {
-        return otherPlayer_ == null ? com.example.shared.GrpcPlayer.getDefaultInstance() : otherPlayer_;
+        return java.util.Collections.unmodifiableList(otherPlayer_);
       } else {
-        return otherPlayerBuilder_.getMessage();
+        return otherPlayerBuilder_.getMessageList();
       }
     }
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
      */
-    public Builder setOtherPlayer(com.example.shared.GrpcPlayer value) {
+    public int getOtherPlayerCount() {
+      if (otherPlayerBuilder_ == null) {
+        return otherPlayer_.size();
+      } else {
+        return otherPlayerBuilder_.getCount();
+      }
+    }
+    /**
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
+     */
+    public com.example.shared.GrpcPlayer getOtherPlayer(int index) {
+      if (otherPlayerBuilder_ == null) {
+        return otherPlayer_.get(index);
+      } else {
+        return otherPlayerBuilder_.getMessage(index);
+      }
+    }
+    /**
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
+     */
+    public Builder setOtherPlayer(
+        int index, com.example.shared.GrpcPlayer value) {
       if (otherPlayerBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
         }
-        otherPlayer_ = value;
+        ensureOtherPlayerIsMutable();
+        otherPlayer_.set(index, value);
         onChanged();
       } else {
-        otherPlayerBuilder_.setMessage(value);
+        otherPlayerBuilder_.setMessage(index, value);
       }
-
       return this;
     }
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
      */
     public Builder setOtherPlayer(
+        int index, com.example.shared.GrpcPlayer.Builder builderForValue) {
+      if (otherPlayerBuilder_ == null) {
+        ensureOtherPlayerIsMutable();
+        otherPlayer_.set(index, builderForValue.build());
+        onChanged();
+      } else {
+        otherPlayerBuilder_.setMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
+     */
+    public Builder addOtherPlayer(com.example.shared.GrpcPlayer value) {
+      if (otherPlayerBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureOtherPlayerIsMutable();
+        otherPlayer_.add(value);
+        onChanged();
+      } else {
+        otherPlayerBuilder_.addMessage(value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
+     */
+    public Builder addOtherPlayer(
+        int index, com.example.shared.GrpcPlayer value) {
+      if (otherPlayerBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureOtherPlayerIsMutable();
+        otherPlayer_.add(index, value);
+        onChanged();
+      } else {
+        otherPlayerBuilder_.addMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
+     */
+    public Builder addOtherPlayer(
         com.example.shared.GrpcPlayer.Builder builderForValue) {
       if (otherPlayerBuilder_ == null) {
-        otherPlayer_ = builderForValue.build();
+        ensureOtherPlayerIsMutable();
+        otherPlayer_.add(builderForValue.build());
         onChanged();
       } else {
-        otherPlayerBuilder_.setMessage(builderForValue.build());
+        otherPlayerBuilder_.addMessage(builderForValue.build());
       }
-
       return this;
     }
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
      */
-    public Builder mergeOtherPlayer(com.example.shared.GrpcPlayer value) {
+    public Builder addOtherPlayer(
+        int index, com.example.shared.GrpcPlayer.Builder builderForValue) {
       if (otherPlayerBuilder_ == null) {
-        if (otherPlayer_ != null) {
-          otherPlayer_ =
-            com.example.shared.GrpcPlayer.newBuilder(otherPlayer_).mergeFrom(value).buildPartial();
-        } else {
-          otherPlayer_ = value;
-        }
+        ensureOtherPlayerIsMutable();
+        otherPlayer_.add(index, builderForValue.build());
         onChanged();
       } else {
-        otherPlayerBuilder_.mergeFrom(value);
+        otherPlayerBuilder_.addMessage(index, builderForValue.build());
       }
-
       return this;
     }
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
+     */
+    public Builder addAllOtherPlayer(
+        java.lang.Iterable<? extends com.example.shared.GrpcPlayer> values) {
+      if (otherPlayerBuilder_ == null) {
+        ensureOtherPlayerIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, otherPlayer_);
+        onChanged();
+      } else {
+        otherPlayerBuilder_.addAllMessages(values);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
      */
     public Builder clearOtherPlayer() {
       if (otherPlayerBuilder_ == null) {
-        otherPlayer_ = null;
+        otherPlayer_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
       } else {
-        otherPlayer_ = null;
-        otherPlayerBuilder_ = null;
+        otherPlayerBuilder_.clear();
       }
-
       return this;
     }
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
      */
-    public com.example.shared.GrpcPlayer.Builder getOtherPlayerBuilder() {
-      
-      onChanged();
-      return getOtherPlayerFieldBuilder().getBuilder();
+    public Builder removeOtherPlayer(int index) {
+      if (otherPlayerBuilder_ == null) {
+        ensureOtherPlayerIsMutable();
+        otherPlayer_.remove(index);
+        onChanged();
+      } else {
+        otherPlayerBuilder_.remove(index);
+      }
+      return this;
     }
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
      */
-    public com.example.shared.GrpcPlayerOrBuilder getOtherPlayerOrBuilder() {
-      if (otherPlayerBuilder_ != null) {
-        return otherPlayerBuilder_.getMessageOrBuilder();
-      } else {
-        return otherPlayer_ == null ?
-            com.example.shared.GrpcPlayer.getDefaultInstance() : otherPlayer_;
+    public com.example.shared.GrpcPlayer.Builder getOtherPlayerBuilder(
+        int index) {
+      return getOtherPlayerFieldBuilder().getBuilder(index);
+    }
+    /**
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
+     */
+    public com.example.shared.GrpcPlayerOrBuilder getOtherPlayerOrBuilder(
+        int index) {
+      if (otherPlayerBuilder_ == null) {
+        return otherPlayer_.get(index);  } else {
+        return otherPlayerBuilder_.getMessageOrBuilder(index);
       }
     }
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
      */
-    private com.google.protobuf.SingleFieldBuilderV3<
+    public java.util.List<? extends com.example.shared.GrpcPlayerOrBuilder> 
+         getOtherPlayerOrBuilderList() {
+      if (otherPlayerBuilder_ != null) {
+        return otherPlayerBuilder_.getMessageOrBuilderList();
+      } else {
+        return java.util.Collections.unmodifiableList(otherPlayer_);
+      }
+    }
+    /**
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
+     */
+    public com.example.shared.GrpcPlayer.Builder addOtherPlayerBuilder() {
+      return getOtherPlayerFieldBuilder().addBuilder(
+          com.example.shared.GrpcPlayer.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
+     */
+    public com.example.shared.GrpcPlayer.Builder addOtherPlayerBuilder(
+        int index) {
+      return getOtherPlayerFieldBuilder().addBuilder(
+          index, com.example.shared.GrpcPlayer.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .GrpcPlayer otherPlayer = 1;</code>
+     */
+    public java.util.List<com.example.shared.GrpcPlayer.Builder> 
+         getOtherPlayerBuilderList() {
+      return getOtherPlayerFieldBuilder().getBuilderList();
+    }
+    private com.google.protobuf.RepeatedFieldBuilderV3<
         com.example.shared.GrpcPlayer, com.example.shared.GrpcPlayer.Builder, com.example.shared.GrpcPlayerOrBuilder> 
         getOtherPlayerFieldBuilder() {
       if (otherPlayerBuilder_ == null) {
-        otherPlayerBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+        otherPlayerBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
             com.example.shared.GrpcPlayer, com.example.shared.GrpcPlayer.Builder, com.example.shared.GrpcPlayerOrBuilder>(
-                getOtherPlayer(),
+                otherPlayer_,
+                ((bitField0_ & 0x00000001) != 0),
                 getParentForChildren(),
                 isClean());
         otherPlayer_ = null;

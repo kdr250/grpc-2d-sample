@@ -15,7 +15,7 @@ message PlayerSyncRequest {
 }
 
 message PlayerSyncResponse {
-    GrpcPlayer otherPlayer = 1;
+    repeated GrpcPlayer otherPlayer = 1;
 }
 
 message GrpcPlayer {
