@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class GamePanel extends JPanel implements Runnable {
@@ -21,8 +21,10 @@ public class GamePanel extends JPanel implements Runnable {
   public static final int screenCenterY = screenHeight / 2;
 
   // FPS設定
-  private static final int FPS = 20;
+  private static final int FPS = 60;
   private static final double DRAW_INTERVAL = 1000000000 / FPS;
+
+  int fpsCounter = 0;
 
   private Thread gameThread;
 
@@ -36,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
 
   private final Player player = new Player("Taro", new Location(200, 200));
 
-  List<Player> otherPlayers = new ArrayList<>();
+  Set<Player> otherPlayers = new HashSet<>();
 
   private boolean isUpdateFinished = false;
 
@@ -89,7 +91,10 @@ public class GamePanel extends JPanel implements Runnable {
   private void update() {
     Vector vector = keyInputHandler.getKeyInputType().getVector();
     player.move(vector);
-    otherPlayers = playerService.synchronize(player);
+    if (fpsCounter % 4 == 0) {
+      otherPlayers = playerService.synchronize(player);
+    }
+    fpsCounter = (fpsCounter + 1) / 4;
   }
 
   public void paintComponent(Graphics g) {

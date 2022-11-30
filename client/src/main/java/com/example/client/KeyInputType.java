@@ -3,10 +3,10 @@ package com.example.client;
 import java.awt.event.KeyEvent;
 
 public enum KeyInputType {
-  UP(Vector.up(8)),
-  DOWN(Vector.down(8)),
-  LEFT(Vector.left(8)),
-  RIGHT(Vector.right(8)),
+  UP(Vector.up(4)),
+  DOWN(Vector.down(4)),
+  LEFT(Vector.left(4)),
+  RIGHT(Vector.right(4)),
   DECIDE(Vector.NONE),
   DISPLAY_ITEM_LIST(Vector.NONE),
   NONE(Vector.NONE);

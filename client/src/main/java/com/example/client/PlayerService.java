@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -21,7 +23,7 @@ public class PlayerService {
   @GrpcClient("server")
   private PlayerStub playerStub;
 
-  public List<Player> synchronize(Player player) {
+  public Set<Player> synchronize(Player player) {
     Location location = player.location();
     GrpcLocation grpcLocation = GrpcLocation.newBuilder().setX(location.getX()).setY(location.getY()).build();
     GrpcPlayer grpcPlayer = GrpcPlayer.newBuilder().setId(player.id()).setName(player.name()).setLocation(grpcLocation).build();
@@ -58,7 +60,7 @@ public class PlayerService {
       throw new RuntimeException(e);
     }
 
-    return otherGrpcPlayers.stream().map(this::convert).collect(Collectors.toList());
+    return otherGrpcPlayers.stream().map(o -> convert(o)).collect(Collectors.toSet());
   }
 
   private Player convert(GrpcPlayer grpcPlayer) {

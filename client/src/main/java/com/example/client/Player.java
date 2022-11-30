@@ -3,8 +3,8 @@ package com.example.client;
 import java.util.UUID;
 
 public class Player {
-  private String id;
-  private String name;
+  private final String id;
+  private final String name;
   private Location location;
 
   public Player(final String id, final String name, final Location location) {
@@ -37,5 +37,14 @@ public class Player {
 
   public Location location() {
     return location;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof Player)) return false;
+
+    Player other = (Player)obj;
+
+    return this.id.equals(other.id);
   }
 }
