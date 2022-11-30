@@ -9,13 +9,8 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @Service
 public class PlayerService {
@@ -23,25 +18,26 @@ public class PlayerService {
   @GrpcClient("server")
   private PlayerStub playerStub;
 
-  public Set<Player> synchronize(Player player) {
+  public OtherPlayers synchronize(Player player, OtherPlayers otherPlayers) {
     Location location = player.location();
     GrpcLocation grpcLocation = GrpcLocation.newBuilder().setX(location.getX()).setY(location.getY()).build();
     GrpcPlayer grpcPlayer = GrpcPlayer.newBuilder().setId(player.id()).setName(player.name()).setLocation(grpcLocation).build();
     PlayerSyncRequest playerSyncRequest = PlayerSyncRequest.newBuilder().setPlayer(grpcPlayer).build();
-
-    List<GrpcPlayer> otherGrpcPlayers = new ArrayList<>();
 
     CountDownLatch finishLatch = new CountDownLatch(1);
 
     StreamObserver<PlayerSyncRequest> streamObserver = playerStub.sync(new StreamObserver<PlayerSyncResponse>() {
       @Override
       public void onNext(PlayerSyncResponse value) {
-        otherGrpcPlayers.addAll(value.getOtherPlayerList());
+        GrpcPlayer otherGrpcPlayer = value.getOtherPlayer();
+        OtherPlayer otherPlayer = convert(otherGrpcPlayer);
+        otherPlayers.moveOrAdd(otherPlayer);
       }
 
       @Override
       public void onError(Throwable t) {
         t.printStackTrace();
+        finishLatch.countDown();
       }
 
       @Override
@@ -60,14 +56,14 @@ public class PlayerService {
       throw new RuntimeException(e);
     }
 
-    return otherGrpcPlayers.stream().map(o -> convert(o)).collect(Collectors.toSet());
+    return otherPlayers;
   }
 
-  private Player convert(GrpcPlayer grpcPlayer) {
+  private OtherPlayer convert(GrpcPlayer grpcPlayer) {
     String id = grpcPlayer.getId();
     String name = grpcPlayer.getName();
     GrpcLocation grpcLocation = grpcPlayer.getLocation();
     Location location = new Location(grpcLocation.getX(), grpcLocation.getY());
-    return new Player(id, name, location);
+    return new OtherPlayer(id, name, location);
   }
 }

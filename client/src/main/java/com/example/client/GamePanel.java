@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Component
@@ -22,9 +21,7 @@ public class GamePanel extends JPanel implements Runnable {
 
   // FPS設定
   private static final int FPS = 60;
-  private static final double DRAW_INTERVAL = 1000000000 / FPS;
-
-  int fpsCounter = 0;
+  public static final double DRAW_INTERVAL = 1000000000 / FPS;
 
   private Thread gameThread;
 
@@ -32,20 +29,16 @@ public class GamePanel extends JPanel implements Runnable {
 
   private final WorldMapService worldMapService;
 
-  private final PlayerService playerService;
+  private final PlayerController playerController;
 
   private WorldMap worldMap;
 
-  private final Player player = new Player("Taro", new Location(200, 200));
-
-  Set<Player> otherPlayers = new HashSet<>();
-
   private boolean isUpdateFinished = false;
 
-  public GamePanel(final KeyInputHandler keyInputHandler, final WorldMapService worldMapService, final PlayerService playerService) {
+  public GamePanel(final KeyInputHandler keyInputHandler, final WorldMapService worldMapService, final PlayerController playerController) {
     this.keyInputHandler = keyInputHandler;
     this.worldMapService = worldMapService;
-    this.playerService = playerService;
+    this.playerController = playerController;
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
     this.setBackground(Color.black);
     this.setDoubleBuffered(true);
@@ -56,10 +49,10 @@ public class GamePanel extends JPanel implements Runnable {
   @PostConstruct
   public void init() {
     worldMap = worldMapService.worldMap();
-    System.out.println(worldMap);
   }
 
   public void startGameThread() {
+    playerController.startPlayerThread();
     gameThread = new Thread(this);
     gameThread.start();
   }
@@ -90,11 +83,7 @@ public class GamePanel extends JPanel implements Runnable {
 
   private void update() {
     Vector vector = keyInputHandler.getKeyInputType().getVector();
-    player.move(vector);
-    if (fpsCounter % 4 == 0) {
-      otherPlayers = playerService.synchronize(player);
-    }
-    fpsCounter = (fpsCounter + 1) / 4;
+    playerController.movePlayer(vector);
   }
 
   public void paintComponent(Graphics g) {
@@ -104,7 +93,9 @@ public class GamePanel extends JPanel implements Runnable {
   }
 
   private void draw(Graphics2D g2) {
-    if (player == null || worldMap == null) return;
+    if (worldMap == null) return;
+
+    Player player = playerController.player();
 
     // タイル
     for (Tile[] tiles : worldMap.tiles()) {
@@ -119,6 +110,8 @@ public class GamePanel extends JPanel implements Runnable {
     // プレイヤー1
     g2.setColor(Color.white);
     g2.fillRect(screenCenterX, screenCenterY, Tile.TILE_SIZE, Tile.TILE_SIZE);
+
+    Set<OtherPlayer> otherPlayers = playerController.otherPlayers();
 
     otherPlayers.forEach(other -> {
       g2.setColor(Color.green);

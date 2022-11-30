@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Component
@@ -39,18 +40,21 @@ public class RegisterPlayerToRedisComponent {
     objectRedisTemplate.expire(worldId + "_player", 5, TimeUnit.SECONDS);
   }
 
-  public List<GrpcPlayer> get(String worldId, String playerId) {
+  public List<Supplier<GrpcPlayer>> get(String worldId, String playerId) {
     ListOperations<String, String> listOperations = stringRedisTemplate.opsForList();
+    HashOperations<String, String, Object> hashOperations = objectRedisTemplate.opsForHash();
     List<String> playerIdList = listOperations.range(worldId + "_player", 0, -1);
 
     if (playerIdList == null) return new ArrayList<>();
 
-    return playerIdList.stream()
-      .filter(id -> !id.equals(playerId))
-      .map(this::grpcPlayer)
-      .filter(Optional::isPresent)
-      .map(Optional::get)
-      .collect(Collectors.toList());
+    return playerIdList.stream().filter(id -> !id.equals(playerId)).map(id -> (Supplier<GrpcPlayer>) () -> {
+      Map<String, Object> map = hashOperations.entries(id);
+      String name = (String)map.get("name");
+      Integer locationX = (Integer)map.get("locationX");
+      Integer locationY = (Integer)map.get("locationY");
+      GrpcLocation grpcLocation = GrpcLocation.newBuilder().setX(locationX).setY(locationY).build();
+      return GrpcPlayer.newBuilder().setId(id).setName(name).setLocation(grpcLocation).build();
+    }).collect(Collectors.toList());
   }
 
   private Optional<GrpcPlayer> grpcPlayer(String playerId) {
