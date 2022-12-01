@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Set;
 
 @Component
 public class GamePanel extends JPanel implements Runnable {
@@ -20,28 +21,24 @@ public class GamePanel extends JPanel implements Runnable {
 
   // FPS設定
   private static final int FPS = 60;
-  private static final double DRAW_INTERVAL = 1000000000 / FPS;
+  public static final double DRAW_INTERVAL = 1000000000 / FPS;
 
   private Thread gameThread;
 
   private final KeyInputHandler keyInputHandler;
 
-  private final LocationClientService locationClientService;
-
   private final WorldMapService worldMapService;
+
+  private final PlayerController playerController;
 
   private WorldMap worldMap;
 
-  private final Player player = new Player(new Location(200, 200));
-
-  private final Player player2 = new Player(new Location(100, 100));
-
   private boolean isUpdateFinished = false;
 
-  public GamePanel(final KeyInputHandler keyInputHandler, final LocationClientService locationClientService, final WorldMapService worldMapService) {
+  public GamePanel(final KeyInputHandler keyInputHandler, final WorldMapService worldMapService, final PlayerController playerController) {
     this.keyInputHandler = keyInputHandler;
-    this.locationClientService = locationClientService;
     this.worldMapService = worldMapService;
+    this.playerController = playerController;
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
     this.setBackground(Color.black);
     this.setDoubleBuffered(true);
@@ -52,10 +49,10 @@ public class GamePanel extends JPanel implements Runnable {
   @PostConstruct
   public void init() {
     worldMap = worldMapService.worldMap();
-    System.out.println(worldMap);
   }
 
   public void startGameThread() {
+    playerController.startPlayerThread();
     gameThread = new Thread(this);
     gameThread.start();
   }
@@ -86,8 +83,7 @@ public class GamePanel extends JPanel implements Runnable {
 
   private void update() {
     Vector vector = keyInputHandler.getKeyInputType().getVector();
-    player.move(vector);
-    locationClientService.receiveLocation(player2);
+    playerController.movePlayer(vector);
   }
 
   public void paintComponent(Graphics g) {
@@ -97,7 +93,9 @@ public class GamePanel extends JPanel implements Runnable {
   }
 
   private void draw(Graphics2D g2) {
-    if (player == null || worldMap == null) return;
+    if (worldMap == null) return;
+
+    Player player = playerController.player();
 
     // タイル
     for (Tile[] tiles : worldMap.tiles()) {
@@ -112,10 +110,16 @@ public class GamePanel extends JPanel implements Runnable {
     // プレイヤー1
     g2.setColor(Color.white);
     g2.fillRect(screenCenterX, screenCenterY, Tile.TILE_SIZE, Tile.TILE_SIZE);
-    // プレイヤー2
-    g2.setColor(Color.red);
-    g2.fillRect(player2.location().getX(), player2.location().getY(), Tile.TILE_SIZE, Tile.TILE_SIZE);
-    g2.dispose();
+
+    Set<OtherPlayer> otherPlayers = playerController.otherPlayers();
+
+    otherPlayers.forEach(other -> {
+      g2.setColor(Color.green);
+      Triple<Boolean, Integer, Integer> result = canDisplayAndDistanceFromPlayer(other.location(), player.location());
+      if (Boolean.TRUE.equals(result.getLeft())) {
+        g2.fillRect(screenCenterX + result.getMiddle(), screenCenterY + result.getRight(), Tile.TILE_SIZE, Tile.TILE_SIZE);
+      }
+    });
   }
 
   private Triple<Boolean, Integer, Integer> canDisplayAndDistanceFromPlayer(Location location, Location playerLocation) {
