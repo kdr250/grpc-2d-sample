@@ -57,6 +57,6 @@ public class PlayerController implements Runnable {
   }
 
   private void update() {
-    otherPlayers = playerService.synchronize(player, otherPlayers);
+    playerService.synchronize(player, otherPlayers);
   }
 }

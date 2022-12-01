@@ -18,7 +18,7 @@ public class PlayerService {
   @GrpcClient("server")
   private PlayerStub playerStub;
 
-  public OtherPlayers synchronize(Player player, OtherPlayers otherPlayers) {
+  public void synchronize(Player player, OtherPlayers otherPlayers) {
     Location location = player.location();
     GrpcLocation grpcLocation = GrpcLocation.newBuilder().setX(location.getX()).setY(location.getY()).build();
     GrpcPlayer grpcPlayer = GrpcPlayer.newBuilder().setId(player.id()).setName(player.name()).setLocation(grpcLocation).build();
@@ -55,8 +55,6 @@ public class PlayerService {
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
-
-    return otherPlayers;
   }
 
   private OtherPlayer convert(GrpcPlayer grpcPlayer) {
