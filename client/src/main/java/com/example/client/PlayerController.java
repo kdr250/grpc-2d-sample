@@ -7,7 +7,7 @@ import java.util.Set;
 @Component
 public class PlayerController implements Runnable {
   // FPS設定
-  private static final double UPDATE_INTERVAL = GamePanel.DRAW_INTERVAL * 4;
+  private static final double UPDATE_INTERVAL = GamePanel.DRAW_INTERVAL * 10;
 
   private Thread playerThread;
 
