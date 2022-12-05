@@ -9,14 +9,13 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
 @Service
 public class PlayerService {
 
   @GrpcClient("server")
   private PlayerStub playerStub;
+
+  private StreamObserver<PlayerSyncResponse> streamObserverResponse;
 
   public void synchronize(Player player, OtherPlayers otherPlayers) {
     Location location = player.location();
@@ -24,37 +23,33 @@ public class PlayerService {
     GrpcPlayer grpcPlayer = GrpcPlayer.newBuilder().setId(player.id()).setName(player.name()).setLocation(grpcLocation).build();
     PlayerSyncRequest playerSyncRequest = PlayerSyncRequest.newBuilder().setPlayer(grpcPlayer).build();
 
-    CountDownLatch finishLatch = new CountDownLatch(1);
+    //CountDownLatch finishLatch = new CountDownLatch(1);
 
-    StreamObserver<PlayerSyncRequest> streamObserver = playerStub.sync(new StreamObserver<PlayerSyncResponse>() {
-      @Override
-      public void onNext(PlayerSyncResponse value) {
-        GrpcPlayer otherGrpcPlayer = value.getOtherPlayer();
-        OtherPlayer otherPlayer = convert(otherGrpcPlayer);
-        otherPlayers.moveOrAdd(otherPlayer);
-      }
+    if (streamObserverResponse == null) {
+      streamObserverResponse = new StreamObserver<PlayerSyncResponse>() {
+        @Override
+        public void onNext(PlayerSyncResponse value) {
+          GrpcPlayer otherGrpcPlayer = value.getOtherPlayer();
+          OtherPlayer otherPlayer = convert(otherGrpcPlayer);
+          otherPlayers.moveOrAdd(otherPlayer);
+        }
 
-      @Override
-      public void onError(Throwable t) {
-        t.printStackTrace();
-        finishLatch.countDown();
-      }
+        @Override
+        public void onError(Throwable t) {
+          t.printStackTrace();
+        }
 
-      @Override
-      public void onCompleted() {
-        finishLatch.countDown();
-      }
-    });
+        @Override
+        public void onCompleted() {
+          // TODO: アプリケーションが終了したらクローズする処理を作成すること
+          System.out.println("Disconnected!");
+        }
+      };
+    }
+
+    StreamObserver<PlayerSyncRequest> streamObserver = playerStub.sync(streamObserverResponse);
 
     streamObserver.onNext(playerSyncRequest);
-
-    streamObserver.onCompleted();;
-
-    try {
-      finishLatch.await(5, TimeUnit.SECONDS);
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
-    }
   }
 
   private OtherPlayer convert(GrpcPlayer grpcPlayer) {
