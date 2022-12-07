@@ -40,14 +40,14 @@ public class RegisterPlayerToRedisComponent {
     objectRedisTemplate.expire(worldId + "_player", 5, TimeUnit.SECONDS);
   }
 
-  public List<Supplier<GrpcPlayer>> get(String worldId, String playerId) {
+  public List<GrpcPlayer> get(String worldId, String playerId) {
     ListOperations<String, String> listOperations = stringRedisTemplate.opsForList();
     HashOperations<String, String, Object> hashOperations = objectRedisTemplate.opsForHash();
     List<String> playerIdList = listOperations.range(worldId + "_player", 0, -1);
 
     if (playerIdList == null) return new ArrayList<>();
 
-    return playerIdList.stream().filter(id -> !id.equals(playerId)).map(id -> (Supplier<GrpcPlayer>) () -> {
+    return playerIdList.stream().map(id -> {
       Map<String, Object> map = hashOperations.entries(id);
       String name = (String)map.get("name");
       Integer locationX = (Integer)map.get("locationX");

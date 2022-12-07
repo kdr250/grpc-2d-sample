@@ -22,6 +22,7 @@ public class PlayerController implements Runnable {
   }
 
   public void startPlayerThread() {
+    playerService.synchronize(player, otherPlayers);
     playerThread = new Thread(this);
     playerThread.start();
   }
@@ -38,7 +39,7 @@ public class PlayerController implements Runnable {
       lastTime = currentTime;
 
       if (delta >= 1) {
-        update();
+        //update();
         delta--;
       }
     }
@@ -53,6 +54,7 @@ public class PlayerController implements Runnable {
   }
 
   public Set<OtherPlayer> otherPlayers() {
+    System.out.println(otherPlayers.values());
     return otherPlayers.values();
   }
 
