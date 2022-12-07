@@ -46,7 +46,7 @@ public class RegisterPlayerToRedisComponent {
 
     if (playerIdList == null) return new ArrayList<>();
 
-    return playerIdList.stream().map(id -> {
+    return playerIdList.stream().filter(id -> !id.equals(playerId)).map(id -> {
       Map<String, Object> map = hashOperations.entries(id);
       String name = (String)map.get("name");
       Integer locationX = (Integer)map.get("locationX");
