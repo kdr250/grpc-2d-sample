@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
-import java.util.Set;
 
 @Component
 public class GamePanel extends JPanel implements Runnable {
@@ -29,16 +28,16 @@ public class GamePanel extends JPanel implements Runnable {
 
   private final WorldMapService worldMapService;
 
-  private final PlayerController playerController;
+  private final PlayerService playerService;
 
   private WorldMap worldMap;
 
   private boolean isUpdateFinished = false;
 
-  public GamePanel(final KeyInputHandler keyInputHandler, final WorldMapService worldMapService, final PlayerController playerController) {
+  public GamePanel(final KeyInputHandler keyInputHandler, final WorldMapService worldMapService, final PlayerService playerService) {
     this.keyInputHandler = keyInputHandler;
     this.worldMapService = worldMapService;
-    this.playerController = playerController;
+    this.playerService = playerService;
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
     this.setBackground(Color.black);
     this.setDoubleBuffered(true);
@@ -52,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable {
   }
 
   public void startGameThread() {
-    playerController.startPlayerThread();
+    playerService.startPlayerThread();
     gameThread = new Thread(this);
     gameThread.start();
   }
@@ -83,7 +82,7 @@ public class GamePanel extends JPanel implements Runnable {
 
   private void update() {
     Vector vector = keyInputHandler.getKeyInputType().getVector();
-    playerController.movePlayer(vector);
+    playerService.movePlayer(vector);
   }
 
   public void paintComponent(Graphics g) {
@@ -95,7 +94,7 @@ public class GamePanel extends JPanel implements Runnable {
   private void draw(Graphics2D g2) {
     if (worldMap == null) return;
 
-    Player player = playerController.player();
+    Player player = playerService.player();
 
     // タイル
     for (Tile[] tiles : worldMap.tiles()) {
@@ -111,9 +110,9 @@ public class GamePanel extends JPanel implements Runnable {
     g2.setColor(Color.white);
     g2.fillRect(screenCenterX, screenCenterY, Tile.TILE_SIZE, Tile.TILE_SIZE);
 
-    Set<OtherPlayer> otherPlayers = playerController.otherPlayers();
+    OtherPlayers otherPlayers = playerService.otherPlayers();
 
-    otherPlayers.forEach(other -> {
+    otherPlayers.values().forEach(other -> {
       g2.setColor(Color.green);
       Triple<Boolean, Integer, Integer> result = canDisplayAndDistanceFromPlayer(other.location(), player.location());
       if (Boolean.TRUE.equals(result.getLeft())) {

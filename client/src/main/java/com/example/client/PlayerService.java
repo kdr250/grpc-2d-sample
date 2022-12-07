@@ -1,67 +1,68 @@
 package com.example.client;
 
-import com.example.shared.GrpcLocation;
-import com.example.shared.GrpcPlayer;
 import com.example.shared.PlayerGrpc.PlayerStub;
 import com.example.shared.PlayerSyncRequest;
-import com.example.shared.PlayerSyncResponse;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
+import java.util.Set;
 
 @Service
-public class PlayerService {
+public class PlayerService implements Runnable {
 
   @GrpcClient("server")
   private PlayerStub playerStub;
 
-  public void synchronize(Player player, OtherPlayers otherPlayers) {
-    Location location = player.location();
-    GrpcLocation grpcLocation = GrpcLocation.newBuilder().setX(location.getX()).setY(location.getY()).build();
-    GrpcPlayer grpcPlayer = GrpcPlayer.newBuilder().setId(player.id()).setName(player.name()).setLocation(grpcLocation).build();
-    PlayerSyncRequest playerSyncRequest = PlayerSyncRequest.newBuilder().setPlayer(grpcPlayer).build();
+  private static final double UPDATE_INTERVAL = GamePanel.DRAW_INTERVAL * 10;
 
-    CountDownLatch finishLatch = new CountDownLatch(1);
+  private Thread playerThread;
 
-    StreamObserver<PlayerSyncRequest> streamObserver = playerStub.sync(new StreamObserver<PlayerSyncResponse>() {
-      @Override
-      public void onNext(PlayerSyncResponse value) {
-        GrpcPlayer otherGrpcPlayer = value.getOtherPlayer();
-        OtherPlayer otherPlayer = convert(otherGrpcPlayer);
-        otherPlayers.moveOrAdd(otherPlayer);
+  private final Player player = new Player("Taro", new Location(200, 200));
+
+  private final OtherPlayers otherPlayers = new OtherPlayers();
+
+  private PlayerSyncResponseObserver playerSyncResponseObserver;
+
+  public PlayerService() {
+
+  }
+
+  public void startPlayerThread() {
+    playerSyncResponseObserver = new PlayerSyncResponseObserver(player, otherPlayers);
+    StreamObserver<PlayerSyncRequest> requestStreamObserver = playerStub.sync(playerSyncResponseObserver);
+    playerSyncResponseObserver.startSync(requestStreamObserver);
+    playerThread = new Thread(this);
+    playerThread.start();
+  }
+
+  @Override
+  public void run() {
+    double delta = 0;
+    long lastTime = System.nanoTime();
+    long currentTime;
+
+    while (playerThread != null) {
+      currentTime = System.nanoTime();
+      delta += (currentTime - lastTime) / UPDATE_INTERVAL;
+      lastTime = currentTime;
+
+      if (delta >= 1) {
+        playerSyncResponseObserver.syncPlayer();
+        delta--;
       }
-
-      @Override
-      public void onError(Throwable t) {
-        t.printStackTrace();
-        finishLatch.countDown();
-      }
-
-      @Override
-      public void onCompleted() {
-        finishLatch.countDown();
-      }
-    });
-
-    streamObserver.onNext(playerSyncRequest);
-
-    streamObserver.onCompleted();;
-
-    try {
-      finishLatch.await(5, TimeUnit.SECONDS);
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
     }
   }
 
-  private OtherPlayer convert(GrpcPlayer grpcPlayer) {
-    String id = grpcPlayer.getId();
-    String name = grpcPlayer.getName();
-    GrpcLocation grpcLocation = grpcPlayer.getLocation();
-    Location location = new Location(grpcLocation.getX(), grpcLocation.getY());
-    return new OtherPlayer(id, name, location);
+  public void movePlayer(final Vector vector) {
+    player.move(vector);
+  }
+
+  public Player player() {
+    return player;
+  }
+
+  public OtherPlayers otherPlayers() {
+    return otherPlayers;
   }
 }
