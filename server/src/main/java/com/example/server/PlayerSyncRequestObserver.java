@@ -6,7 +6,6 @@ import com.example.shared.PlayerSyncResponse;
 import io.grpc.stub.StreamObserver;
 
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class PlayerSyncRequestObserver implements StreamObserver<PlayerSyncRequest> {
@@ -25,7 +24,6 @@ public class PlayerSyncRequestObserver implements StreamObserver<PlayerSyncReque
 
   @Override
   public void onNext(PlayerSyncRequest value) {
-    System.out.println("onNext from " + value.getPlayer().getId());
     List<GrpcPlayer> otherPlayerList = playerGetFunction.apply(value);
     for (GrpcPlayer other : otherPlayerList) {
       PlayerSyncResponse response = PlayerSyncResponse.newBuilder().setOtherPlayer(other).build();

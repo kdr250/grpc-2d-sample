@@ -3,17 +3,16 @@ package com.example.server;
 import com.example.shared.GrpcLocation;
 import com.example.shared.GrpcPlayer;
 import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Component
@@ -28,10 +27,10 @@ public class RegisterPlayerToRedisComponent {
   }
 
   public void register(String worldId, GrpcPlayer player) {
-    ListOperations<String, String> listOperations = stringRedisTemplate.opsForList();
+    SetOperations<String, String> setOperations = stringRedisTemplate.opsForSet();
     HashOperations<String, String, Object> hashOperations = objectRedisTemplate.opsForHash();
 
-    listOperations.rightPush(worldId + "_player", player.getId());
+    setOperations.add(worldId + "_player", player.getId());
     stringRedisTemplate.expire(worldId + "_player", 5, TimeUnit.SECONDS);
 
     hashOperations.put(player.getId(), "name", player.getName());
@@ -41,9 +40,9 @@ public class RegisterPlayerToRedisComponent {
   }
 
   public List<GrpcPlayer> get(String worldId, String playerId) {
-    ListOperations<String, String> listOperations = stringRedisTemplate.opsForList();
+    SetOperations<String, String> setOperations = stringRedisTemplate.opsForSet();
     HashOperations<String, String, Object> hashOperations = objectRedisTemplate.opsForHash();
-    List<String> playerIdList = listOperations.range(worldId + "_player", 0, -1);
+    Set<String> playerIdList = setOperations.members(worldId + "_player");
 
     if (playerIdList == null) return new ArrayList<>();
 
@@ -55,21 +54,5 @@ public class RegisterPlayerToRedisComponent {
       GrpcLocation grpcLocation = GrpcLocation.newBuilder().setX(locationX).setY(locationY).build();
       return GrpcPlayer.newBuilder().setId(id).setName(name).setLocation(grpcLocation).build();
     }).collect(Collectors.toList());
-  }
-
-  private Optional<GrpcPlayer> grpcPlayer(String playerId) {
-    HashOperations<String, String, Object> hashOperations = objectRedisTemplate.opsForHash();
-    try {
-      Map<String, Object> map = hashOperations.entries(playerId);
-      String name = (String)map.get("name");
-      Integer locationX = (Integer)map.get("locationX");
-      Integer locationY = (Integer)map.get("locationY");
-      GrpcLocation grpcLocation = GrpcLocation.newBuilder().setX(locationX).setY(locationY).build();
-      GrpcPlayer grpcPlayer = GrpcPlayer.newBuilder().setId(playerId).setName(name).setLocation(grpcLocation).build();
-      return Optional.of(grpcPlayer);
-    } catch (Exception e) {
-      e.printStackTrace();
-      return Optional.empty();
-    }
   }
 }

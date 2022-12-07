@@ -15,7 +15,7 @@ public class PlayerController implements Runnable {
 
   private final Player player = new Player("Taro", new Location(200, 200));
 
-  private OtherPlayers otherPlayers = new OtherPlayers();
+  private final OtherPlayers otherPlayers = new OtherPlayers();
 
   public PlayerController(final PlayerService playerService) {
     this.playerService = playerService;
@@ -54,11 +54,6 @@ public class PlayerController implements Runnable {
   }
 
   public Set<OtherPlayer> otherPlayers() {
-    System.out.println(otherPlayers.values());
     return otherPlayers.values();
-  }
-
-  private void update() {
-    playerService.synchronize(player, otherPlayers);
   }
 }

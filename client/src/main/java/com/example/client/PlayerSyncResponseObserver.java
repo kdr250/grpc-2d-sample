@@ -47,7 +47,7 @@ public class PlayerSyncResponseObserver implements StreamObserver<PlayerSyncResp
   }
 
   private void syncPlayer() {
-    Uninterruptibles.sleepUninterruptibly(160, TimeUnit.MILLISECONDS);
+    Uninterruptibles.sleepUninterruptibly(32, TimeUnit.MILLISECONDS);
 
     Location location = player.location();
     GrpcLocation grpcLocation = GrpcLocation.newBuilder().setX(location.getX()).setY(location.getY()).build();
