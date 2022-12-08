@@ -14,6 +14,7 @@ import reactor.util.function.Tuples;
 import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,6 +62,19 @@ public class RegisterWorldMapToRedisComponent {
       } catch (Exception e) {
         throw new RuntimeException(e);
       }
+    }
+
+    for (PlayerImageType playerImageType : PlayerImageType.values()) {
+      playerImageType.fileNameList("png").forEach(filename -> {
+        try {
+          File imageFile = ResourceUtils.getFile("classpath:image/player/" + playerImageType.keyword() + "/" + filename);
+          byte[] fileContent = FileUtils.readFileToByteArray(imageFile);
+          String encodedString = Base64.getEncoder().encodeToString(fileContent);
+          valueOperations.set(filename, encodedString);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      });
     }
   }
 
