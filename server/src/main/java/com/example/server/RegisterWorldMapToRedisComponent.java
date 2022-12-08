@@ -74,11 +74,11 @@ public class RegisterWorldMapToRedisComponent {
     String tilePlacement = tilePlacementWithLine.replaceAll("[0-9,\n\r]", "");
     String[] tilePlacementOnlyCharacter = tilePlacementWithLine.replaceAll("[\n\r]", "").split(",");
     Set<Pair<Character, Integer>> characterAndCollision = Arrays.stream(tilePlacementOnlyCharacter)
-      .map(t -> Pair.of(t.charAt(0), (int)t.charAt(1)))
+      .map(t -> Pair.of(t.charAt(0), Character.getNumericValue(t.charAt(1))))
       .collect(Collectors.toSet());
     List<GrpcTile> tiles = characterAndCollision.stream().map(pair -> {
       String tileImageBase64 = valueOperations.get(pair.getFirst().toString());
-      boolean collision = pair.getSecond() != 0;
+      boolean collision = !pair.getSecond().equals(0);
       return GrpcTile.newBuilder()
         .setName(pair.getFirst().toString())
         .setBase64Image(tileImageBase64)

@@ -6,6 +6,7 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -18,7 +19,7 @@ public class PlayerService implements Runnable {
 
   private Thread playerThread;
 
-  private final Player player = new Player("Taro", new Location(200, 200));
+  private final Player player = new Player("Taro", new Location(11 * Tile.TILE_SIZE, 27 * Tile.TILE_SIZE));
 
   private final OtherPlayers otherPlayers = new OtherPlayers();
 
@@ -56,6 +57,10 @@ public class PlayerService implements Runnable {
 
   public void movePlayer(final Vector vector) {
     player.move(vector);
+  }
+
+  public boolean canMove(final List<Collidable> collidableList, final Vector vector) {
+    return player.canMove(collidableList, vector);
   }
 
   public Player player() {

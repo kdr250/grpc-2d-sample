@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class GamePanel extends JPanel implements Runnable {
@@ -82,6 +84,17 @@ public class GamePanel extends JPanel implements Runnable {
 
   private void update() {
     Vector vector = keyInputHandler.getKeyInputType().getVector();
+    Player player = playerService.player();
+
+    if (player == null || worldMap == null) return;
+
+    List<Collidable> collidableList = createCollidableList(player.location().shift(vector));
+
+    // プレイヤー
+    if (!playerService.canMove(collidableList, vector)) {
+      // TODO: 方向を変える
+      return;
+    }
     playerService.movePlayer(vector);
   }
 
@@ -128,5 +141,14 @@ public class GamePanel extends JPanel implements Runnable {
       Math.abs(distanceY) <= GamePanel.screenHeight / 2 + Tile.TILE_SIZE;
 
     return Triple.of(canDisplay, distanceX, distanceY);
+  }
+
+  private List<Collidable> createCollidableList(Location willMoveLocation) {
+    Player player = playerService.player();
+
+    List<Collidable> collidableList = new ArrayList<>();
+    collidableList.add(player);
+    collidableList.addAll(worldMap.getTilesFromLocation(willMoveLocation));
+    return collidableList;
   }
 }
