@@ -8,17 +8,34 @@ public interface PlayerSyncResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>.GrpcPlayer otherPlayer = 1;</code>
-   * @return Whether the otherPlayer field is set.
+   * <code>.AddEvent addEvent = 1;</code>
+   * @return Whether the addEvent field is set.
    */
-  boolean hasOtherPlayer();
+  boolean hasAddEvent();
   /**
-   * <code>.GrpcPlayer otherPlayer = 1;</code>
-   * @return The otherPlayer.
+   * <code>.AddEvent addEvent = 1;</code>
+   * @return The addEvent.
    */
-  com.example.shared.GrpcPlayer getOtherPlayer();
+  com.example.shared.AddEvent getAddEvent();
   /**
-   * <code>.GrpcPlayer otherPlayer = 1;</code>
+   * <code>.AddEvent addEvent = 1;</code>
    */
-  com.example.shared.GrpcPlayerOrBuilder getOtherPlayerOrBuilder();
+  com.example.shared.AddEventOrBuilder getAddEventOrBuilder();
+
+  /**
+   * <code>.MoveEvent moveEvent = 2;</code>
+   * @return Whether the moveEvent field is set.
+   */
+  boolean hasMoveEvent();
+  /**
+   * <code>.MoveEvent moveEvent = 2;</code>
+   * @return The moveEvent.
+   */
+  com.example.shared.MoveEvent getMoveEvent();
+  /**
+   * <code>.MoveEvent moveEvent = 2;</code>
+   */
+  com.example.shared.MoveEventOrBuilder getMoveEventOrBuilder();
+
+  public com.example.shared.PlayerSyncResponse.EventCase getEventCase();
 }

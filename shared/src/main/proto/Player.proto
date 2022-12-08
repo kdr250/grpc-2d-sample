@@ -12,9 +12,22 @@ service Player {
 
 message PlayerSyncRequest {
     GrpcPlayer player = 1;
+    repeated string otherPlayerIdList = 2;
 }
 
 message PlayerSyncResponse {
+    oneof event {
+        AddEvent addEvent = 1;
+        MoveEvent moveEvent = 2;
+    }
+}
+
+message AddEvent {
+    GrpcPlayer otherPlayer = 1;
+    repeated GrpcImageTypes imageTypes = 2;
+}
+
+message MoveEvent {
     GrpcPlayer otherPlayer = 1;
 }
 
@@ -27,4 +40,9 @@ message GrpcPlayer {
 message GrpcLocation {
     int32 x = 1;
     int32 y = 2;
+}
+
+message GrpcImageTypes {
+    string name = 1;
+    string base64Image = 2;
 }

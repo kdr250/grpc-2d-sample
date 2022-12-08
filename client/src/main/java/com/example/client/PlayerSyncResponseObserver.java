@@ -2,6 +2,7 @@ package com.example.client;
 
 import com.example.shared.GrpcLocation;
 import com.example.shared.GrpcPlayer;
+import com.example.shared.MoveEvent;
 import com.example.shared.PlayerSyncRequest;
 import com.example.shared.PlayerSyncResponse;
 import io.grpc.stub.StreamObserver;
@@ -20,7 +21,8 @@ public class PlayerSyncResponseObserver implements StreamObserver<PlayerSyncResp
 
   @Override
   public void onNext(PlayerSyncResponse value) {
-    GrpcPlayer otherGrpcPlayer = value.getOtherPlayer();
+    MoveEvent moveEvent = value.getMoveEvent();
+    GrpcPlayer otherGrpcPlayer = moveEvent.getOtherPlayer();
     OtherPlayer otherPlayer = convert(otherGrpcPlayer);
     otherPlayers.moveOrAdd(otherPlayer);
   }
