@@ -7,6 +7,8 @@ import com.example.shared.PlayerSyncRequest;
 import com.example.shared.PlayerSyncResponse;
 import io.grpc.stub.StreamObserver;
 
+import java.util.List;
+
 public class PlayerSyncResponseObserver implements StreamObserver<PlayerSyncResponse> {
 
   private StreamObserver<PlayerSyncRequest> playerSyncRequestStreamObserver;
@@ -46,8 +48,8 @@ public class PlayerSyncResponseObserver implements StreamObserver<PlayerSyncResp
     Location location = player.location();
     GrpcLocation grpcLocation = GrpcLocation.newBuilder().setX(location.getX()).setY(location.getY()).build();
     GrpcPlayer grpcPlayer = GrpcPlayer.newBuilder().setId(player.id()).setName(player.name()).setLocation(grpcLocation).build();
-    PlayerSyncRequest playerSyncRequest = PlayerSyncRequest.newBuilder().setPlayer(grpcPlayer).build();
-
+    List<String> otherPlayerIdList = otherPlayers.idList();
+    PlayerSyncRequest playerSyncRequest = PlayerSyncRequest.newBuilder().setPlayer(grpcPlayer).addAllOtherPlayerIdList(otherPlayerIdList).build();
     playerSyncRequestStreamObserver.onNext(playerSyncRequest);
   }
 

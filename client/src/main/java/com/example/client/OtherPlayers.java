@@ -2,6 +2,7 @@ package com.example.client;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,5 +21,9 @@ public class OtherPlayers {
 
   public Set<OtherPlayer> values() {
     return new HashSet<>(map.values());
+  }
+
+  public List<String> idList() {
+    return List.copyOf(map.keySet());
   }
 }

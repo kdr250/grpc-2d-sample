@@ -2,6 +2,8 @@ package com.example.server;
 
 import com.example.shared.GrpcLocation;
 import com.example.shared.GrpcPlayer;
+import com.example.shared.MoveEvent;
+import com.example.shared.PlayerSyncResponse;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;
@@ -39,7 +41,7 @@ public class RegisterPlayerToRedisComponent {
     objectRedisTemplate.expire(worldId + "_player", 5, TimeUnit.SECONDS);
   }
 
-  public List<GrpcPlayer> get(String worldId, String playerId) {
+  public List<PlayerSyncResponse> get(String worldId, String playerId, List<String> otherPlayerIdList) {
     SetOperations<String, String> setOperations = stringRedisTemplate.opsForSet();
     HashOperations<String, String, Object> hashOperations = objectRedisTemplate.opsForHash();
     Set<String> playerIdList = setOperations.members(worldId + "_player");
@@ -52,7 +54,9 @@ public class RegisterPlayerToRedisComponent {
       Integer locationX = (Integer)map.get("locationX");
       Integer locationY = (Integer)map.get("locationY");
       GrpcLocation grpcLocation = GrpcLocation.newBuilder().setX(locationX).setY(locationY).build();
-      return GrpcPlayer.newBuilder().setId(id).setName(name).setLocation(grpcLocation).build();
+      GrpcPlayer grpcPlayer = GrpcPlayer.newBuilder().setId(id).setName(name).setLocation(grpcLocation).build();
+      MoveEvent moveEvent = MoveEvent.newBuilder().setOtherPlayer(grpcPlayer).build();
+      return PlayerSyncResponse.newBuilder().setMoveEvent(moveEvent).build();
     }).collect(Collectors.toList());
   }
 }
