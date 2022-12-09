@@ -11,6 +11,7 @@ import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class PlayerService implements Runnable {
@@ -23,9 +24,11 @@ public class PlayerService implements Runnable {
 
   private static final double UPDATE_INTERVAL = GamePanel.DRAW_INTERVAL * 10;
 
+  private static String[] nameCandidates = {"太郎", "二郎", "三郎", "花子", "吾朗"};
+
   private Thread playerThread;
 
-  private final Player player = new Player("Taro", new Location(11 * Tile.TILE_SIZE, 27 * Tile.TILE_SIZE));
+  private final Player player = new Player(nameCandidates[new Random().nextInt(5)], new Location(11 * Tile.TILE_SIZE, 27 * Tile.TILE_SIZE));
 
   private final OtherPlayers otherPlayers = new OtherPlayers();
 
