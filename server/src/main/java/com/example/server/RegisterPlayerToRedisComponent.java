@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -67,9 +68,10 @@ public class RegisterPlayerToRedisComponent {
   }
 
   public AddEvent addEvent(GrpcPlayer grpcPlayer) {
+    ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
     HashOperations<String, String, String> stringHashOperations = stringRedisTemplate.opsForHash();
-    // TODO: 一時的にランダムにしているが、選択したキャラクターを返すよう修正すること
-    PlayerImageType playerImageType = new Random().nextBoolean() ? PlayerImageType.BOY : PlayerImageType.OLD_MAN;
+    valueOperations.setIfAbsent("image_" + grpcPlayer.getId(), new Random().nextBoolean() ? PlayerImageType.BOY.name() : PlayerImageType.OLD_MAN.name());
+    PlayerImageType playerImageType = PlayerImageType.valueOf(valueOperations.get("image_" + grpcPlayer.getId()));
     List<GrpcImageType> imageTypes = new ArrayList<>();
     stringHashOperations.entries(playerImageType.name()).forEach((key, value) -> {
       GrpcImageType grpcImageType = GrpcImageType.newBuilder().setName(key).setBase64Image(value).build();
