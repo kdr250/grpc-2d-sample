@@ -8,8 +8,17 @@ import com.example.shared.MoveEvent;
 import com.example.shared.PlayerSyncRequest;
 import com.example.shared.PlayerSyncResponse;
 import io.grpc.stub.StreamObserver;
+import org.apache.commons.lang3.tuple.Pair;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class PlayerSyncResponseObserver implements StreamObserver<PlayerSyncResponse> {
 
@@ -35,9 +44,9 @@ public class PlayerSyncResponseObserver implements StreamObserver<PlayerSyncResp
     if (value.hasAddEvent()) {
       AddEvent addEvent = value.getAddEvent();
       GrpcPlayer otherGrpcPlayer = addEvent.getOtherPlayer();
-      List<GrpcImageType> grpcImageTypes = addEvent.getImageTypeList();
-      // TODO: 画像をアニメーションに変換すること
       OtherPlayer otherPlayer = convert(otherGrpcPlayer);
+      PlayerAnimation playerAnimation = playerAnimation(addEvent);
+      otherPlayer.setPlayerAnimation(playerAnimation);
       otherPlayers.moveOrAdd(otherPlayer);
     }
   }
@@ -72,5 +81,26 @@ public class PlayerSyncResponseObserver implements StreamObserver<PlayerSyncResp
     GrpcLocation grpcLocation = grpcPlayer.getLocation();
     Location location = new Location(grpcLocation.getX(), grpcLocation.getY());
     return new OtherPlayer(id, name, location);
+  }
+
+  public static PlayerAnimation playerAnimation(AddEvent addEvent) {
+    List<GrpcImageType> imageTypeList = addEvent.getImageTypeList();
+    Map<PlayerAnimationType, BufferedImage> map = imageTypeList.stream().map(i -> {
+      PlayerAnimationType type = PlayerAnimationType.valueOf(i.getName());
+      byte[] decodedBytes = Base64.getDecoder().decode(i.getBase64Image());
+      ByteArrayInputStream bis = new ByteArrayInputStream(decodedBytes);
+      BufferedImage scaledImage;
+      try {
+        BufferedImage original = ImageIO.read(bis);
+        scaledImage = new BufferedImage(Tile.TILE_SIZE, Tile.TILE_SIZE, original.getType());
+        Graphics2D g2 = scaledImage.createGraphics();
+        g2.drawImage(original, 0, 0, Tile.TILE_SIZE, Tile.TILE_SIZE, null);
+      } catch (IOException e) {
+        throw new IllegalStateException(e.getMessage(), e);
+      }
+      return Pair.of(type, scaledImage);
+    }).collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
+
+    return new PlayerAnimation(map);
   }
 }

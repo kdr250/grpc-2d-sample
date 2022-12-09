@@ -28,6 +28,12 @@ public class Location {
     return new Location(nextX, nextY);
   }
 
+  public Vector vector(final Location destination) {
+    int diffX = destination.x - this.x;
+    int diffY = destination.y - this.y;
+    return new Vector(diffX, diffY);
+  }
+
   public static final Location EMPTY = new Location(0, 0);
 
   private boolean valid(int x, int y) {

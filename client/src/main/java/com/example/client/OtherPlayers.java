@@ -12,7 +12,7 @@ public class OtherPlayers {
   public void moveOrAdd(final OtherPlayer otherPlayer) {
     if (map.containsKey(otherPlayer.id())) {
       OtherPlayer existingPlayer = map.get(otherPlayer.id());
-      existingPlayer.warp(otherPlayer.location());
+      existingPlayer.move(otherPlayer.location());
       map.put(existingPlayer.id(), existingPlayer);
       return;
     }

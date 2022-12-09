@@ -127,10 +127,9 @@ public class GamePanel extends JPanel implements Runnable {
     OtherPlayers otherPlayers = playerService.otherPlayers();
 
     otherPlayers.values().forEach(other -> {
-      g2.setColor(Color.green);
       Triple<Boolean, Integer, Integer> result = canDisplayAndDistanceFromPlayer(other.location(), player.location());
       if (Boolean.TRUE.equals(result.getLeft())) {
-        g2.fillRect(screenCenterX + result.getMiddle(), screenCenterY + result.getRight(), Tile.TILE_SIZE, Tile.TILE_SIZE);
+        g2.drawImage(other.getAnimatedImage(), GamePanel.screenCenterX + result.getMiddle(), GamePanel.screenCenterY + result.getRight(), null);
       }
     });
   }

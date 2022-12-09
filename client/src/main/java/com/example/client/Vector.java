@@ -35,7 +35,7 @@ public class Vector {
     if (x == 0 && y > 0) return Direction.DOWN;
     if (x < 0 && y == 0) return Direction.LEFT;
     if (x > 0 && y == 0) return Direction.RIGHT;
-    return Direction.DOWN;
+    return Direction.NONE;
   }
 
   public int getX() {
