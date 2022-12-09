@@ -24,7 +24,7 @@ message PlayerSyncResponse {
 
 message AddEvent {
     GrpcPlayer otherPlayer = 1;
-    repeated GrpcImageTypes imageTypes = 2;
+    repeated GrpcImageType imageType = 2;
 }
 
 message MoveEvent {
@@ -42,7 +42,7 @@ message GrpcLocation {
     int32 y = 2;
 }
 
-message GrpcImageTypes {
+message GrpcImageType {
     string name = 1;
     string base64Image = 2;
 }

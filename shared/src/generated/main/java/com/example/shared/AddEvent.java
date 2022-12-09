@@ -16,7 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private AddEvent() {
-    imageTypes_ = java.util.Collections.emptyList();
+    imageType_ = java.util.Collections.emptyList();
   }
 
   @java.lang.Override
@@ -65,11 +65,11 @@ private static final long serialVersionUID = 0L;
           }
           case 18: {
             if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              imageTypes_ = new java.util.ArrayList<com.example.shared.GrpcImageTypes>();
+              imageType_ = new java.util.ArrayList<com.example.shared.GrpcImageType>();
               mutable_bitField0_ |= 0x00000001;
             }
-            imageTypes_.add(
-                input.readMessage(com.example.shared.GrpcImageTypes.parser(), extensionRegistry));
+            imageType_.add(
+                input.readMessage(com.example.shared.GrpcImageType.parser(), extensionRegistry));
             break;
           }
           default: {
@@ -88,7 +88,7 @@ private static final long serialVersionUID = 0L;
           e).setUnfinishedMessage(this);
     } finally {
       if (((mutable_bitField0_ & 0x00000001) != 0)) {
-        imageTypes_ = java.util.Collections.unmodifiableList(imageTypes_);
+        imageType_ = java.util.Collections.unmodifiableList(imageType_);
       }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
@@ -133,44 +133,44 @@ private static final long serialVersionUID = 0L;
     return getOtherPlayer();
   }
 
-  public static final int IMAGETYPES_FIELD_NUMBER = 2;
-  private java.util.List<com.example.shared.GrpcImageTypes> imageTypes_;
+  public static final int IMAGETYPE_FIELD_NUMBER = 2;
+  private java.util.List<com.example.shared.GrpcImageType> imageType_;
   /**
-   * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+   * <code>repeated .GrpcImageType imageType = 2;</code>
    */
   @java.lang.Override
-  public java.util.List<com.example.shared.GrpcImageTypes> getImageTypesList() {
-    return imageTypes_;
+  public java.util.List<com.example.shared.GrpcImageType> getImageTypeList() {
+    return imageType_;
   }
   /**
-   * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+   * <code>repeated .GrpcImageType imageType = 2;</code>
    */
   @java.lang.Override
-  public java.util.List<? extends com.example.shared.GrpcImageTypesOrBuilder> 
-      getImageTypesOrBuilderList() {
-    return imageTypes_;
+  public java.util.List<? extends com.example.shared.GrpcImageTypeOrBuilder> 
+      getImageTypeOrBuilderList() {
+    return imageType_;
   }
   /**
-   * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+   * <code>repeated .GrpcImageType imageType = 2;</code>
    */
   @java.lang.Override
-  public int getImageTypesCount() {
-    return imageTypes_.size();
+  public int getImageTypeCount() {
+    return imageType_.size();
   }
   /**
-   * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+   * <code>repeated .GrpcImageType imageType = 2;</code>
    */
   @java.lang.Override
-  public com.example.shared.GrpcImageTypes getImageTypes(int index) {
-    return imageTypes_.get(index);
+  public com.example.shared.GrpcImageType getImageType(int index) {
+    return imageType_.get(index);
   }
   /**
-   * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+   * <code>repeated .GrpcImageType imageType = 2;</code>
    */
   @java.lang.Override
-  public com.example.shared.GrpcImageTypesOrBuilder getImageTypesOrBuilder(
+  public com.example.shared.GrpcImageTypeOrBuilder getImageTypeOrBuilder(
       int index) {
-    return imageTypes_.get(index);
+    return imageType_.get(index);
   }
 
   private byte memoizedIsInitialized = -1;
@@ -190,8 +190,8 @@ private static final long serialVersionUID = 0L;
     if (otherPlayer_ != null) {
       output.writeMessage(1, getOtherPlayer());
     }
-    for (int i = 0; i < imageTypes_.size(); i++) {
-      output.writeMessage(2, imageTypes_.get(i));
+    for (int i = 0; i < imageType_.size(); i++) {
+      output.writeMessage(2, imageType_.get(i));
     }
     unknownFields.writeTo(output);
   }
@@ -206,9 +206,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(1, getOtherPlayer());
     }
-    for (int i = 0; i < imageTypes_.size(); i++) {
+    for (int i = 0; i < imageType_.size(); i++) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(2, imageTypes_.get(i));
+        .computeMessageSize(2, imageType_.get(i));
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -230,8 +230,8 @@ private static final long serialVersionUID = 0L;
       if (!getOtherPlayer()
           .equals(other.getOtherPlayer())) return false;
     }
-    if (!getImageTypesList()
-        .equals(other.getImageTypesList())) return false;
+    if (!getImageTypeList()
+        .equals(other.getImageTypeList())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -247,9 +247,9 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + OTHERPLAYER_FIELD_NUMBER;
       hash = (53 * hash) + getOtherPlayer().hashCode();
     }
-    if (getImageTypesCount() > 0) {
-      hash = (37 * hash) + IMAGETYPES_FIELD_NUMBER;
-      hash = (53 * hash) + getImageTypesList().hashCode();
+    if (getImageTypeCount() > 0) {
+      hash = (37 * hash) + IMAGETYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getImageTypeList().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -379,7 +379,7 @@ private static final long serialVersionUID = 0L;
     private void maybeForceBuilderInitialization() {
       if (com.google.protobuf.GeneratedMessageV3
               .alwaysUseFieldBuilders) {
-        getImageTypesFieldBuilder();
+        getImageTypeFieldBuilder();
       }
     }
     @java.lang.Override
@@ -391,11 +391,11 @@ private static final long serialVersionUID = 0L;
         otherPlayer_ = null;
         otherPlayerBuilder_ = null;
       }
-      if (imageTypesBuilder_ == null) {
-        imageTypes_ = java.util.Collections.emptyList();
+      if (imageTypeBuilder_ == null) {
+        imageType_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000001);
       } else {
-        imageTypesBuilder_.clear();
+        imageTypeBuilder_.clear();
       }
       return this;
     }
@@ -429,14 +429,14 @@ private static final long serialVersionUID = 0L;
       } else {
         result.otherPlayer_ = otherPlayerBuilder_.build();
       }
-      if (imageTypesBuilder_ == null) {
+      if (imageTypeBuilder_ == null) {
         if (((bitField0_ & 0x00000001) != 0)) {
-          imageTypes_ = java.util.Collections.unmodifiableList(imageTypes_);
+          imageType_ = java.util.Collections.unmodifiableList(imageType_);
           bitField0_ = (bitField0_ & ~0x00000001);
         }
-        result.imageTypes_ = imageTypes_;
+        result.imageType_ = imageType_;
       } else {
-        result.imageTypes_ = imageTypesBuilder_.build();
+        result.imageType_ = imageTypeBuilder_.build();
       }
       onBuilt();
       return result;
@@ -489,29 +489,29 @@ private static final long serialVersionUID = 0L;
       if (other.hasOtherPlayer()) {
         mergeOtherPlayer(other.getOtherPlayer());
       }
-      if (imageTypesBuilder_ == null) {
-        if (!other.imageTypes_.isEmpty()) {
-          if (imageTypes_.isEmpty()) {
-            imageTypes_ = other.imageTypes_;
+      if (imageTypeBuilder_ == null) {
+        if (!other.imageType_.isEmpty()) {
+          if (imageType_.isEmpty()) {
+            imageType_ = other.imageType_;
             bitField0_ = (bitField0_ & ~0x00000001);
           } else {
-            ensureImageTypesIsMutable();
-            imageTypes_.addAll(other.imageTypes_);
+            ensureImageTypeIsMutable();
+            imageType_.addAll(other.imageType_);
           }
           onChanged();
         }
       } else {
-        if (!other.imageTypes_.isEmpty()) {
-          if (imageTypesBuilder_.isEmpty()) {
-            imageTypesBuilder_.dispose();
-            imageTypesBuilder_ = null;
-            imageTypes_ = other.imageTypes_;
+        if (!other.imageType_.isEmpty()) {
+          if (imageTypeBuilder_.isEmpty()) {
+            imageTypeBuilder_.dispose();
+            imageTypeBuilder_ = null;
+            imageType_ = other.imageType_;
             bitField0_ = (bitField0_ & ~0x00000001);
-            imageTypesBuilder_ = 
+            imageTypeBuilder_ = 
               com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                 getImageTypesFieldBuilder() : null;
+                 getImageTypeFieldBuilder() : null;
           } else {
-            imageTypesBuilder_.addAllMessages(other.imageTypes_);
+            imageTypeBuilder_.addAllMessages(other.imageType_);
           }
         }
       }
@@ -664,244 +664,244 @@ private static final long serialVersionUID = 0L;
       return otherPlayerBuilder_;
     }
 
-    private java.util.List<com.example.shared.GrpcImageTypes> imageTypes_ =
+    private java.util.List<com.example.shared.GrpcImageType> imageType_ =
       java.util.Collections.emptyList();
-    private void ensureImageTypesIsMutable() {
+    private void ensureImageTypeIsMutable() {
       if (!((bitField0_ & 0x00000001) != 0)) {
-        imageTypes_ = new java.util.ArrayList<com.example.shared.GrpcImageTypes>(imageTypes_);
+        imageType_ = new java.util.ArrayList<com.example.shared.GrpcImageType>(imageType_);
         bitField0_ |= 0x00000001;
        }
     }
 
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        com.example.shared.GrpcImageTypes, com.example.shared.GrpcImageTypes.Builder, com.example.shared.GrpcImageTypesOrBuilder> imageTypesBuilder_;
+        com.example.shared.GrpcImageType, com.example.shared.GrpcImageType.Builder, com.example.shared.GrpcImageTypeOrBuilder> imageTypeBuilder_;
 
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public java.util.List<com.example.shared.GrpcImageTypes> getImageTypesList() {
-      if (imageTypesBuilder_ == null) {
-        return java.util.Collections.unmodifiableList(imageTypes_);
+    public java.util.List<com.example.shared.GrpcImageType> getImageTypeList() {
+      if (imageTypeBuilder_ == null) {
+        return java.util.Collections.unmodifiableList(imageType_);
       } else {
-        return imageTypesBuilder_.getMessageList();
+        return imageTypeBuilder_.getMessageList();
       }
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public int getImageTypesCount() {
-      if (imageTypesBuilder_ == null) {
-        return imageTypes_.size();
+    public int getImageTypeCount() {
+      if (imageTypeBuilder_ == null) {
+        return imageType_.size();
       } else {
-        return imageTypesBuilder_.getCount();
+        return imageTypeBuilder_.getCount();
       }
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public com.example.shared.GrpcImageTypes getImageTypes(int index) {
-      if (imageTypesBuilder_ == null) {
-        return imageTypes_.get(index);
+    public com.example.shared.GrpcImageType getImageType(int index) {
+      if (imageTypeBuilder_ == null) {
+        return imageType_.get(index);
       } else {
-        return imageTypesBuilder_.getMessage(index);
+        return imageTypeBuilder_.getMessage(index);
       }
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public Builder setImageTypes(
-        int index, com.example.shared.GrpcImageTypes value) {
-      if (imageTypesBuilder_ == null) {
+    public Builder setImageType(
+        int index, com.example.shared.GrpcImageType value) {
+      if (imageTypeBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
         }
-        ensureImageTypesIsMutable();
-        imageTypes_.set(index, value);
+        ensureImageTypeIsMutable();
+        imageType_.set(index, value);
         onChanged();
       } else {
-        imageTypesBuilder_.setMessage(index, value);
+        imageTypeBuilder_.setMessage(index, value);
       }
       return this;
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public Builder setImageTypes(
-        int index, com.example.shared.GrpcImageTypes.Builder builderForValue) {
-      if (imageTypesBuilder_ == null) {
-        ensureImageTypesIsMutable();
-        imageTypes_.set(index, builderForValue.build());
+    public Builder setImageType(
+        int index, com.example.shared.GrpcImageType.Builder builderForValue) {
+      if (imageTypeBuilder_ == null) {
+        ensureImageTypeIsMutable();
+        imageType_.set(index, builderForValue.build());
         onChanged();
       } else {
-        imageTypesBuilder_.setMessage(index, builderForValue.build());
+        imageTypeBuilder_.setMessage(index, builderForValue.build());
       }
       return this;
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public Builder addImageTypes(com.example.shared.GrpcImageTypes value) {
-      if (imageTypesBuilder_ == null) {
+    public Builder addImageType(com.example.shared.GrpcImageType value) {
+      if (imageTypeBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
         }
-        ensureImageTypesIsMutable();
-        imageTypes_.add(value);
+        ensureImageTypeIsMutable();
+        imageType_.add(value);
         onChanged();
       } else {
-        imageTypesBuilder_.addMessage(value);
+        imageTypeBuilder_.addMessage(value);
       }
       return this;
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public Builder addImageTypes(
-        int index, com.example.shared.GrpcImageTypes value) {
-      if (imageTypesBuilder_ == null) {
+    public Builder addImageType(
+        int index, com.example.shared.GrpcImageType value) {
+      if (imageTypeBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
         }
-        ensureImageTypesIsMutable();
-        imageTypes_.add(index, value);
+        ensureImageTypeIsMutable();
+        imageType_.add(index, value);
         onChanged();
       } else {
-        imageTypesBuilder_.addMessage(index, value);
+        imageTypeBuilder_.addMessage(index, value);
       }
       return this;
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public Builder addImageTypes(
-        com.example.shared.GrpcImageTypes.Builder builderForValue) {
-      if (imageTypesBuilder_ == null) {
-        ensureImageTypesIsMutable();
-        imageTypes_.add(builderForValue.build());
+    public Builder addImageType(
+        com.example.shared.GrpcImageType.Builder builderForValue) {
+      if (imageTypeBuilder_ == null) {
+        ensureImageTypeIsMutable();
+        imageType_.add(builderForValue.build());
         onChanged();
       } else {
-        imageTypesBuilder_.addMessage(builderForValue.build());
+        imageTypeBuilder_.addMessage(builderForValue.build());
       }
       return this;
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public Builder addImageTypes(
-        int index, com.example.shared.GrpcImageTypes.Builder builderForValue) {
-      if (imageTypesBuilder_ == null) {
-        ensureImageTypesIsMutable();
-        imageTypes_.add(index, builderForValue.build());
+    public Builder addImageType(
+        int index, com.example.shared.GrpcImageType.Builder builderForValue) {
+      if (imageTypeBuilder_ == null) {
+        ensureImageTypeIsMutable();
+        imageType_.add(index, builderForValue.build());
         onChanged();
       } else {
-        imageTypesBuilder_.addMessage(index, builderForValue.build());
+        imageTypeBuilder_.addMessage(index, builderForValue.build());
       }
       return this;
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public Builder addAllImageTypes(
-        java.lang.Iterable<? extends com.example.shared.GrpcImageTypes> values) {
-      if (imageTypesBuilder_ == null) {
-        ensureImageTypesIsMutable();
+    public Builder addAllImageType(
+        java.lang.Iterable<? extends com.example.shared.GrpcImageType> values) {
+      if (imageTypeBuilder_ == null) {
+        ensureImageTypeIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, imageTypes_);
+            values, imageType_);
         onChanged();
       } else {
-        imageTypesBuilder_.addAllMessages(values);
+        imageTypeBuilder_.addAllMessages(values);
       }
       return this;
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public Builder clearImageTypes() {
-      if (imageTypesBuilder_ == null) {
-        imageTypes_ = java.util.Collections.emptyList();
+    public Builder clearImageType() {
+      if (imageTypeBuilder_ == null) {
+        imageType_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
       } else {
-        imageTypesBuilder_.clear();
+        imageTypeBuilder_.clear();
       }
       return this;
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public Builder removeImageTypes(int index) {
-      if (imageTypesBuilder_ == null) {
-        ensureImageTypesIsMutable();
-        imageTypes_.remove(index);
+    public Builder removeImageType(int index) {
+      if (imageTypeBuilder_ == null) {
+        ensureImageTypeIsMutable();
+        imageType_.remove(index);
         onChanged();
       } else {
-        imageTypesBuilder_.remove(index);
+        imageTypeBuilder_.remove(index);
       }
       return this;
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public com.example.shared.GrpcImageTypes.Builder getImageTypesBuilder(
+    public com.example.shared.GrpcImageType.Builder getImageTypeBuilder(
         int index) {
-      return getImageTypesFieldBuilder().getBuilder(index);
+      return getImageTypeFieldBuilder().getBuilder(index);
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public com.example.shared.GrpcImageTypesOrBuilder getImageTypesOrBuilder(
+    public com.example.shared.GrpcImageTypeOrBuilder getImageTypeOrBuilder(
         int index) {
-      if (imageTypesBuilder_ == null) {
-        return imageTypes_.get(index);  } else {
-        return imageTypesBuilder_.getMessageOrBuilder(index);
+      if (imageTypeBuilder_ == null) {
+        return imageType_.get(index);  } else {
+        return imageTypeBuilder_.getMessageOrBuilder(index);
       }
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public java.util.List<? extends com.example.shared.GrpcImageTypesOrBuilder> 
-         getImageTypesOrBuilderList() {
-      if (imageTypesBuilder_ != null) {
-        return imageTypesBuilder_.getMessageOrBuilderList();
+    public java.util.List<? extends com.example.shared.GrpcImageTypeOrBuilder> 
+         getImageTypeOrBuilderList() {
+      if (imageTypeBuilder_ != null) {
+        return imageTypeBuilder_.getMessageOrBuilderList();
       } else {
-        return java.util.Collections.unmodifiableList(imageTypes_);
+        return java.util.Collections.unmodifiableList(imageType_);
       }
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public com.example.shared.GrpcImageTypes.Builder addImageTypesBuilder() {
-      return getImageTypesFieldBuilder().addBuilder(
-          com.example.shared.GrpcImageTypes.getDefaultInstance());
+    public com.example.shared.GrpcImageType.Builder addImageTypeBuilder() {
+      return getImageTypeFieldBuilder().addBuilder(
+          com.example.shared.GrpcImageType.getDefaultInstance());
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public com.example.shared.GrpcImageTypes.Builder addImageTypesBuilder(
+    public com.example.shared.GrpcImageType.Builder addImageTypeBuilder(
         int index) {
-      return getImageTypesFieldBuilder().addBuilder(
-          index, com.example.shared.GrpcImageTypes.getDefaultInstance());
+      return getImageTypeFieldBuilder().addBuilder(
+          index, com.example.shared.GrpcImageType.getDefaultInstance());
     }
     /**
-     * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+     * <code>repeated .GrpcImageType imageType = 2;</code>
      */
-    public java.util.List<com.example.shared.GrpcImageTypes.Builder> 
-         getImageTypesBuilderList() {
-      return getImageTypesFieldBuilder().getBuilderList();
+    public java.util.List<com.example.shared.GrpcImageType.Builder> 
+         getImageTypeBuilderList() {
+      return getImageTypeFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        com.example.shared.GrpcImageTypes, com.example.shared.GrpcImageTypes.Builder, com.example.shared.GrpcImageTypesOrBuilder> 
-        getImageTypesFieldBuilder() {
-      if (imageTypesBuilder_ == null) {
-        imageTypesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            com.example.shared.GrpcImageTypes, com.example.shared.GrpcImageTypes.Builder, com.example.shared.GrpcImageTypesOrBuilder>(
-                imageTypes_,
+        com.example.shared.GrpcImageType, com.example.shared.GrpcImageType.Builder, com.example.shared.GrpcImageTypeOrBuilder> 
+        getImageTypeFieldBuilder() {
+      if (imageTypeBuilder_ == null) {
+        imageTypeBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+            com.example.shared.GrpcImageType, com.example.shared.GrpcImageType.Builder, com.example.shared.GrpcImageTypeOrBuilder>(
+                imageType_,
                 ((bitField0_ & 0x00000001) != 0),
                 getParentForChildren(),
                 isClean());
-        imageTypes_ = null;
+        imageType_ = null;
       }
-      return imageTypesBuilder_;
+      return imageTypeBuilder_;
     }
     @java.lang.Override
     public final Builder setUnknownFields(

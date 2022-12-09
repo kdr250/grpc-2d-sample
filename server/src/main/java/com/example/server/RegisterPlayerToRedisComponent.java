@@ -1,5 +1,7 @@
 package com.example.server;
 
+import com.example.shared.AddEvent;
+import com.example.shared.GrpcImageType;
 import com.example.shared.GrpcLocation;
 import com.example.shared.GrpcPlayer;
 import com.example.shared.MoveEvent;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -55,8 +58,26 @@ public class RegisterPlayerToRedisComponent {
       Integer locationY = (Integer)map.get("locationY");
       GrpcLocation grpcLocation = GrpcLocation.newBuilder().setX(locationX).setY(locationY).build();
       GrpcPlayer grpcPlayer = GrpcPlayer.newBuilder().setId(id).setName(name).setLocation(grpcLocation).build();
-      MoveEvent moveEvent = MoveEvent.newBuilder().setOtherPlayer(grpcPlayer).build();
-      return PlayerSyncResponse.newBuilder().setMoveEvent(moveEvent).build();
+
+      return otherPlayerIdList.contains(id) ?
+        PlayerSyncResponse.newBuilder().setMoveEvent(moveEvent(grpcPlayer)).build() :
+        PlayerSyncResponse.newBuilder().setAddEvent(addEvent(grpcPlayer)).build();
+
     }).collect(Collectors.toList());
+  }
+
+  private MoveEvent moveEvent(GrpcPlayer grpcPlayer) {
+    return MoveEvent.newBuilder().setOtherPlayer(grpcPlayer).build();
+  }
+
+  private AddEvent addEvent(GrpcPlayer grpcPlayer) {
+    HashOperations<String, String, String> stringHashOperations = stringRedisTemplate.opsForHash();
+    PlayerImageType playerImageType = new Random().nextBoolean() ? PlayerImageType.BOY : PlayerImageType.OLD_MAN;
+    List<GrpcImageType> imageTypes = new ArrayList<>();
+    stringHashOperations.entries(playerImageType.name()).forEach((key, value) -> {
+      GrpcImageType grpcImageType = GrpcImageType.newBuilder().setName(key).setBase64Image(value).build();
+      imageTypes.add(grpcImageType);
+    });
+    return AddEvent.newBuilder().setOtherPlayer(grpcPlayer).addAllImageType(imageTypes).build();
   }
 }

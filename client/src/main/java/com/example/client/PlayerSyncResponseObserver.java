@@ -1,5 +1,7 @@
 package com.example.client;
 
+import com.example.shared.AddEvent;
+import com.example.shared.GrpcImageType;
 import com.example.shared.GrpcLocation;
 import com.example.shared.GrpcPlayer;
 import com.example.shared.MoveEvent;
@@ -23,10 +25,21 @@ public class PlayerSyncResponseObserver implements StreamObserver<PlayerSyncResp
 
   @Override
   public void onNext(PlayerSyncResponse value) {
-    MoveEvent moveEvent = value.getMoveEvent();
-    GrpcPlayer otherGrpcPlayer = moveEvent.getOtherPlayer();
-    OtherPlayer otherPlayer = convert(otherGrpcPlayer);
-    otherPlayers.moveOrAdd(otherPlayer);
+    if (value.hasMoveEvent()) {
+      MoveEvent moveEvent = value.getMoveEvent();
+      GrpcPlayer otherGrpcPlayer = moveEvent.getOtherPlayer();
+      OtherPlayer otherPlayer = convert(otherGrpcPlayer);
+      otherPlayers.moveOrAdd(otherPlayer);
+      return;
+    }
+    if (value.hasAddEvent()) {
+      AddEvent addEvent = value.getAddEvent();
+      GrpcPlayer otherGrpcPlayer = addEvent.getOtherPlayer();
+      List<GrpcImageType> grpcImageTypes = addEvent.getImageTypeList();
+      // TODO: 画像をアニメーションに変換すること
+      OtherPlayer otherPlayer = convert(otherGrpcPlayer);
+      otherPlayers.moveOrAdd(otherPlayer);
+    }
   }
 
   @Override

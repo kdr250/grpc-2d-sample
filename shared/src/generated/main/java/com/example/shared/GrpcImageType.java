@@ -4,18 +4,18 @@
 package com.example.shared;
 
 /**
- * Protobuf type {@code GrpcImageTypes}
+ * Protobuf type {@code GrpcImageType}
  */
-public final class GrpcImageTypes extends
+public final class GrpcImageType extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:GrpcImageTypes)
-    GrpcImageTypesOrBuilder {
+    // @@protoc_insertion_point(message_implements:GrpcImageType)
+    GrpcImageTypeOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use GrpcImageTypes.newBuilder() to construct.
-  private GrpcImageTypes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use GrpcImageType.newBuilder() to construct.
+  private GrpcImageType(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private GrpcImageTypes() {
+  private GrpcImageType() {
     name_ = "";
     base64Image_ = "";
   }
@@ -24,7 +24,7 @@ private static final long serialVersionUID = 0L;
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new GrpcImageTypes();
+    return new GrpcImageType();
   }
 
   @java.lang.Override
@@ -32,7 +32,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private GrpcImageTypes(
+  private GrpcImageType(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -83,15 +83,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.example.shared.PlayerProto.internal_static_GrpcImageTypes_descriptor;
+    return com.example.shared.PlayerProto.internal_static_GrpcImageType_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.example.shared.PlayerProto.internal_static_GrpcImageTypes_fieldAccessorTable
+    return com.example.shared.PlayerProto.internal_static_GrpcImageType_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.example.shared.GrpcImageTypes.class, com.example.shared.GrpcImageTypes.Builder.class);
+            com.example.shared.GrpcImageType.class, com.example.shared.GrpcImageType.Builder.class);
   }
 
   public static final int NAME_FIELD_NUMBER = 1;
@@ -215,10 +215,10 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.example.shared.GrpcImageTypes)) {
+    if (!(obj instanceof com.example.shared.GrpcImageType)) {
       return super.equals(obj);
     }
-    com.example.shared.GrpcImageTypes other = (com.example.shared.GrpcImageTypes) obj;
+    com.example.shared.GrpcImageType other = (com.example.shared.GrpcImageType) obj;
 
     if (!getName()
         .equals(other.getName())) return false;
@@ -244,69 +244,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static com.example.shared.GrpcImageTypes parseFrom(
+  public static com.example.shared.GrpcImageType parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.shared.GrpcImageTypes parseFrom(
+  public static com.example.shared.GrpcImageType parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.shared.GrpcImageTypes parseFrom(
+  public static com.example.shared.GrpcImageType parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.shared.GrpcImageTypes parseFrom(
+  public static com.example.shared.GrpcImageType parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.shared.GrpcImageTypes parseFrom(byte[] data)
+  public static com.example.shared.GrpcImageType parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.shared.GrpcImageTypes parseFrom(
+  public static com.example.shared.GrpcImageType parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.shared.GrpcImageTypes parseFrom(java.io.InputStream input)
+  public static com.example.shared.GrpcImageType parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.example.shared.GrpcImageTypes parseFrom(
+  public static com.example.shared.GrpcImageType parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.example.shared.GrpcImageTypes parseDelimitedFrom(java.io.InputStream input)
+  public static com.example.shared.GrpcImageType parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.example.shared.GrpcImageTypes parseDelimitedFrom(
+  public static com.example.shared.GrpcImageType parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.example.shared.GrpcImageTypes parseFrom(
+  public static com.example.shared.GrpcImageType parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.example.shared.GrpcImageTypes parseFrom(
+  public static com.example.shared.GrpcImageType parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -319,7 +319,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.example.shared.GrpcImageTypes prototype) {
+  public static Builder newBuilder(com.example.shared.GrpcImageType prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -335,26 +335,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code GrpcImageTypes}
+   * Protobuf type {@code GrpcImageType}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:GrpcImageTypes)
-      com.example.shared.GrpcImageTypesOrBuilder {
+      // @@protoc_insertion_point(builder_implements:GrpcImageType)
+      com.example.shared.GrpcImageTypeOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.example.shared.PlayerProto.internal_static_GrpcImageTypes_descriptor;
+      return com.example.shared.PlayerProto.internal_static_GrpcImageType_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.example.shared.PlayerProto.internal_static_GrpcImageTypes_fieldAccessorTable
+      return com.example.shared.PlayerProto.internal_static_GrpcImageType_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.example.shared.GrpcImageTypes.class, com.example.shared.GrpcImageTypes.Builder.class);
+              com.example.shared.GrpcImageType.class, com.example.shared.GrpcImageType.Builder.class);
     }
 
-    // Construct using com.example.shared.GrpcImageTypes.newBuilder()
+    // Construct using com.example.shared.GrpcImageType.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -382,17 +382,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.example.shared.PlayerProto.internal_static_GrpcImageTypes_descriptor;
+      return com.example.shared.PlayerProto.internal_static_GrpcImageType_descriptor;
     }
 
     @java.lang.Override
-    public com.example.shared.GrpcImageTypes getDefaultInstanceForType() {
-      return com.example.shared.GrpcImageTypes.getDefaultInstance();
+    public com.example.shared.GrpcImageType getDefaultInstanceForType() {
+      return com.example.shared.GrpcImageType.getDefaultInstance();
     }
 
     @java.lang.Override
-    public com.example.shared.GrpcImageTypes build() {
-      com.example.shared.GrpcImageTypes result = buildPartial();
+    public com.example.shared.GrpcImageType build() {
+      com.example.shared.GrpcImageType result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -400,8 +400,8 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public com.example.shared.GrpcImageTypes buildPartial() {
-      com.example.shared.GrpcImageTypes result = new com.example.shared.GrpcImageTypes(this);
+    public com.example.shared.GrpcImageType buildPartial() {
+      com.example.shared.GrpcImageType result = new com.example.shared.GrpcImageType(this);
       result.name_ = name_;
       result.base64Image_ = base64Image_;
       onBuilt();
@@ -442,16 +442,16 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.example.shared.GrpcImageTypes) {
-        return mergeFrom((com.example.shared.GrpcImageTypes)other);
+      if (other instanceof com.example.shared.GrpcImageType) {
+        return mergeFrom((com.example.shared.GrpcImageType)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.example.shared.GrpcImageTypes other) {
-      if (other == com.example.shared.GrpcImageTypes.getDefaultInstance()) return this;
+    public Builder mergeFrom(com.example.shared.GrpcImageType other) {
+      if (other == com.example.shared.GrpcImageType.getDefaultInstance()) return this;
       if (!other.getName().isEmpty()) {
         name_ = other.name_;
         onChanged();
@@ -475,11 +475,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.example.shared.GrpcImageTypes parsedMessage = null;
+      com.example.shared.GrpcImageType parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.example.shared.GrpcImageTypes) e.getUnfinishedMessage();
+        parsedMessage = (com.example.shared.GrpcImageType) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -653,41 +653,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:GrpcImageTypes)
+    // @@protoc_insertion_point(builder_scope:GrpcImageType)
   }
 
-  // @@protoc_insertion_point(class_scope:GrpcImageTypes)
-  private static final com.example.shared.GrpcImageTypes DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:GrpcImageType)
+  private static final com.example.shared.GrpcImageType DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.example.shared.GrpcImageTypes();
+    DEFAULT_INSTANCE = new com.example.shared.GrpcImageType();
   }
 
-  public static com.example.shared.GrpcImageTypes getDefaultInstance() {
+  public static com.example.shared.GrpcImageType getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<GrpcImageTypes>
-      PARSER = new com.google.protobuf.AbstractParser<GrpcImageTypes>() {
+  private static final com.google.protobuf.Parser<GrpcImageType>
+      PARSER = new com.google.protobuf.AbstractParser<GrpcImageType>() {
     @java.lang.Override
-    public GrpcImageTypes parsePartialFrom(
+    public GrpcImageType parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new GrpcImageTypes(input, extensionRegistry);
+      return new GrpcImageType(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<GrpcImageTypes> parser() {
+  public static com.google.protobuf.Parser<GrpcImageType> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<GrpcImageTypes> getParserForType() {
+  public com.google.protobuf.Parser<GrpcImageType> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.example.shared.GrpcImageTypes getDefaultInstanceForType() {
+  public com.example.shared.GrpcImageType getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

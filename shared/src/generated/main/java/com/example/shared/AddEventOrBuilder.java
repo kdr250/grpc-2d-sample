@@ -23,26 +23,26 @@ public interface AddEventOrBuilder extends
   com.example.shared.GrpcPlayerOrBuilder getOtherPlayerOrBuilder();
 
   /**
-   * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+   * <code>repeated .GrpcImageType imageType = 2;</code>
    */
-  java.util.List<com.example.shared.GrpcImageTypes> 
-      getImageTypesList();
+  java.util.List<com.example.shared.GrpcImageType> 
+      getImageTypeList();
   /**
-   * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+   * <code>repeated .GrpcImageType imageType = 2;</code>
    */
-  com.example.shared.GrpcImageTypes getImageTypes(int index);
+  com.example.shared.GrpcImageType getImageType(int index);
   /**
-   * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+   * <code>repeated .GrpcImageType imageType = 2;</code>
    */
-  int getImageTypesCount();
+  int getImageTypeCount();
   /**
-   * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+   * <code>repeated .GrpcImageType imageType = 2;</code>
    */
-  java.util.List<? extends com.example.shared.GrpcImageTypesOrBuilder> 
-      getImageTypesOrBuilderList();
+  java.util.List<? extends com.example.shared.GrpcImageTypeOrBuilder> 
+      getImageTypeOrBuilderList();
   /**
-   * <code>repeated .GrpcImageTypes imageTypes = 2;</code>
+   * <code>repeated .GrpcImageType imageType = 2;</code>
    */
-  com.example.shared.GrpcImageTypesOrBuilder getImageTypesOrBuilder(
+  com.example.shared.GrpcImageTypeOrBuilder getImageTypeOrBuilder(
       int index);
 }

@@ -45,10 +45,10 @@ public final class PlayerProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_GrpcLocation_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_GrpcImageTypes_descriptor;
+    internal_static_GrpcImageType_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_GrpcImageTypes_fieldAccessorTable;
+      internal_static_GrpcImageType_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -62,17 +62,17 @@ public final class PlayerProto {
       "layer\030\001 \001(\0132\013.GrpcPlayer\022\031\n\021otherPlayerI" +
       "dList\030\002 \003(\t\"]\n\022PlayerSyncResponse\022\035\n\010add" +
       "Event\030\001 \001(\0132\t.AddEventH\000\022\037\n\tmoveEvent\030\002 " +
-      "\001(\0132\n.MoveEventH\000B\007\n\005event\"Q\n\010AddEvent\022 " +
-      "\n\013otherPlayer\030\001 \001(\0132\013.GrpcPlayer\022#\n\nimag" +
-      "eTypes\030\002 \003(\0132\017.GrpcImageTypes\"-\n\tMoveEve" +
-      "nt\022 \n\013otherPlayer\030\001 \001(\0132\013.GrpcPlayer\"G\n\n" +
-      "GrpcPlayer\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\037\n\010" +
-      "location\030\003 \001(\0132\r.GrpcLocation\"$\n\014GrpcLoc" +
-      "ation\022\t\n\001x\030\001 \001(\005\022\t\n\001y\030\002 \001(\005\"3\n\016GrpcImage" +
-      "Types\022\014\n\004name\030\001 \001(\t\022\023\n\013base64Image\030\002 \001(\t" +
-      "2=\n\006Player\0223\n\004Sync\022\022.PlayerSyncRequest\032\023" +
-      ".PlayerSyncResponse(\0010\001B#\n\022com.example.s" +
-      "haredB\013PlayerProtoP\001b\006proto3"
+      "\001(\0132\n.MoveEventH\000B\007\n\005event\"O\n\010AddEvent\022 " +
+      "\n\013otherPlayer\030\001 \001(\0132\013.GrpcPlayer\022!\n\timag" +
+      "eType\030\002 \003(\0132\016.GrpcImageType\"-\n\tMoveEvent" +
+      "\022 \n\013otherPlayer\030\001 \001(\0132\013.GrpcPlayer\"G\n\nGr" +
+      "pcPlayer\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\037\n\010lo" +
+      "cation\030\003 \001(\0132\r.GrpcLocation\"$\n\014GrpcLocat" +
+      "ion\022\t\n\001x\030\001 \001(\005\022\t\n\001y\030\002 \001(\005\"2\n\rGrpcImageTy" +
+      "pe\022\014\n\004name\030\001 \001(\t\022\023\n\013base64Image\030\002 \001(\t2=\n" +
+      "\006Player\0223\n\004Sync\022\022.PlayerSyncRequest\032\023.Pl" +
+      "ayerSyncResponse(\0010\001B#\n\022com.example.shar" +
+      "edB\013PlayerProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -95,7 +95,7 @@ public final class PlayerProto {
     internal_static_AddEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AddEvent_descriptor,
-        new java.lang.String[] { "OtherPlayer", "ImageTypes", });
+        new java.lang.String[] { "OtherPlayer", "ImageType", });
     internal_static_MoveEvent_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_MoveEvent_fieldAccessorTable = new
@@ -114,11 +114,11 @@ public final class PlayerProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_GrpcLocation_descriptor,
         new java.lang.String[] { "X", "Y", });
-    internal_static_GrpcImageTypes_descriptor =
+    internal_static_GrpcImageType_descriptor =
       getDescriptor().getMessageTypes().get(6);
-    internal_static_GrpcImageTypes_fieldAccessorTable = new
+    internal_static_GrpcImageType_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_GrpcImageTypes_descriptor,
+        internal_static_GrpcImageType_descriptor,
         new java.lang.String[] { "Name", "Base64Image", });
   }
 

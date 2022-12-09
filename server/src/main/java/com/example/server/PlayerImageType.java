@@ -1,5 +1,6 @@
 package com.example.server;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,19 +8,38 @@ public enum PlayerImageType {
   BOY("boy"),
   OLD_MAN("oldman");
 
-  private final String keyword;
+  private final String partOfFileName;
 
-  private static final List<String> variations = List.of("_down_1", "_down_2", "_left_1", "_left_2", "_right_1", "_right_2", "_up_1", "_up_2");
-
-  PlayerImageType(final String keyword) {
-    this.keyword = keyword;
+  PlayerImageType(final String partOfFileName) {
+    this.partOfFileName = partOfFileName;
   }
 
-  public String keyword() {
-    return keyword;
+  public String partOfFileName() {
+    return partOfFileName;
   }
 
-  public List<String> fileNameList(String fileExtension) {
-    return variations.stream().map(variation -> keyword + variation + "." + fileExtension).collect(Collectors.toList());
+  public String fileName(PlayerAnimationType playerAnimationType, String fileExtension) {
+    return partOfFileName + playerAnimationType.partOfFileName + "." + fileExtension;
+  }
+
+  public enum PlayerAnimationType {
+    UP_ONE("_up_1"),
+    UP_TWO("_up_2"),
+    DOWN_ONE("_down_1"),
+    DOWN_TWO("_down_2"),
+    LEFT_ONE("_left_1"),
+    LEFT_TWO("_left_2"),
+    RIGHT_ONE("_right_1"),
+    RIGHT_TWO("_right_2");
+
+    private final String partOfFileName;
+
+    PlayerAnimationType(final String partOfFileName) {
+      this.partOfFileName = partOfFileName;
+    }
+
+    public static List<String> partOfFileNameList() {
+      return Arrays.stream(values()).map(v -> v.partOfFileName).collect(Collectors.toList());
+    }
   }
 }

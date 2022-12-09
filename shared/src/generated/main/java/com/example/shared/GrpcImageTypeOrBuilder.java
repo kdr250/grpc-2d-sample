@@ -3,8 +3,8 @@
 
 package com.example.shared;
 
-public interface GrpcImageTypesOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:GrpcImageTypes)
+public interface GrpcImageTypeOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:GrpcImageType)
     com.google.protobuf.MessageOrBuilder {
 
   /**
