@@ -7,14 +7,28 @@ option java_package = "com.example.shared";
 option java_outer_classname = "PlayerProto";
 
 service Player {
+    rpc Initialize (GrpcPlayer) returns (AddEvent);
     rpc Sync (stream PlayerSyncRequest) returns (stream PlayerSyncResponse);
 }
 
 message PlayerSyncRequest {
     GrpcPlayer player = 1;
+    repeated string otherPlayerIdList = 2;
 }
 
 message PlayerSyncResponse {
+    oneof event {
+        AddEvent addEvent = 1;
+        MoveEvent moveEvent = 2;
+    }
+}
+
+message AddEvent {
+    GrpcPlayer otherPlayer = 1;
+    repeated GrpcImageType imageType = 2;
+}
+
+message MoveEvent {
     GrpcPlayer otherPlayer = 1;
 }
 
@@ -27,4 +41,9 @@ message GrpcPlayer {
 message GrpcLocation {
     int32 x = 1;
     int32 y = 2;
+}
+
+message GrpcImageType {
+    string name = 1;
+    string base64Image = 2;
 }

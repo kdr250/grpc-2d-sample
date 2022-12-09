@@ -1,6 +1,5 @@
 package com.example.server;
 
-import com.example.shared.GrpcPlayer;
 import com.example.shared.PlayerSyncRequest;
 import com.example.shared.PlayerSyncResponse;
 import io.grpc.stub.StreamObserver;
@@ -12,21 +11,20 @@ public class PlayerSyncRequestObserver implements StreamObserver<PlayerSyncReque
 
   private final StreamObserver<PlayerSyncResponse> playerSyncResponseStreamObserver;
 
-  private final Function<PlayerSyncRequest, List<GrpcPlayer>> playerGetFunction;
+  private final Function<PlayerSyncRequest, List<PlayerSyncResponse>> playerSyncFunction;
 
   public PlayerSyncRequestObserver(
     final StreamObserver<PlayerSyncResponse> playerSyncResponseStreamObserver,
-    final Function<PlayerSyncRequest, List<GrpcPlayer>> playerGetFunction
+    final Function<PlayerSyncRequest, List<PlayerSyncResponse>> playerSyncFunction
   ) {
     this.playerSyncResponseStreamObserver = playerSyncResponseStreamObserver;
-    this.playerGetFunction = playerGetFunction;
+    this.playerSyncFunction = playerSyncFunction;
   }
 
   @Override
   public void onNext(PlayerSyncRequest value) {
-    List<GrpcPlayer> otherPlayerList = playerGetFunction.apply(value);
-    for (GrpcPlayer other : otherPlayerList) {
-      PlayerSyncResponse response = PlayerSyncResponse.newBuilder().setOtherPlayer(other).build();
+    List<PlayerSyncResponse> responseList = playerSyncFunction.apply(value);
+    for (PlayerSyncResponse response : responseList) {
       playerSyncResponseStreamObserver.onNext(response);
     }
   }

@@ -30,6 +30,14 @@ public class Vector {
     return new Vector(length, 0);
   }
 
+  public Direction direction() {
+    if (x == 0 && y < 0) return Direction.UP;
+    if (x == 0 && y > 0) return Direction.DOWN;
+    if (x < 0 && y == 0) return Direction.LEFT;
+    if (x > 0 && y == 0) return Direction.RIGHT;
+    return Direction.NONE;
+  }
+
   public int getX() {
     return x;
   }

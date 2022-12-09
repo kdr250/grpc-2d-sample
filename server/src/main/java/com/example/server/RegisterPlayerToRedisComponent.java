@@ -1,16 +1,22 @@
 package com.example.server;
 
+import com.example.shared.AddEvent;
+import com.example.shared.GrpcImageType;
 import com.example.shared.GrpcLocation;
 import com.example.shared.GrpcPlayer;
+import com.example.shared.MoveEvent;
+import com.example.shared.PlayerSyncResponse;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -39,7 +45,7 @@ public class RegisterPlayerToRedisComponent {
     objectRedisTemplate.expire(worldId + "_player", 5, TimeUnit.SECONDS);
   }
 
-  public List<GrpcPlayer> get(String worldId, String playerId) {
+  public List<PlayerSyncResponse> get(String worldId, String playerId, List<String> otherPlayerIdList) {
     SetOperations<String, String> setOperations = stringRedisTemplate.opsForSet();
     HashOperations<String, String, Object> hashOperations = objectRedisTemplate.opsForHash();
     Set<String> playerIdList = setOperations.members(worldId + "_player");
@@ -52,7 +58,32 @@ public class RegisterPlayerToRedisComponent {
       Integer locationX = (Integer)map.get("locationX");
       Integer locationY = (Integer)map.get("locationY");
       GrpcLocation grpcLocation = GrpcLocation.newBuilder().setX(locationX).setY(locationY).build();
-      return GrpcPlayer.newBuilder().setId(id).setName(name).setLocation(grpcLocation).build();
+      GrpcPlayer grpcPlayer = GrpcPlayer.newBuilder().setId(id).setName(name).setLocation(grpcLocation).build();
+
+      return otherPlayerIdList.contains(id) ?
+        PlayerSyncResponse.newBuilder().setMoveEvent(moveEvent(grpcPlayer)).build() :
+        PlayerSyncResponse.newBuilder().setAddEvent(addEvent(grpcPlayer)).build();
+
     }).collect(Collectors.toList());
+  }
+
+  public AddEvent addEvent(GrpcPlayer grpcPlayer) {
+    ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
+    HashOperations<String, String, String> stringHashOperations = stringRedisTemplate.opsForHash();
+    if (Boolean.FALSE.equals(stringRedisTemplate.hasKey("image_" + grpcPlayer.getId()))) {
+      PlayerImageType playerImageType = new Random().nextBoolean() ? PlayerImageType.BOY : PlayerImageType.OLD_MAN;
+      valueOperations.set("image_" + grpcPlayer.getId(), playerImageType.name(), 5, TimeUnit.SECONDS);
+    }
+    PlayerImageType playerImageType = PlayerImageType.valueOf(valueOperations.get("image_" + grpcPlayer.getId()));
+    List<GrpcImageType> imageTypes = new ArrayList<>();
+    stringHashOperations.entries(playerImageType.name()).forEach((key, value) -> {
+      GrpcImageType grpcImageType = GrpcImageType.newBuilder().setName(key).setBase64Image(value).build();
+      imageTypes.add(grpcImageType);
+    });
+    return AddEvent.newBuilder().setOtherPlayer(grpcPlayer).addAllImageType(imageTypes).build();
+  }
+
+  private MoveEvent moveEvent(GrpcPlayer grpcPlayer) {
+    return MoveEvent.newBuilder().setOtherPlayer(grpcPlayer).build();
   }
 }

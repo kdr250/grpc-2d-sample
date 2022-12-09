@@ -16,6 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private PlayerSyncRequest() {
+    otherPlayerIdList_ = com.google.protobuf.LazyStringArrayList.EMPTY;
   }
 
   @java.lang.Override
@@ -38,6 +39,7 @@ private static final long serialVersionUID = 0L;
     if (extensionRegistry == null) {
       throw new java.lang.NullPointerException();
     }
+    int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
     try {
@@ -61,6 +63,15 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
+          case 18: {
+            java.lang.String s = input.readStringRequireUtf8();
+            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+              otherPlayerIdList_ = new com.google.protobuf.LazyStringArrayList();
+              mutable_bitField0_ |= 0x00000001;
+            }
+            otherPlayerIdList_.add(s);
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -76,6 +87,9 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
+      if (((mutable_bitField0_ & 0x00000001) != 0)) {
+        otherPlayerIdList_ = otherPlayerIdList_.getUnmodifiableView();
+      }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
     }
@@ -119,6 +133,41 @@ private static final long serialVersionUID = 0L;
     return getPlayer();
   }
 
+  public static final int OTHERPLAYERIDLIST_FIELD_NUMBER = 2;
+  private com.google.protobuf.LazyStringList otherPlayerIdList_;
+  /**
+   * <code>repeated string otherPlayerIdList = 2;</code>
+   * @return A list containing the otherPlayerIdList.
+   */
+  public com.google.protobuf.ProtocolStringList
+      getOtherPlayerIdListList() {
+    return otherPlayerIdList_;
+  }
+  /**
+   * <code>repeated string otherPlayerIdList = 2;</code>
+   * @return The count of otherPlayerIdList.
+   */
+  public int getOtherPlayerIdListCount() {
+    return otherPlayerIdList_.size();
+  }
+  /**
+   * <code>repeated string otherPlayerIdList = 2;</code>
+   * @param index The index of the element to return.
+   * @return The otherPlayerIdList at the given index.
+   */
+  public java.lang.String getOtherPlayerIdList(int index) {
+    return otherPlayerIdList_.get(index);
+  }
+  /**
+   * <code>repeated string otherPlayerIdList = 2;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the otherPlayerIdList at the given index.
+   */
+  public com.google.protobuf.ByteString
+      getOtherPlayerIdListBytes(int index) {
+    return otherPlayerIdList_.getByteString(index);
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -136,6 +185,9 @@ private static final long serialVersionUID = 0L;
     if (player_ != null) {
       output.writeMessage(1, getPlayer());
     }
+    for (int i = 0; i < otherPlayerIdList_.size(); i++) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, otherPlayerIdList_.getRaw(i));
+    }
     unknownFields.writeTo(output);
   }
 
@@ -148,6 +200,14 @@ private static final long serialVersionUID = 0L;
     if (player_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(1, getPlayer());
+    }
+    {
+      int dataSize = 0;
+      for (int i = 0; i < otherPlayerIdList_.size(); i++) {
+        dataSize += computeStringSizeNoTag(otherPlayerIdList_.getRaw(i));
+      }
+      size += dataSize;
+      size += 1 * getOtherPlayerIdListList().size();
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -169,6 +229,8 @@ private static final long serialVersionUID = 0L;
       if (!getPlayer()
           .equals(other.getPlayer())) return false;
     }
+    if (!getOtherPlayerIdListList()
+        .equals(other.getOtherPlayerIdListList())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -183,6 +245,10 @@ private static final long serialVersionUID = 0L;
     if (hasPlayer()) {
       hash = (37 * hash) + PLAYER_FIELD_NUMBER;
       hash = (53 * hash) + getPlayer().hashCode();
+    }
+    if (getOtherPlayerIdListCount() > 0) {
+      hash = (37 * hash) + OTHERPLAYERIDLIST_FIELD_NUMBER;
+      hash = (53 * hash) + getOtherPlayerIdListList().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -323,6 +389,8 @@ private static final long serialVersionUID = 0L;
         player_ = null;
         playerBuilder_ = null;
       }
+      otherPlayerIdList_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      bitField0_ = (bitField0_ & ~0x00000001);
       return this;
     }
 
@@ -349,11 +417,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.example.shared.PlayerSyncRequest buildPartial() {
       com.example.shared.PlayerSyncRequest result = new com.example.shared.PlayerSyncRequest(this);
+      int from_bitField0_ = bitField0_;
       if (playerBuilder_ == null) {
         result.player_ = player_;
       } else {
         result.player_ = playerBuilder_.build();
       }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        otherPlayerIdList_ = otherPlayerIdList_.getUnmodifiableView();
+        bitField0_ = (bitField0_ & ~0x00000001);
+      }
+      result.otherPlayerIdList_ = otherPlayerIdList_;
       onBuilt();
       return result;
     }
@@ -405,6 +479,16 @@ private static final long serialVersionUID = 0L;
       if (other.hasPlayer()) {
         mergePlayer(other.getPlayer());
       }
+      if (!other.otherPlayerIdList_.isEmpty()) {
+        if (otherPlayerIdList_.isEmpty()) {
+          otherPlayerIdList_ = other.otherPlayerIdList_;
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          ensureOtherPlayerIdListIsMutable();
+          otherPlayerIdList_.addAll(other.otherPlayerIdList_);
+        }
+        onChanged();
+      }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
@@ -433,6 +517,7 @@ private static final long serialVersionUID = 0L;
       }
       return this;
     }
+    private int bitField0_;
 
     private com.example.shared.GrpcPlayer player_;
     private com.google.protobuf.SingleFieldBuilderV3<
@@ -551,6 +636,116 @@ private static final long serialVersionUID = 0L;
         player_ = null;
       }
       return playerBuilder_;
+    }
+
+    private com.google.protobuf.LazyStringList otherPlayerIdList_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    private void ensureOtherPlayerIdListIsMutable() {
+      if (!((bitField0_ & 0x00000001) != 0)) {
+        otherPlayerIdList_ = new com.google.protobuf.LazyStringArrayList(otherPlayerIdList_);
+        bitField0_ |= 0x00000001;
+       }
+    }
+    /**
+     * <code>repeated string otherPlayerIdList = 2;</code>
+     * @return A list containing the otherPlayerIdList.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getOtherPlayerIdListList() {
+      return otherPlayerIdList_.getUnmodifiableView();
+    }
+    /**
+     * <code>repeated string otherPlayerIdList = 2;</code>
+     * @return The count of otherPlayerIdList.
+     */
+    public int getOtherPlayerIdListCount() {
+      return otherPlayerIdList_.size();
+    }
+    /**
+     * <code>repeated string otherPlayerIdList = 2;</code>
+     * @param index The index of the element to return.
+     * @return The otherPlayerIdList at the given index.
+     */
+    public java.lang.String getOtherPlayerIdList(int index) {
+      return otherPlayerIdList_.get(index);
+    }
+    /**
+     * <code>repeated string otherPlayerIdList = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the otherPlayerIdList at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getOtherPlayerIdListBytes(int index) {
+      return otherPlayerIdList_.getByteString(index);
+    }
+    /**
+     * <code>repeated string otherPlayerIdList = 2;</code>
+     * @param index The index to set the value at.
+     * @param value The otherPlayerIdList to set.
+     * @return This builder for chaining.
+     */
+    public Builder setOtherPlayerIdList(
+        int index, java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureOtherPlayerIdListIsMutable();
+      otherPlayerIdList_.set(index, value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string otherPlayerIdList = 2;</code>
+     * @param value The otherPlayerIdList to add.
+     * @return This builder for chaining.
+     */
+    public Builder addOtherPlayerIdList(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureOtherPlayerIdListIsMutable();
+      otherPlayerIdList_.add(value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string otherPlayerIdList = 2;</code>
+     * @param values The otherPlayerIdList to add.
+     * @return This builder for chaining.
+     */
+    public Builder addAllOtherPlayerIdList(
+        java.lang.Iterable<java.lang.String> values) {
+      ensureOtherPlayerIdListIsMutable();
+      com.google.protobuf.AbstractMessageLite.Builder.addAll(
+          values, otherPlayerIdList_);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string otherPlayerIdList = 2;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearOtherPlayerIdList() {
+      otherPlayerIdList_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      bitField0_ = (bitField0_ & ~0x00000001);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string otherPlayerIdList = 2;</code>
+     * @param value The bytes of the otherPlayerIdList to add.
+     * @return This builder for chaining.
+     */
+    public Builder addOtherPlayerIdListBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      ensureOtherPlayerIdListIsMutable();
+      otherPlayerIdList_.add(value);
+      onChanged();
+      return this;
     }
     @java.lang.Override
     public final Builder setUnknownFields(

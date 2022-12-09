@@ -21,4 +21,29 @@ public interface PlayerSyncRequestOrBuilder extends
    * <code>.GrpcPlayer player = 1;</code>
    */
   com.example.shared.GrpcPlayerOrBuilder getPlayerOrBuilder();
+
+  /**
+   * <code>repeated string otherPlayerIdList = 2;</code>
+   * @return A list containing the otherPlayerIdList.
+   */
+  java.util.List<java.lang.String>
+      getOtherPlayerIdListList();
+  /**
+   * <code>repeated string otherPlayerIdList = 2;</code>
+   * @return The count of otherPlayerIdList.
+   */
+  int getOtherPlayerIdListCount();
+  /**
+   * <code>repeated string otherPlayerIdList = 2;</code>
+   * @param index The index of the element to return.
+   * @return The otherPlayerIdList at the given index.
+   */
+  java.lang.String getOtherPlayerIdList(int index);
+  /**
+   * <code>repeated string otherPlayerIdList = 2;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the otherPlayerIdList at the given index.
+   */
+  com.google.protobuf.ByteString
+      getOtherPlayerIdListBytes(int index);
 }

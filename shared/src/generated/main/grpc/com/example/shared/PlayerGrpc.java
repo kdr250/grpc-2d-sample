@@ -15,6 +15,37 @@ public final class PlayerGrpc {
   public static final String SERVICE_NAME = "Player";
 
   // Static method descriptors that strictly reflect the proto.
+  private static volatile io.grpc.MethodDescriptor<com.example.shared.GrpcPlayer,
+      com.example.shared.AddEvent> getInitializeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "Initialize",
+      requestType = com.example.shared.GrpcPlayer.class,
+      responseType = com.example.shared.AddEvent.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.example.shared.GrpcPlayer,
+      com.example.shared.AddEvent> getInitializeMethod() {
+    io.grpc.MethodDescriptor<com.example.shared.GrpcPlayer, com.example.shared.AddEvent> getInitializeMethod;
+    if ((getInitializeMethod = PlayerGrpc.getInitializeMethod) == null) {
+      synchronized (PlayerGrpc.class) {
+        if ((getInitializeMethod = PlayerGrpc.getInitializeMethod) == null) {
+          PlayerGrpc.getInitializeMethod = getInitializeMethod =
+              io.grpc.MethodDescriptor.<com.example.shared.GrpcPlayer, com.example.shared.AddEvent>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Initialize"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.shared.GrpcPlayer.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.shared.AddEvent.getDefaultInstance()))
+              .setSchemaDescriptor(new PlayerMethodDescriptorSupplier("Initialize"))
+              .build();
+        }
+      }
+    }
+    return getInitializeMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.example.shared.PlayerSyncRequest,
       com.example.shared.PlayerSyncResponse> getSyncMethod;
 
@@ -96,6 +127,13 @@ public final class PlayerGrpc {
 
     /**
      */
+    public void initialize(com.example.shared.GrpcPlayer request,
+        io.grpc.stub.StreamObserver<com.example.shared.AddEvent> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getInitializeMethod(), responseObserver);
+    }
+
+    /**
+     */
     public io.grpc.stub.StreamObserver<com.example.shared.PlayerSyncRequest> sync(
         io.grpc.stub.StreamObserver<com.example.shared.PlayerSyncResponse> responseObserver) {
       return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getSyncMethod(), responseObserver);
@@ -103,6 +141,13 @@ public final class PlayerGrpc {
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+          .addMethod(
+            getInitializeMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                com.example.shared.GrpcPlayer,
+                com.example.shared.AddEvent>(
+                  this, METHODID_INITIALIZE)))
           .addMethod(
             getSyncMethod(),
             io.grpc.stub.ServerCalls.asyncBidiStreamingCall(
@@ -130,6 +175,14 @@ public final class PlayerGrpc {
 
     /**
      */
+    public void initialize(com.example.shared.GrpcPlayer request,
+        io.grpc.stub.StreamObserver<com.example.shared.AddEvent> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getInitializeMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public io.grpc.stub.StreamObserver<com.example.shared.PlayerSyncRequest> sync(
         io.grpc.stub.StreamObserver<com.example.shared.PlayerSyncResponse> responseObserver) {
       return io.grpc.stub.ClientCalls.asyncBidiStreamingCall(
@@ -150,6 +203,13 @@ public final class PlayerGrpc {
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new PlayerBlockingStub(channel, callOptions);
     }
+
+    /**
+     */
+    public com.example.shared.AddEvent initialize(com.example.shared.GrpcPlayer request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getInitializeMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -165,9 +225,18 @@ public final class PlayerGrpc {
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new PlayerFutureStub(channel, callOptions);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.example.shared.AddEvent> initialize(
+        com.example.shared.GrpcPlayer request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getInitializeMethod(), getCallOptions()), request);
+    }
   }
 
-  private static final int METHODID_SYNC = 0;
+  private static final int METHODID_INITIALIZE = 0;
+  private static final int METHODID_SYNC = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -186,6 +255,10 @@ public final class PlayerGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_INITIALIZE:
+          serviceImpl.initialize((com.example.shared.GrpcPlayer) request,
+              (io.grpc.stub.StreamObserver<com.example.shared.AddEvent>) responseObserver);
+          break;
         default:
           throw new AssertionError();
       }
@@ -250,6 +323,7 @@ public final class PlayerGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new PlayerFileDescriptorSupplier())
+              .addMethod(getInitializeMethod())
               .addMethod(getSyncMethod())
               .build();
         }

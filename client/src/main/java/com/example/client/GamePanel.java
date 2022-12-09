@@ -20,6 +20,8 @@ public class GamePanel extends JPanel implements Runnable {
   public static final int screenCenterX = screenWidth / 2;
   public static final int screenCenterY = screenHeight / 2;
 
+  Font arial15 = new Font("Arial", Font.BOLD, 15);
+
   // FPS設定
   private static final int FPS = 60;
   public static final double DRAW_INTERVAL = 1000000000 / FPS;
@@ -107,6 +109,9 @@ public class GamePanel extends JPanel implements Runnable {
   private void draw(Graphics2D g2) {
     if (worldMap == null) return;
 
+    g2.setFont(arial15);
+    g2.setColor(Color.black);
+
     Player player = playerService.player();
 
     // タイル
@@ -119,19 +124,23 @@ public class GamePanel extends JPanel implements Runnable {
       }
     }
 
-    // プレイヤー1
-    g2.setColor(Color.white);
-    g2.fillRect(screenCenterX, screenCenterY, Tile.TILE_SIZE, Tile.TILE_SIZE);
+    // プレイヤー
+    if (player.isAnimationReady()) {
+      g2.drawString(player.name(), GamePanel.screenCenterX + 5, GamePanel.screenCenterY - 15);
+      g2.drawImage(player.getAnimatedImage(), GamePanel.screenCenterX, GamePanel.screenCenterY, null);
+    }
 
     OtherPlayers otherPlayers = playerService.otherPlayers();
 
     otherPlayers.values().forEach(other -> {
-      g2.setColor(Color.green);
       Triple<Boolean, Integer, Integer> result = canDisplayAndDistanceFromPlayer(other.location(), player.location());
       if (Boolean.TRUE.equals(result.getLeft())) {
-        g2.fillRect(screenCenterX + result.getMiddle(), screenCenterY + result.getRight(), Tile.TILE_SIZE, Tile.TILE_SIZE);
+        g2.drawString(other.name(), GamePanel.screenCenterX + result.getMiddle() + 5, GamePanel.screenCenterY + result.getRight() - 15);
+        g2.drawImage(other.getAnimatedImage(), GamePanel.screenCenterX + result.getMiddle(), GamePanel.screenCenterY + result.getRight(), null);
       }
     });
+
+    g2.dispose();
   }
 
   private Triple<Boolean, Integer, Integer> canDisplayAndDistanceFromPlayer(Location location, Location playerLocation) {

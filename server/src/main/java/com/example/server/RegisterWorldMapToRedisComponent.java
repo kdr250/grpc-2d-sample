@@ -3,6 +3,8 @@ package com.example.server;
 import com.example.shared.GrpcTile;
 import com.example.shared.GrpcWorldMap;
 import org.apache.commons.io.FileUtils;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.util.Pair;
@@ -35,6 +37,7 @@ public class RegisterWorldMapToRedisComponent {
   @PostConstruct
   public void init() {
     ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+    HashOperations<String, String, String> hashOperations = redisTemplate.opsForHash();
     List<Pair<String, String>> worldMapList = new ArrayList<>();
 
     try {
@@ -60,6 +63,20 @@ public class RegisterWorldMapToRedisComponent {
         }
       } catch (Exception e) {
         throw new RuntimeException(e);
+      }
+    }
+
+    for (PlayerImageType playerImageType : PlayerImageType.values()) {
+      for (PlayerImageType.PlayerAnimationType animationType : PlayerImageType.PlayerAnimationType.values()) {
+        String filename = playerImageType.fileName(animationType, "png");
+        try {
+          File imageFile = ResourceUtils.getFile("classpath:image/player/" + playerImageType.partOfFileName() + "/" + filename);
+          byte[] fileContent = FileUtils.readFileToByteArray(imageFile);
+          String encodedString = Base64.getEncoder().encodeToString(fileContent);
+          hashOperations.put(playerImageType.name(), animationType.name(), encodedString);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
       }
     }
   }

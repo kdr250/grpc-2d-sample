@@ -49,16 +49,31 @@ private static final long serialVersionUID = 0L;
             done = true;
             break;
           case 10: {
-            com.example.shared.GrpcPlayer.Builder subBuilder = null;
-            if (otherPlayer_ != null) {
-              subBuilder = otherPlayer_.toBuilder();
+            com.example.shared.AddEvent.Builder subBuilder = null;
+            if (eventCase_ == 1) {
+              subBuilder = ((com.example.shared.AddEvent) event_).toBuilder();
             }
-            otherPlayer_ = input.readMessage(com.example.shared.GrpcPlayer.parser(), extensionRegistry);
+            event_ =
+                input.readMessage(com.example.shared.AddEvent.parser(), extensionRegistry);
             if (subBuilder != null) {
-              subBuilder.mergeFrom(otherPlayer_);
-              otherPlayer_ = subBuilder.buildPartial();
+              subBuilder.mergeFrom((com.example.shared.AddEvent) event_);
+              event_ = subBuilder.buildPartial();
             }
-
+            eventCase_ = 1;
+            break;
+          }
+          case 18: {
+            com.example.shared.MoveEvent.Builder subBuilder = null;
+            if (eventCase_ == 2) {
+              subBuilder = ((com.example.shared.MoveEvent) event_).toBuilder();
+            }
+            event_ =
+                input.readMessage(com.example.shared.MoveEvent.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((com.example.shared.MoveEvent) event_);
+              event_ = subBuilder.buildPartial();
+            }
+            eventCase_ = 2;
             break;
           }
           default: {
@@ -93,30 +108,107 @@ private static final long serialVersionUID = 0L;
             com.example.shared.PlayerSyncResponse.class, com.example.shared.PlayerSyncResponse.Builder.class);
   }
 
-  public static final int OTHERPLAYER_FIELD_NUMBER = 1;
-  private com.example.shared.GrpcPlayer otherPlayer_;
+  private int eventCase_ = 0;
+  private java.lang.Object event_;
+  public enum EventCase
+      implements com.google.protobuf.Internal.EnumLite,
+          com.google.protobuf.AbstractMessage.InternalOneOfEnum {
+    ADDEVENT(1),
+    MOVEEVENT(2),
+    EVENT_NOT_SET(0);
+    private final int value;
+    private EventCase(int value) {
+      this.value = value;
+    }
+    /**
+     * @param value The number of the enum to look for.
+     * @return The enum associated with the given number.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static EventCase valueOf(int value) {
+      return forNumber(value);
+    }
+
+    public static EventCase forNumber(int value) {
+      switch (value) {
+        case 1: return ADDEVENT;
+        case 2: return MOVEEVENT;
+        case 0: return EVENT_NOT_SET;
+        default: return null;
+      }
+    }
+    public int getNumber() {
+      return this.value;
+    }
+  };
+
+  public EventCase
+  getEventCase() {
+    return EventCase.forNumber(
+        eventCase_);
+  }
+
+  public static final int ADDEVENT_FIELD_NUMBER = 1;
   /**
-   * <code>.GrpcPlayer otherPlayer = 1;</code>
-   * @return Whether the otherPlayer field is set.
+   * <code>.AddEvent addEvent = 1;</code>
+   * @return Whether the addEvent field is set.
    */
   @java.lang.Override
-  public boolean hasOtherPlayer() {
-    return otherPlayer_ != null;
+  public boolean hasAddEvent() {
+    return eventCase_ == 1;
   }
   /**
-   * <code>.GrpcPlayer otherPlayer = 1;</code>
-   * @return The otherPlayer.
+   * <code>.AddEvent addEvent = 1;</code>
+   * @return The addEvent.
    */
   @java.lang.Override
-  public com.example.shared.GrpcPlayer getOtherPlayer() {
-    return otherPlayer_ == null ? com.example.shared.GrpcPlayer.getDefaultInstance() : otherPlayer_;
+  public com.example.shared.AddEvent getAddEvent() {
+    if (eventCase_ == 1) {
+       return (com.example.shared.AddEvent) event_;
+    }
+    return com.example.shared.AddEvent.getDefaultInstance();
   }
   /**
-   * <code>.GrpcPlayer otherPlayer = 1;</code>
+   * <code>.AddEvent addEvent = 1;</code>
    */
   @java.lang.Override
-  public com.example.shared.GrpcPlayerOrBuilder getOtherPlayerOrBuilder() {
-    return getOtherPlayer();
+  public com.example.shared.AddEventOrBuilder getAddEventOrBuilder() {
+    if (eventCase_ == 1) {
+       return (com.example.shared.AddEvent) event_;
+    }
+    return com.example.shared.AddEvent.getDefaultInstance();
+  }
+
+  public static final int MOVEEVENT_FIELD_NUMBER = 2;
+  /**
+   * <code>.MoveEvent moveEvent = 2;</code>
+   * @return Whether the moveEvent field is set.
+   */
+  @java.lang.Override
+  public boolean hasMoveEvent() {
+    return eventCase_ == 2;
+  }
+  /**
+   * <code>.MoveEvent moveEvent = 2;</code>
+   * @return The moveEvent.
+   */
+  @java.lang.Override
+  public com.example.shared.MoveEvent getMoveEvent() {
+    if (eventCase_ == 2) {
+       return (com.example.shared.MoveEvent) event_;
+    }
+    return com.example.shared.MoveEvent.getDefaultInstance();
+  }
+  /**
+   * <code>.MoveEvent moveEvent = 2;</code>
+   */
+  @java.lang.Override
+  public com.example.shared.MoveEventOrBuilder getMoveEventOrBuilder() {
+    if (eventCase_ == 2) {
+       return (com.example.shared.MoveEvent) event_;
+    }
+    return com.example.shared.MoveEvent.getDefaultInstance();
   }
 
   private byte memoizedIsInitialized = -1;
@@ -133,8 +225,11 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (otherPlayer_ != null) {
-      output.writeMessage(1, getOtherPlayer());
+    if (eventCase_ == 1) {
+      output.writeMessage(1, (com.example.shared.AddEvent) event_);
+    }
+    if (eventCase_ == 2) {
+      output.writeMessage(2, (com.example.shared.MoveEvent) event_);
     }
     unknownFields.writeTo(output);
   }
@@ -145,9 +240,13 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (otherPlayer_ != null) {
+    if (eventCase_ == 1) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(1, getOtherPlayer());
+        .computeMessageSize(1, (com.example.shared.AddEvent) event_);
+    }
+    if (eventCase_ == 2) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(2, (com.example.shared.MoveEvent) event_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -164,10 +263,18 @@ private static final long serialVersionUID = 0L;
     }
     com.example.shared.PlayerSyncResponse other = (com.example.shared.PlayerSyncResponse) obj;
 
-    if (hasOtherPlayer() != other.hasOtherPlayer()) return false;
-    if (hasOtherPlayer()) {
-      if (!getOtherPlayer()
-          .equals(other.getOtherPlayer())) return false;
+    if (!getEventCase().equals(other.getEventCase())) return false;
+    switch (eventCase_) {
+      case 1:
+        if (!getAddEvent()
+            .equals(other.getAddEvent())) return false;
+        break;
+      case 2:
+        if (!getMoveEvent()
+            .equals(other.getMoveEvent())) return false;
+        break;
+      case 0:
+      default:
     }
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
@@ -180,9 +287,17 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    if (hasOtherPlayer()) {
-      hash = (37 * hash) + OTHERPLAYER_FIELD_NUMBER;
-      hash = (53 * hash) + getOtherPlayer().hashCode();
+    switch (eventCase_) {
+      case 1:
+        hash = (37 * hash) + ADDEVENT_FIELD_NUMBER;
+        hash = (53 * hash) + getAddEvent().hashCode();
+        break;
+      case 2:
+        hash = (37 * hash) + MOVEEVENT_FIELD_NUMBER;
+        hash = (53 * hash) + getMoveEvent().hashCode();
+        break;
+      case 0:
+      default:
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -317,12 +432,8 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      if (otherPlayerBuilder_ == null) {
-        otherPlayer_ = null;
-      } else {
-        otherPlayer_ = null;
-        otherPlayerBuilder_ = null;
-      }
+      eventCase_ = 0;
+      event_ = null;
       return this;
     }
 
@@ -349,11 +460,21 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.example.shared.PlayerSyncResponse buildPartial() {
       com.example.shared.PlayerSyncResponse result = new com.example.shared.PlayerSyncResponse(this);
-      if (otherPlayerBuilder_ == null) {
-        result.otherPlayer_ = otherPlayer_;
-      } else {
-        result.otherPlayer_ = otherPlayerBuilder_.build();
+      if (eventCase_ == 1) {
+        if (addEventBuilder_ == null) {
+          result.event_ = event_;
+        } else {
+          result.event_ = addEventBuilder_.build();
+        }
       }
+      if (eventCase_ == 2) {
+        if (moveEventBuilder_ == null) {
+          result.event_ = event_;
+        } else {
+          result.event_ = moveEventBuilder_.build();
+        }
+      }
+      result.eventCase_ = eventCase_;
       onBuilt();
       return result;
     }
@@ -402,8 +523,18 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.example.shared.PlayerSyncResponse other) {
       if (other == com.example.shared.PlayerSyncResponse.getDefaultInstance()) return this;
-      if (other.hasOtherPlayer()) {
-        mergeOtherPlayer(other.getOtherPlayer());
+      switch (other.getEventCase()) {
+        case ADDEVENT: {
+          mergeAddEvent(other.getAddEvent());
+          break;
+        }
+        case MOVEEVENT: {
+          mergeMoveEvent(other.getMoveEvent());
+          break;
+        }
+        case EVENT_NOT_SET: {
+          break;
+        }
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -433,124 +564,302 @@ private static final long serialVersionUID = 0L;
       }
       return this;
     }
+    private int eventCase_ = 0;
+    private java.lang.Object event_;
+    public EventCase
+        getEventCase() {
+      return EventCase.forNumber(
+          eventCase_);
+    }
 
-    private com.example.shared.GrpcPlayer otherPlayer_;
+    public Builder clearEvent() {
+      eventCase_ = 0;
+      event_ = null;
+      onChanged();
+      return this;
+    }
+
+
     private com.google.protobuf.SingleFieldBuilderV3<
-        com.example.shared.GrpcPlayer, com.example.shared.GrpcPlayer.Builder, com.example.shared.GrpcPlayerOrBuilder> otherPlayerBuilder_;
+        com.example.shared.AddEvent, com.example.shared.AddEvent.Builder, com.example.shared.AddEventOrBuilder> addEventBuilder_;
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
-     * @return Whether the otherPlayer field is set.
+     * <code>.AddEvent addEvent = 1;</code>
+     * @return Whether the addEvent field is set.
      */
-    public boolean hasOtherPlayer() {
-      return otherPlayerBuilder_ != null || otherPlayer_ != null;
+    @java.lang.Override
+    public boolean hasAddEvent() {
+      return eventCase_ == 1;
     }
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
-     * @return The otherPlayer.
+     * <code>.AddEvent addEvent = 1;</code>
+     * @return The addEvent.
      */
-    public com.example.shared.GrpcPlayer getOtherPlayer() {
-      if (otherPlayerBuilder_ == null) {
-        return otherPlayer_ == null ? com.example.shared.GrpcPlayer.getDefaultInstance() : otherPlayer_;
+    @java.lang.Override
+    public com.example.shared.AddEvent getAddEvent() {
+      if (addEventBuilder_ == null) {
+        if (eventCase_ == 1) {
+          return (com.example.shared.AddEvent) event_;
+        }
+        return com.example.shared.AddEvent.getDefaultInstance();
       } else {
-        return otherPlayerBuilder_.getMessage();
+        if (eventCase_ == 1) {
+          return addEventBuilder_.getMessage();
+        }
+        return com.example.shared.AddEvent.getDefaultInstance();
       }
     }
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
+     * <code>.AddEvent addEvent = 1;</code>
      */
-    public Builder setOtherPlayer(com.example.shared.GrpcPlayer value) {
-      if (otherPlayerBuilder_ == null) {
+    public Builder setAddEvent(com.example.shared.AddEvent value) {
+      if (addEventBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
         }
-        otherPlayer_ = value;
+        event_ = value;
         onChanged();
       } else {
-        otherPlayerBuilder_.setMessage(value);
+        addEventBuilder_.setMessage(value);
       }
-
+      eventCase_ = 1;
       return this;
     }
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
+     * <code>.AddEvent addEvent = 1;</code>
      */
-    public Builder setOtherPlayer(
-        com.example.shared.GrpcPlayer.Builder builderForValue) {
-      if (otherPlayerBuilder_ == null) {
-        otherPlayer_ = builderForValue.build();
+    public Builder setAddEvent(
+        com.example.shared.AddEvent.Builder builderForValue) {
+      if (addEventBuilder_ == null) {
+        event_ = builderForValue.build();
         onChanged();
       } else {
-        otherPlayerBuilder_.setMessage(builderForValue.build());
+        addEventBuilder_.setMessage(builderForValue.build());
       }
-
+      eventCase_ = 1;
       return this;
     }
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
+     * <code>.AddEvent addEvent = 1;</code>
      */
-    public Builder mergeOtherPlayer(com.example.shared.GrpcPlayer value) {
-      if (otherPlayerBuilder_ == null) {
-        if (otherPlayer_ != null) {
-          otherPlayer_ =
-            com.example.shared.GrpcPlayer.newBuilder(otherPlayer_).mergeFrom(value).buildPartial();
+    public Builder mergeAddEvent(com.example.shared.AddEvent value) {
+      if (addEventBuilder_ == null) {
+        if (eventCase_ == 1 &&
+            event_ != com.example.shared.AddEvent.getDefaultInstance()) {
+          event_ = com.example.shared.AddEvent.newBuilder((com.example.shared.AddEvent) event_)
+              .mergeFrom(value).buildPartial();
         } else {
-          otherPlayer_ = value;
+          event_ = value;
         }
         onChanged();
       } else {
-        otherPlayerBuilder_.mergeFrom(value);
+        if (eventCase_ == 1) {
+          addEventBuilder_.mergeFrom(value);
+        }
+        addEventBuilder_.setMessage(value);
       }
-
+      eventCase_ = 1;
       return this;
     }
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
+     * <code>.AddEvent addEvent = 1;</code>
      */
-    public Builder clearOtherPlayer() {
-      if (otherPlayerBuilder_ == null) {
-        otherPlayer_ = null;
-        onChanged();
+    public Builder clearAddEvent() {
+      if (addEventBuilder_ == null) {
+        if (eventCase_ == 1) {
+          eventCase_ = 0;
+          event_ = null;
+          onChanged();
+        }
       } else {
-        otherPlayer_ = null;
-        otherPlayerBuilder_ = null;
+        if (eventCase_ == 1) {
+          eventCase_ = 0;
+          event_ = null;
+        }
+        addEventBuilder_.clear();
       }
-
       return this;
     }
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
+     * <code>.AddEvent addEvent = 1;</code>
      */
-    public com.example.shared.GrpcPlayer.Builder getOtherPlayerBuilder() {
-      
-      onChanged();
-      return getOtherPlayerFieldBuilder().getBuilder();
+    public com.example.shared.AddEvent.Builder getAddEventBuilder() {
+      return getAddEventFieldBuilder().getBuilder();
     }
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
+     * <code>.AddEvent addEvent = 1;</code>
      */
-    public com.example.shared.GrpcPlayerOrBuilder getOtherPlayerOrBuilder() {
-      if (otherPlayerBuilder_ != null) {
-        return otherPlayerBuilder_.getMessageOrBuilder();
+    @java.lang.Override
+    public com.example.shared.AddEventOrBuilder getAddEventOrBuilder() {
+      if ((eventCase_ == 1) && (addEventBuilder_ != null)) {
+        return addEventBuilder_.getMessageOrBuilder();
       } else {
-        return otherPlayer_ == null ?
-            com.example.shared.GrpcPlayer.getDefaultInstance() : otherPlayer_;
+        if (eventCase_ == 1) {
+          return (com.example.shared.AddEvent) event_;
+        }
+        return com.example.shared.AddEvent.getDefaultInstance();
       }
     }
     /**
-     * <code>.GrpcPlayer otherPlayer = 1;</code>
+     * <code>.AddEvent addEvent = 1;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
-        com.example.shared.GrpcPlayer, com.example.shared.GrpcPlayer.Builder, com.example.shared.GrpcPlayerOrBuilder> 
-        getOtherPlayerFieldBuilder() {
-      if (otherPlayerBuilder_ == null) {
-        otherPlayerBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            com.example.shared.GrpcPlayer, com.example.shared.GrpcPlayer.Builder, com.example.shared.GrpcPlayerOrBuilder>(
-                getOtherPlayer(),
+        com.example.shared.AddEvent, com.example.shared.AddEvent.Builder, com.example.shared.AddEventOrBuilder> 
+        getAddEventFieldBuilder() {
+      if (addEventBuilder_ == null) {
+        if (!(eventCase_ == 1)) {
+          event_ = com.example.shared.AddEvent.getDefaultInstance();
+        }
+        addEventBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.example.shared.AddEvent, com.example.shared.AddEvent.Builder, com.example.shared.AddEventOrBuilder>(
+                (com.example.shared.AddEvent) event_,
                 getParentForChildren(),
                 isClean());
-        otherPlayer_ = null;
+        event_ = null;
       }
-      return otherPlayerBuilder_;
+      eventCase_ = 1;
+      onChanged();;
+      return addEventBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.shared.MoveEvent, com.example.shared.MoveEvent.Builder, com.example.shared.MoveEventOrBuilder> moveEventBuilder_;
+    /**
+     * <code>.MoveEvent moveEvent = 2;</code>
+     * @return Whether the moveEvent field is set.
+     */
+    @java.lang.Override
+    public boolean hasMoveEvent() {
+      return eventCase_ == 2;
+    }
+    /**
+     * <code>.MoveEvent moveEvent = 2;</code>
+     * @return The moveEvent.
+     */
+    @java.lang.Override
+    public com.example.shared.MoveEvent getMoveEvent() {
+      if (moveEventBuilder_ == null) {
+        if (eventCase_ == 2) {
+          return (com.example.shared.MoveEvent) event_;
+        }
+        return com.example.shared.MoveEvent.getDefaultInstance();
+      } else {
+        if (eventCase_ == 2) {
+          return moveEventBuilder_.getMessage();
+        }
+        return com.example.shared.MoveEvent.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.MoveEvent moveEvent = 2;</code>
+     */
+    public Builder setMoveEvent(com.example.shared.MoveEvent value) {
+      if (moveEventBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        event_ = value;
+        onChanged();
+      } else {
+        moveEventBuilder_.setMessage(value);
+      }
+      eventCase_ = 2;
+      return this;
+    }
+    /**
+     * <code>.MoveEvent moveEvent = 2;</code>
+     */
+    public Builder setMoveEvent(
+        com.example.shared.MoveEvent.Builder builderForValue) {
+      if (moveEventBuilder_ == null) {
+        event_ = builderForValue.build();
+        onChanged();
+      } else {
+        moveEventBuilder_.setMessage(builderForValue.build());
+      }
+      eventCase_ = 2;
+      return this;
+    }
+    /**
+     * <code>.MoveEvent moveEvent = 2;</code>
+     */
+    public Builder mergeMoveEvent(com.example.shared.MoveEvent value) {
+      if (moveEventBuilder_ == null) {
+        if (eventCase_ == 2 &&
+            event_ != com.example.shared.MoveEvent.getDefaultInstance()) {
+          event_ = com.example.shared.MoveEvent.newBuilder((com.example.shared.MoveEvent) event_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          event_ = value;
+        }
+        onChanged();
+      } else {
+        if (eventCase_ == 2) {
+          moveEventBuilder_.mergeFrom(value);
+        }
+        moveEventBuilder_.setMessage(value);
+      }
+      eventCase_ = 2;
+      return this;
+    }
+    /**
+     * <code>.MoveEvent moveEvent = 2;</code>
+     */
+    public Builder clearMoveEvent() {
+      if (moveEventBuilder_ == null) {
+        if (eventCase_ == 2) {
+          eventCase_ = 0;
+          event_ = null;
+          onChanged();
+        }
+      } else {
+        if (eventCase_ == 2) {
+          eventCase_ = 0;
+          event_ = null;
+        }
+        moveEventBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.MoveEvent moveEvent = 2;</code>
+     */
+    public com.example.shared.MoveEvent.Builder getMoveEventBuilder() {
+      return getMoveEventFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.MoveEvent moveEvent = 2;</code>
+     */
+    @java.lang.Override
+    public com.example.shared.MoveEventOrBuilder getMoveEventOrBuilder() {
+      if ((eventCase_ == 2) && (moveEventBuilder_ != null)) {
+        return moveEventBuilder_.getMessageOrBuilder();
+      } else {
+        if (eventCase_ == 2) {
+          return (com.example.shared.MoveEvent) event_;
+        }
+        return com.example.shared.MoveEvent.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.MoveEvent moveEvent = 2;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.example.shared.MoveEvent, com.example.shared.MoveEvent.Builder, com.example.shared.MoveEventOrBuilder> 
+        getMoveEventFieldBuilder() {
+      if (moveEventBuilder_ == null) {
+        if (!(eventCase_ == 2)) {
+          event_ = com.example.shared.MoveEvent.getDefaultInstance();
+        }
+        moveEventBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.example.shared.MoveEvent, com.example.shared.MoveEvent.Builder, com.example.shared.MoveEventOrBuilder>(
+                (com.example.shared.MoveEvent) event_,
+                getParentForChildren(),
+                isClean());
+        event_ = null;
+      }
+      eventCase_ = 2;
+      onChanged();;
+      return moveEventBuilder_;
     }
     @java.lang.Override
     public final Builder setUnknownFields(

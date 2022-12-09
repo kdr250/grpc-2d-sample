@@ -1,5 +1,6 @@
 package com.example.client;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.UUID;
 
@@ -8,12 +9,15 @@ public class Player implements Collidable {
   private final String name;
   private Location location;
   private Collision collision;
+  private Direction direction;
+  private PlayerAnimation playerAnimation; // TODO: finalに修正したい
 
-  public Player(final String id, final String name, final Location location) {
+  public Player(final String id, final String name, final Location location, final PlayerAnimation playerAnimation) {
     this.id = id;
     this.name = name;
     this.location = location;
     this.collision = new Collision(location);
+    this.playerAnimation = playerAnimation;
   }
 
   public Player(final String name, final Location location) {
@@ -21,15 +25,13 @@ public class Player implements Collidable {
     this.name = name;
     this.location = location;
     this.collision = new Collision(location);
+    this.direction = Direction.DOWN;
   }
 
   public void move(final Vector vector) {
     location = location.shift(vector);
     collision = collision.shift(vector);
-  }
-
-  public void warp(final Location location) {
-    this.location = location;
+    direction = vector.direction();
   }
 
   public boolean canMove(final List<Collidable> collidableList, final Vector vector) {
@@ -38,12 +40,25 @@ public class Player implements Collidable {
       .noneMatch(collidable -> collision.willCollide(collidable.collision(), vector));
   }
 
+  public BufferedImage getAnimatedImage() {
+    return playerAnimation.getAnimatedImage(direction);
+  }
+
+  public boolean isAnimationReady() {
+    return playerAnimation != null;
+  }
+
   public String name() {
     return name;
   }
 
   public String id() {
     return id;
+  }
+
+  // TODO: 完全コンストラクタで初期化するよう修正したい
+  public void setPlayerAnimation(final PlayerAnimation playerAnimation) {
+    this.playerAnimation = playerAnimation;
   }
 
   @Override

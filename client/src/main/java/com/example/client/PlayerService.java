@@ -1,5 +1,9 @@
 package com.example.client;
 
+import com.example.shared.AddEvent;
+import com.example.shared.GrpcLocation;
+import com.example.shared.GrpcPlayer;
+import com.example.shared.PlayerGrpc.PlayerBlockingStub;
 import com.example.shared.PlayerGrpc.PlayerStub;
 import com.example.shared.PlayerSyncRequest;
 import io.grpc.stub.StreamObserver;
@@ -7,7 +11,7 @@ import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Random;
 
 @Service
 public class PlayerService implements Runnable {
@@ -15,24 +19,32 @@ public class PlayerService implements Runnable {
   @GrpcClient("server")
   private PlayerStub playerStub;
 
+  @GrpcClient("server")
+  private PlayerBlockingStub playerBlockingStub;
+
   private static final double UPDATE_INTERVAL = GamePanel.DRAW_INTERVAL * 10;
+
+  private static String[] nameCandidates = {"太郎", "二郎", "三郎", "花子", "吾朗"};
 
   private Thread playerThread;
 
-  private final Player player = new Player("Taro", new Location(11 * Tile.TILE_SIZE, 27 * Tile.TILE_SIZE));
+  private final Player player = new Player(nameCandidates[new Random().nextInt(5)], new Location(11 * Tile.TILE_SIZE, 27 * Tile.TILE_SIZE));
 
   private final OtherPlayers otherPlayers = new OtherPlayers();
 
   private PlayerSyncResponseObserver playerSyncResponseObserver;
 
-  public PlayerService() {
-
-  }
-
   public void startPlayerThread() {
+    GrpcLocation grpcLocation = GrpcLocation.newBuilder().setX(player.location().getX()).setY(player.location().getY()).build();
+    GrpcPlayer grpcPlayer = GrpcPlayer.newBuilder().setId(player.id()).setName(player.name()).setLocation(grpcLocation).build();
+    AddEvent addEvent = playerBlockingStub.initialize(grpcPlayer);
+    PlayerAnimation playerAnimation = PlayerSyncResponseObserver.playerAnimation(addEvent);
+    player.setPlayerAnimation(playerAnimation);
+
     playerSyncResponseObserver = new PlayerSyncResponseObserver(player, otherPlayers);
     StreamObserver<PlayerSyncRequest> requestStreamObserver = playerStub.sync(playerSyncResponseObserver);
     playerSyncResponseObserver.startSync(requestStreamObserver);
+
     playerThread = new Thread(this);
     playerThread.start();
   }
