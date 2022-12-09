@@ -1,5 +1,6 @@
 package com.example.server;
 
+import com.example.shared.AddEvent;
 import com.example.shared.GrpcPlayer;
 import com.example.shared.PlayerGrpc;
 import com.example.shared.PlayerSyncRequest;
@@ -16,6 +17,13 @@ public class PlayerService extends PlayerGrpc.PlayerImplBase {
 
   public PlayerService(final RegisterPlayerToRedisComponent registerPlayerToRedisComponent) {
     this.registerPlayerToRedisComponent = registerPlayerToRedisComponent;
+  }
+
+  @Override
+  public void initialize(GrpcPlayer request, StreamObserver<AddEvent> responseObserver) {
+    AddEvent addEvent = registerPlayerToRedisComponent.addEvent(request);
+    responseObserver.onNext(addEvent);
+    responseObserver.onCompleted();
   }
 
   @Override

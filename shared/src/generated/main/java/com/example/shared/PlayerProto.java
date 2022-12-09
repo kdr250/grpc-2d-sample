@@ -69,10 +69,11 @@ public final class PlayerProto {
       "pcPlayer\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\037\n\010lo" +
       "cation\030\003 \001(\0132\r.GrpcLocation\"$\n\014GrpcLocat" +
       "ion\022\t\n\001x\030\001 \001(\005\022\t\n\001y\030\002 \001(\005\"2\n\rGrpcImageTy" +
-      "pe\022\014\n\004name\030\001 \001(\t\022\023\n\013base64Image\030\002 \001(\t2=\n" +
-      "\006Player\0223\n\004Sync\022\022.PlayerSyncRequest\032\023.Pl" +
-      "ayerSyncResponse(\0010\001B#\n\022com.example.shar" +
-      "edB\013PlayerProtoP\001b\006proto3"
+      "pe\022\014\n\004name\030\001 \001(\t\022\023\n\013base64Image\030\002 \001(\t2c\n" +
+      "\006Player\022$\n\nInitialize\022\013.GrpcPlayer\032\t.Add" +
+      "Event\0223\n\004Sync\022\022.PlayerSyncRequest\032\023.Play" +
+      "erSyncResponse(\0010\001B#\n\022com.example.shared" +
+      "B\013PlayerProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

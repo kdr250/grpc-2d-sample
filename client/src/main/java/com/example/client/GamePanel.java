@@ -119,9 +119,10 @@ public class GamePanel extends JPanel implements Runnable {
       }
     }
 
-    // プレイヤー1
-    g2.setColor(Color.white);
-    g2.fillRect(screenCenterX, screenCenterY, Tile.TILE_SIZE, Tile.TILE_SIZE);
+    // プレイヤー
+    if (player.isAnimationReady()) {
+      g2.drawImage(player.getAnimatedImage(), GamePanel.screenCenterX, GamePanel.screenCenterY, null);
+    }
 
     OtherPlayers otherPlayers = playerService.otherPlayers();
 

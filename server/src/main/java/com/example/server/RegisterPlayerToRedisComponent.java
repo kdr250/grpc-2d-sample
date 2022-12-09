@@ -66,12 +66,9 @@ public class RegisterPlayerToRedisComponent {
     }).collect(Collectors.toList());
   }
 
-  private MoveEvent moveEvent(GrpcPlayer grpcPlayer) {
-    return MoveEvent.newBuilder().setOtherPlayer(grpcPlayer).build();
-  }
-
-  private AddEvent addEvent(GrpcPlayer grpcPlayer) {
+  public AddEvent addEvent(GrpcPlayer grpcPlayer) {
     HashOperations<String, String, String> stringHashOperations = stringRedisTemplate.opsForHash();
+    // TODO: 一時的にランダムにしているが、選択したキャラクターを返すよう修正すること
     PlayerImageType playerImageType = new Random().nextBoolean() ? PlayerImageType.BOY : PlayerImageType.OLD_MAN;
     List<GrpcImageType> imageTypes = new ArrayList<>();
     stringHashOperations.entries(playerImageType.name()).forEach((key, value) -> {
@@ -79,5 +76,9 @@ public class RegisterPlayerToRedisComponent {
       imageTypes.add(grpcImageType);
     });
     return AddEvent.newBuilder().setOtherPlayer(grpcPlayer).addAllImageType(imageTypes).build();
+  }
+
+  private MoveEvent moveEvent(GrpcPlayer grpcPlayer) {
+    return MoveEvent.newBuilder().setOtherPlayer(grpcPlayer).build();
   }
 }

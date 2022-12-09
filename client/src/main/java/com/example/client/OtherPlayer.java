@@ -6,15 +6,10 @@ public class OtherPlayer {
   private final String id;
   private final String name;
   private Location location;
+  private Direction direction;
 
   public OtherPlayer(final String id, final String name, final Location location) {
     this.id = id;
-    this.name = name;
-    this.location = location;
-  }
-
-  public OtherPlayer(final String name, final Location location) {
-    this.id = UUID.randomUUID().toString();
     this.name = name;
     this.location = location;
   }
@@ -25,6 +20,7 @@ public class OtherPlayer {
 
   public void warp(final Location location) {
     this.location = location;
+    this.direction = Direction.DOWN;
   }
 
   public String name() {

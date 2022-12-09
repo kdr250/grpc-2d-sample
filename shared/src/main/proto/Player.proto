@@ -7,6 +7,7 @@ option java_package = "com.example.shared";
 option java_outer_classname = "PlayerProto";
 
 service Player {
+    rpc Initialize (GrpcPlayer) returns (AddEvent);
     rpc Sync (stream PlayerSyncRequest) returns (stream PlayerSyncResponse);
 }
 
