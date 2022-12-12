@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+option java_package = "com.example.shared";
+
+option java_outer_classname = "TalkProto";
+
+service Talk {
+  rpc Stream (stream TalkStreamRequest) returns (stream TalkStreamResponse);
+}
+
+message TalkStreamRequest {
+  bytes talkByteArray = 1;
+}
+
+message TalkStreamResponse {
+  bytes otherTalkByteArray = 1;
+}
