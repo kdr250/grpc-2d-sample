@@ -4,7 +4,6 @@ import com.example.shared.GrpcTile;
 import com.example.shared.GrpcWorldMap;
 import org.apache.commons.io.FileUtils;
 import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.util.Pair;

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+option java_package = "com.example.shared";
+
+option java_outer_classname = "FileProto";
+
+import "google/protobuf/empty.proto";
+
+service FileService {
+  rpc downloadFile (google.protobuf.Empty) returns (stream DataChunk);
+}
+
+message DataChunk {
+  bytes data = 1;
+  int32 size = 2;
+}
