@@ -16,19 +16,20 @@ import java.io.File;
 @GRpcService
 public class FileService extends FileServiceGrpc.FileServiceImplBase {
 
+  private static final int BUFFER_SIZE = 4096;
+
   @Override
   public void downloadFile(Empty request, StreamObserver<DataChunk> responseObserver) {
     try {
       File soundFile = ResourceUtils.getFile("classpath:sound/ohayo.wav");
       byte[] bytes = FileUtils.readFileToByteArray(soundFile);
       BufferedInputStream soundStream = new BufferedInputStream(new ByteArrayInputStream(bytes));
-      int bufferSize = 1024 * 100;
-      byte[] buffer = new byte[bufferSize];
+      byte[] buffer = new byte[BUFFER_SIZE];
       int length;
-      while ((length = soundStream.read(buffer, 0, bufferSize)) != -1) {
+      while ((length = soundStream.read(buffer, 0, BUFFER_SIZE)) != -1) {
         responseObserver.onNext(DataChunk.newBuilder()
           .setData(ByteString.copyFrom(buffer, 0, length))
-          .setSize(bufferSize)
+          .setSize(BUFFER_SIZE)
           .build());
       }
       soundStream.close();

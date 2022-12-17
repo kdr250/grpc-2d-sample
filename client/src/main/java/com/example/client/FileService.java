@@ -16,9 +16,6 @@ import javax.sound.sampled.SourceDataLine;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class FileService {
@@ -35,8 +32,6 @@ public class FileService {
 
   public void downloadFile() {
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CountDownLatch countDownLatch = new CountDownLatch(1);
-    AtomicBoolean completed = new AtomicBoolean(false);
 
     StreamObserver<DataChunk> streamObserver = new StreamObserver<DataChunk>() {
       @Override
@@ -51,50 +46,42 @@ public class FileService {
       @Override
       public void onError(Throwable t) {
         t.printStackTrace();
-        countDownLatch.countDown();
       }
 
       @Override
       public void onCompleted() {
         System.out.println("download completed!");
-        completed.compareAndSet(false, true);
-        countDownLatch.countDown();
-      }
+        try {
+          ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+          AudioInputStream audioStream = AudioSystem.getAudioInputStream(inputStream);
+
+          AudioFormat format = audioStream.getFormat();
+          DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
+          SourceDataLine sourceDataLine = (SourceDataLine) AudioSystem.getLine(info);
+          sourceDataLine.open(format);
+          sourceDataLine.start();
+
+          System.out.println("Playback Start!");
+
+          byte[] bufferBytes = new byte[BUFFER_SIZE];
+          int readBytes = -1;
+          while ((readBytes = audioStream.read(bufferBytes)) != -1) {
+            if (readBytes > 0) {
+              sourceDataLine.write(bufferBytes, 0, readBytes);
+            }
+          }
+          sourceDataLine.drain();
+          sourceDataLine.close();
+          audioStream.close();
+
+          System.out.println("Playback Finished!");
+
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      };
     };
 
-    try {
-      fileServiceStub.downloadFile(Empty.newBuilder().build(), streamObserver);
-
-      countDownLatch.await(30, TimeUnit.SECONDS);
-
-      if (!completed.get()) {
-        throw new RuntimeException("download not completed!");
-      }
-
-      ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-      AudioInputStream audioStream = AudioSystem.getAudioInputStream(inputStream);
-
-      AudioFormat format = audioStream.getFormat();
-      DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
-      SourceDataLine sourceDataLine = (SourceDataLine) AudioSystem.getLine(info);
-      sourceDataLine.open(format);
-      sourceDataLine.start();
-
-      System.out.println("Playback Start!");
-
-      byte[] bufferBytes = new byte[BUFFER_SIZE];
-      int readBytes = -1;
-      while ((readBytes = audioStream.read(bufferBytes)) != -1) {
-        sourceDataLine.write(bufferBytes, 0, readBytes);
-      }
-      sourceDataLine.drain();
-      sourceDataLine.close();
-      audioStream.close();
-
-      System.out.println("Playback Finished!");
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    fileServiceStub.downloadFile(Empty.newBuilder().build(), streamObserver);
   }
 }
