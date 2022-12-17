@@ -11,10 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineEvent;
-import javax.sound.sampled.LineListener;
 import javax.sound.sampled.SourceDataLine;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -24,12 +21,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
-public class FileService implements LineListener {
+public class FileService {
 
   @GrpcClient("server")
   private FileServiceGrpc.FileServiceStub fileServiceStub;
 
-  private boolean isPlaybackCompleted;
+  private static final int BUFFER_SIZE = 4096;
 
   @PostConstruct
   public void init() {
@@ -78,34 +75,26 @@ public class FileService implements LineListener {
       AudioInputStream audioStream = AudioSystem.getAudioInputStream(inputStream);
 
       AudioFormat format = audioStream.getFormat();
-      DataLine.Info info = new DataLine.Info(Clip.class, format);
+      DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
+      SourceDataLine sourceDataLine = (SourceDataLine) AudioSystem.getLine(info);
+      sourceDataLine.open(format);
+      sourceDataLine.start();
 
-      Clip audioClip = (Clip) AudioSystem.getLine(info);
-      audioClip.addLineListener(this);
-      audioClip.open(audioStream);
-      audioClip.start();
-      while (!isPlaybackCompleted) {
-        try {
-          Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-          ex.printStackTrace();
-        }
+      System.out.println("Playback Start!");
+
+      byte[] bufferBytes = new byte[BUFFER_SIZE];
+      int readBytes = -1;
+      while ((readBytes = audioStream.read(bufferBytes)) != -1) {
+        sourceDataLine.write(bufferBytes, 0, readBytes);
       }
-      audioClip.close();
+      sourceDataLine.drain();
+      sourceDataLine.close();
       audioStream.close();
+
+      System.out.println("Playback Finished!");
 
     } catch (Exception e) {
       e.printStackTrace();
-    }
-  }
-
-  @Override
-  public void update(LineEvent event) {
-    if (LineEvent.Type.START == event.getType()) {
-      System.out.println("Playback started.");
-    } else if (LineEvent.Type.STOP == event.getType()) {
-      isPlaybackCompleted = true;
-      System.out.println("Playback completed.");
     }
   }
 }
