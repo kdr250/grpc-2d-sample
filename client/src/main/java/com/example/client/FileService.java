@@ -75,16 +75,25 @@ public class FileService implements LineListener {
       }
 
       ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(inputStream);
-      AudioFormat audioFormat = audioInputStream.getFormat();
-      DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
+      AudioInputStream audioStream = AudioSystem.getAudioInputStream(inputStream);
+
+      AudioFormat format = audioStream.getFormat();
+      DataLine.Info info = new DataLine.Info(Clip.class, format);
+
       Clip audioClip = (Clip) AudioSystem.getLine(info);
       audioClip.addLineListener(this);
-      audioClip.open(audioInputStream);
+      audioClip.open(audioStream);
       audioClip.start();
-
+      while (!isPlaybackCompleted) {
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+          ex.printStackTrace();
+        }
+      }
       audioClip.close();
-      audioInputStream.close();
+      audioStream.close();
+
     } catch (Exception e) {
       e.printStackTrace();
     }
