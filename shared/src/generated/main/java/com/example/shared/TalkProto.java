@@ -15,15 +15,15 @@ public final class TalkProto {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_TalkStreamRequest_descriptor;
+    internal_static_TalkRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_TalkStreamRequest_fieldAccessorTable;
+      internal_static_TalkRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_TalkStreamResponse_descriptor;
+    internal_static_TalkResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_TalkStreamResponse_fieldAccessorTable;
+      internal_static_TalkResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -33,29 +33,29 @@ public final class TalkProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\nTalk.proto\"*\n\021TalkStreamRequest\022\025\n\rtal" +
-      "kByteArray\030\001 \001(\014\"0\n\022TalkStreamResponse\022\032" +
-      "\n\022otherTalkByteArray\030\001 \001(\0142=\n\004Talk\0225\n\006St" +
-      "ream\022\022.TalkStreamRequest\032\023.TalkStreamRes" +
-      "ponse(\0010\001B!\n\022com.example.sharedB\tTalkPro" +
-      "toP\001b\006proto3"
+      "\n\nTalk.proto\"7\n\013TalkRequest\022\021\n\treadBytes" +
+      "\030\001 \001(\005\022\025\n\rtalkByteArray\030\002 \001(\014\"=\n\014TalkRes" +
+      "ponse\022\021\n\treadBytes\030\001 \001(\005\022\032\n\022otherTalkByt" +
+      "eArray\030\002 \001(\01421\n\004Talk\022)\n\006Stream\022\014.TalkReq" +
+      "uest\032\r.TalkResponse(\0010\001B!\n\022com.example.s" +
+      "haredB\tTalkProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_TalkStreamRequest_descriptor =
+    internal_static_TalkRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_TalkStreamRequest_fieldAccessorTable = new
+    internal_static_TalkRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_TalkStreamRequest_descriptor,
-        new java.lang.String[] { "TalkByteArray", });
-    internal_static_TalkStreamResponse_descriptor =
+        internal_static_TalkRequest_descriptor,
+        new java.lang.String[] { "ReadBytes", "TalkByteArray", });
+    internal_static_TalkResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_TalkStreamResponse_fieldAccessorTable = new
+    internal_static_TalkResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_TalkStreamResponse_descriptor,
-        new java.lang.String[] { "OtherTalkByteArray", });
+        internal_static_TalkResponse_descriptor,
+        new java.lang.String[] { "ReadBytes", "OtherTalkByteArray", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

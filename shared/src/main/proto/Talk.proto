@@ -7,13 +7,15 @@ option java_package = "com.example.shared";
 option java_outer_classname = "TalkProto";
 
 service Talk {
-  rpc Stream (stream TalkStreamRequest) returns (stream TalkStreamResponse);
+  rpc Stream (stream TalkRequest) returns (stream TalkResponse);
 }
 
-message TalkStreamRequest {
-  bytes talkByteArray = 1;
+message TalkRequest {
+  int32 readBytes = 1;
+  bytes talkByteArray = 2;
 }
 
-message TalkStreamResponse {
-  bytes otherTalkByteArray = 1;
+message TalkResponse {
+  int32 readBytes = 1;
+  bytes otherTalkByteArray = 2;
 }

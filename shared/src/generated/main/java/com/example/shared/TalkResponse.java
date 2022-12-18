@@ -4,18 +4,18 @@
 package com.example.shared;
 
 /**
- * Protobuf type {@code TalkStreamResponse}
+ * Protobuf type {@code TalkResponse}
  */
-public final class TalkStreamResponse extends
+public final class TalkResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:TalkStreamResponse)
-    TalkStreamResponseOrBuilder {
+    // @@protoc_insertion_point(message_implements:TalkResponse)
+    TalkResponseOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use TalkStreamResponse.newBuilder() to construct.
-  private TalkStreamResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use TalkResponse.newBuilder() to construct.
+  private TalkResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private TalkStreamResponse() {
+  private TalkResponse() {
     otherTalkByteArray_ = com.google.protobuf.ByteString.EMPTY;
   }
 
@@ -23,7 +23,7 @@ private static final long serialVersionUID = 0L;
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new TalkStreamResponse();
+    return new TalkResponse();
   }
 
   @java.lang.Override
@@ -31,7 +31,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private TalkStreamResponse(
+  private TalkResponse(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -49,7 +49,12 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 10: {
+          case 8: {
+
+            readBytes_ = input.readInt32();
+            break;
+          }
+          case 18: {
 
             otherTalkByteArray_ = input.readBytes();
             break;
@@ -75,21 +80,32 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.example.shared.TalkProto.internal_static_TalkStreamResponse_descriptor;
+    return com.example.shared.TalkProto.internal_static_TalkResponse_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.example.shared.TalkProto.internal_static_TalkStreamResponse_fieldAccessorTable
+    return com.example.shared.TalkProto.internal_static_TalkResponse_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.example.shared.TalkStreamResponse.class, com.example.shared.TalkStreamResponse.Builder.class);
+            com.example.shared.TalkResponse.class, com.example.shared.TalkResponse.Builder.class);
   }
 
-  public static final int OTHERTALKBYTEARRAY_FIELD_NUMBER = 1;
+  public static final int READBYTES_FIELD_NUMBER = 1;
+  private int readBytes_;
+  /**
+   * <code>int32 readBytes = 1;</code>
+   * @return The readBytes.
+   */
+  @java.lang.Override
+  public int getReadBytes() {
+    return readBytes_;
+  }
+
+  public static final int OTHERTALKBYTEARRAY_FIELD_NUMBER = 2;
   private com.google.protobuf.ByteString otherTalkByteArray_;
   /**
-   * <code>bytes otherTalkByteArray = 1;</code>
+   * <code>bytes otherTalkByteArray = 2;</code>
    * @return The otherTalkByteArray.
    */
   @java.lang.Override
@@ -111,8 +127,11 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (readBytes_ != 0) {
+      output.writeInt32(1, readBytes_);
+    }
     if (!otherTalkByteArray_.isEmpty()) {
-      output.writeBytes(1, otherTalkByteArray_);
+      output.writeBytes(2, otherTalkByteArray_);
     }
     unknownFields.writeTo(output);
   }
@@ -123,9 +142,13 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
+    if (readBytes_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(1, readBytes_);
+    }
     if (!otherTalkByteArray_.isEmpty()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBytesSize(1, otherTalkByteArray_);
+        .computeBytesSize(2, otherTalkByteArray_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -137,11 +160,13 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.example.shared.TalkStreamResponse)) {
+    if (!(obj instanceof com.example.shared.TalkResponse)) {
       return super.equals(obj);
     }
-    com.example.shared.TalkStreamResponse other = (com.example.shared.TalkStreamResponse) obj;
+    com.example.shared.TalkResponse other = (com.example.shared.TalkResponse) obj;
 
+    if (getReadBytes()
+        != other.getReadBytes()) return false;
     if (!getOtherTalkByteArray()
         .equals(other.getOtherTalkByteArray())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
@@ -155,6 +180,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + READBYTES_FIELD_NUMBER;
+    hash = (53 * hash) + getReadBytes();
     hash = (37 * hash) + OTHERTALKBYTEARRAY_FIELD_NUMBER;
     hash = (53 * hash) + getOtherTalkByteArray().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
@@ -162,69 +189,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static com.example.shared.TalkStreamResponse parseFrom(
+  public static com.example.shared.TalkResponse parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.shared.TalkStreamResponse parseFrom(
+  public static com.example.shared.TalkResponse parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.shared.TalkStreamResponse parseFrom(
+  public static com.example.shared.TalkResponse parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.shared.TalkStreamResponse parseFrom(
+  public static com.example.shared.TalkResponse parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.shared.TalkStreamResponse parseFrom(byte[] data)
+  public static com.example.shared.TalkResponse parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.shared.TalkStreamResponse parseFrom(
+  public static com.example.shared.TalkResponse parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.shared.TalkStreamResponse parseFrom(java.io.InputStream input)
+  public static com.example.shared.TalkResponse parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.example.shared.TalkStreamResponse parseFrom(
+  public static com.example.shared.TalkResponse parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.example.shared.TalkStreamResponse parseDelimitedFrom(java.io.InputStream input)
+  public static com.example.shared.TalkResponse parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.example.shared.TalkStreamResponse parseDelimitedFrom(
+  public static com.example.shared.TalkResponse parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.example.shared.TalkStreamResponse parseFrom(
+  public static com.example.shared.TalkResponse parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.example.shared.TalkStreamResponse parseFrom(
+  public static com.example.shared.TalkResponse parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -237,7 +264,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.example.shared.TalkStreamResponse prototype) {
+  public static Builder newBuilder(com.example.shared.TalkResponse prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -253,26 +280,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code TalkStreamResponse}
+   * Protobuf type {@code TalkResponse}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:TalkStreamResponse)
-      com.example.shared.TalkStreamResponseOrBuilder {
+      // @@protoc_insertion_point(builder_implements:TalkResponse)
+      com.example.shared.TalkResponseOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.example.shared.TalkProto.internal_static_TalkStreamResponse_descriptor;
+      return com.example.shared.TalkProto.internal_static_TalkResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.example.shared.TalkProto.internal_static_TalkStreamResponse_fieldAccessorTable
+      return com.example.shared.TalkProto.internal_static_TalkResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.example.shared.TalkStreamResponse.class, com.example.shared.TalkStreamResponse.Builder.class);
+              com.example.shared.TalkResponse.class, com.example.shared.TalkResponse.Builder.class);
     }
 
-    // Construct using com.example.shared.TalkStreamResponse.newBuilder()
+    // Construct using com.example.shared.TalkResponse.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -290,6 +317,8 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
+      readBytes_ = 0;
+
       otherTalkByteArray_ = com.google.protobuf.ByteString.EMPTY;
 
       return this;
@@ -298,17 +327,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.example.shared.TalkProto.internal_static_TalkStreamResponse_descriptor;
+      return com.example.shared.TalkProto.internal_static_TalkResponse_descriptor;
     }
 
     @java.lang.Override
-    public com.example.shared.TalkStreamResponse getDefaultInstanceForType() {
-      return com.example.shared.TalkStreamResponse.getDefaultInstance();
+    public com.example.shared.TalkResponse getDefaultInstanceForType() {
+      return com.example.shared.TalkResponse.getDefaultInstance();
     }
 
     @java.lang.Override
-    public com.example.shared.TalkStreamResponse build() {
-      com.example.shared.TalkStreamResponse result = buildPartial();
+    public com.example.shared.TalkResponse build() {
+      com.example.shared.TalkResponse result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -316,8 +345,9 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public com.example.shared.TalkStreamResponse buildPartial() {
-      com.example.shared.TalkStreamResponse result = new com.example.shared.TalkStreamResponse(this);
+    public com.example.shared.TalkResponse buildPartial() {
+      com.example.shared.TalkResponse result = new com.example.shared.TalkResponse(this);
+      result.readBytes_ = readBytes_;
       result.otherTalkByteArray_ = otherTalkByteArray_;
       onBuilt();
       return result;
@@ -357,16 +387,19 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.example.shared.TalkStreamResponse) {
-        return mergeFrom((com.example.shared.TalkStreamResponse)other);
+      if (other instanceof com.example.shared.TalkResponse) {
+        return mergeFrom((com.example.shared.TalkResponse)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.example.shared.TalkStreamResponse other) {
-      if (other == com.example.shared.TalkStreamResponse.getDefaultInstance()) return this;
+    public Builder mergeFrom(com.example.shared.TalkResponse other) {
+      if (other == com.example.shared.TalkResponse.getDefaultInstance()) return this;
+      if (other.getReadBytes() != 0) {
+        setReadBytes(other.getReadBytes());
+      }
       if (other.getOtherTalkByteArray() != com.google.protobuf.ByteString.EMPTY) {
         setOtherTalkByteArray(other.getOtherTalkByteArray());
       }
@@ -385,11 +418,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.example.shared.TalkStreamResponse parsedMessage = null;
+      com.example.shared.TalkResponse parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.example.shared.TalkStreamResponse) e.getUnfinishedMessage();
+        parsedMessage = (com.example.shared.TalkResponse) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -399,9 +432,40 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private int readBytes_ ;
+    /**
+     * <code>int32 readBytes = 1;</code>
+     * @return The readBytes.
+     */
+    @java.lang.Override
+    public int getReadBytes() {
+      return readBytes_;
+    }
+    /**
+     * <code>int32 readBytes = 1;</code>
+     * @param value The readBytes to set.
+     * @return This builder for chaining.
+     */
+    public Builder setReadBytes(int value) {
+      
+      readBytes_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 readBytes = 1;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearReadBytes() {
+      
+      readBytes_ = 0;
+      onChanged();
+      return this;
+    }
+
     private com.google.protobuf.ByteString otherTalkByteArray_ = com.google.protobuf.ByteString.EMPTY;
     /**
-     * <code>bytes otherTalkByteArray = 1;</code>
+     * <code>bytes otherTalkByteArray = 2;</code>
      * @return The otherTalkByteArray.
      */
     @java.lang.Override
@@ -409,7 +473,7 @@ private static final long serialVersionUID = 0L;
       return otherTalkByteArray_;
     }
     /**
-     * <code>bytes otherTalkByteArray = 1;</code>
+     * <code>bytes otherTalkByteArray = 2;</code>
      * @param value The otherTalkByteArray to set.
      * @return This builder for chaining.
      */
@@ -423,7 +487,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>bytes otherTalkByteArray = 1;</code>
+     * <code>bytes otherTalkByteArray = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearOtherTalkByteArray() {
@@ -445,41 +509,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:TalkStreamResponse)
+    // @@protoc_insertion_point(builder_scope:TalkResponse)
   }
 
-  // @@protoc_insertion_point(class_scope:TalkStreamResponse)
-  private static final com.example.shared.TalkStreamResponse DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:TalkResponse)
+  private static final com.example.shared.TalkResponse DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.example.shared.TalkStreamResponse();
+    DEFAULT_INSTANCE = new com.example.shared.TalkResponse();
   }
 
-  public static com.example.shared.TalkStreamResponse getDefaultInstance() {
+  public static com.example.shared.TalkResponse getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<TalkStreamResponse>
-      PARSER = new com.google.protobuf.AbstractParser<TalkStreamResponse>() {
+  private static final com.google.protobuf.Parser<TalkResponse>
+      PARSER = new com.google.protobuf.AbstractParser<TalkResponse>() {
     @java.lang.Override
-    public TalkStreamResponse parsePartialFrom(
+    public TalkResponse parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new TalkStreamResponse(input, extensionRegistry);
+      return new TalkResponse(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<TalkStreamResponse> parser() {
+  public static com.google.protobuf.Parser<TalkResponse> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<TalkStreamResponse> getParserForType() {
+  public com.google.protobuf.Parser<TalkResponse> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.example.shared.TalkStreamResponse getDefaultInstanceForType() {
+  public com.example.shared.TalkResponse getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

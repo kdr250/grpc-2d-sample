@@ -15,29 +15,29 @@ public final class TalkGrpc {
   public static final String SERVICE_NAME = "Talk";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<com.example.shared.TalkStreamRequest,
-      com.example.shared.TalkStreamResponse> getStreamMethod;
+  private static volatile io.grpc.MethodDescriptor<com.example.shared.TalkRequest,
+      com.example.shared.TalkResponse> getStreamMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "Stream",
-      requestType = com.example.shared.TalkStreamRequest.class,
-      responseType = com.example.shared.TalkStreamResponse.class,
+      requestType = com.example.shared.TalkRequest.class,
+      responseType = com.example.shared.TalkResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
-  public static io.grpc.MethodDescriptor<com.example.shared.TalkStreamRequest,
-      com.example.shared.TalkStreamResponse> getStreamMethod() {
-    io.grpc.MethodDescriptor<com.example.shared.TalkStreamRequest, com.example.shared.TalkStreamResponse> getStreamMethod;
+  public static io.grpc.MethodDescriptor<com.example.shared.TalkRequest,
+      com.example.shared.TalkResponse> getStreamMethod() {
+    io.grpc.MethodDescriptor<com.example.shared.TalkRequest, com.example.shared.TalkResponse> getStreamMethod;
     if ((getStreamMethod = TalkGrpc.getStreamMethod) == null) {
       synchronized (TalkGrpc.class) {
         if ((getStreamMethod = TalkGrpc.getStreamMethod) == null) {
           TalkGrpc.getStreamMethod = getStreamMethod =
-              io.grpc.MethodDescriptor.<com.example.shared.TalkStreamRequest, com.example.shared.TalkStreamResponse>newBuilder()
+              io.grpc.MethodDescriptor.<com.example.shared.TalkRequest, com.example.shared.TalkResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Stream"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.example.shared.TalkStreamRequest.getDefaultInstance()))
+                  com.example.shared.TalkRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.example.shared.TalkStreamResponse.getDefaultInstance()))
+                  com.example.shared.TalkResponse.getDefaultInstance()))
               .setSchemaDescriptor(new TalkMethodDescriptorSupplier("Stream"))
               .build();
         }
@@ -96,8 +96,8 @@ public final class TalkGrpc {
 
     /**
      */
-    public io.grpc.stub.StreamObserver<com.example.shared.TalkStreamRequest> stream(
-        io.grpc.stub.StreamObserver<com.example.shared.TalkStreamResponse> responseObserver) {
+    public io.grpc.stub.StreamObserver<com.example.shared.TalkRequest> stream(
+        io.grpc.stub.StreamObserver<com.example.shared.TalkResponse> responseObserver) {
       return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getStreamMethod(), responseObserver);
     }
 
@@ -107,8 +107,8 @@ public final class TalkGrpc {
             getStreamMethod(),
             io.grpc.stub.ServerCalls.asyncBidiStreamingCall(
               new MethodHandlers<
-                com.example.shared.TalkStreamRequest,
-                com.example.shared.TalkStreamResponse>(
+                com.example.shared.TalkRequest,
+                com.example.shared.TalkResponse>(
                   this, METHODID_STREAM)))
           .build();
     }
@@ -130,8 +130,8 @@ public final class TalkGrpc {
 
     /**
      */
-    public io.grpc.stub.StreamObserver<com.example.shared.TalkStreamRequest> stream(
-        io.grpc.stub.StreamObserver<com.example.shared.TalkStreamResponse> responseObserver) {
+    public io.grpc.stub.StreamObserver<com.example.shared.TalkRequest> stream(
+        io.grpc.stub.StreamObserver<com.example.shared.TalkResponse> responseObserver) {
       return io.grpc.stub.ClientCalls.asyncBidiStreamingCall(
           getChannel().newCall(getStreamMethod(), getCallOptions()), responseObserver);
     }
@@ -198,7 +198,7 @@ public final class TalkGrpc {
       switch (methodId) {
         case METHODID_STREAM:
           return (io.grpc.stub.StreamObserver<Req>) serviceImpl.stream(
-              (io.grpc.stub.StreamObserver<com.example.shared.TalkStreamResponse>) responseObserver);
+              (io.grpc.stub.StreamObserver<com.example.shared.TalkResponse>) responseObserver);
         default:
           throw new AssertionError();
       }

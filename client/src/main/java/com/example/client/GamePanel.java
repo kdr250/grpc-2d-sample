@@ -34,14 +34,17 @@ public class GamePanel extends JPanel implements Runnable {
 
   private final PlayerService playerService;
 
+  private final TalkService talkService;
+
   private WorldMap worldMap;
 
   private boolean isUpdateFinished = false;
 
-  public GamePanel(final KeyInputHandler keyInputHandler, final WorldMapService worldMapService, final PlayerService playerService) {
+  public GamePanel(final KeyInputHandler keyInputHandler, final WorldMapService worldMapService, final PlayerService playerService, final TalkService talkService) {
     this.keyInputHandler = keyInputHandler;
     this.worldMapService = worldMapService;
     this.playerService = playerService;
+    this.talkService = talkService;
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
     this.setBackground(Color.black);
     this.setDoubleBuffered(true);
@@ -56,6 +59,7 @@ public class GamePanel extends JPanel implements Runnable {
 
   public void startGameThread() {
     playerService.startPlayerThread();
+    talkService.startThread();
     gameThread = new Thread(this);
     gameThread.start();
   }

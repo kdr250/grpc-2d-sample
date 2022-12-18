@@ -3,12 +3,18 @@
 
 package com.example.shared;
 
-public interface TalkStreamRequestOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:TalkStreamRequest)
+public interface TalkRequestOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:TalkRequest)
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>bytes talkByteArray = 1;</code>
+   * <code>int32 readBytes = 1;</code>
+   * @return The readBytes.
+   */
+  int getReadBytes();
+
+  /**
+   * <code>bytes talkByteArray = 2;</code>
    * @return The talkByteArray.
    */
   com.google.protobuf.ByteString getTalkByteArray();
