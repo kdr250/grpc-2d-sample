@@ -130,7 +130,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     // プレイヤー
     if (player.isAnimationReady()) {
-      g2.drawString(player.name(), GamePanel.screenCenterX + 5, GamePanel.screenCenterY - 15);
+      String name = player.name();
+      g2.drawString(name, getXForCenteredText(g2, name), GamePanel.screenCenterY - 15);
       g2.drawImage(player.getAnimatedImage(), GamePanel.screenCenterX, GamePanel.screenCenterY, null);
     }
 
@@ -139,7 +140,8 @@ public class GamePanel extends JPanel implements Runnable {
     otherPlayers.values().forEach(other -> {
       Triple<Boolean, Integer, Integer> result = canDisplayAndDistanceFromPlayer(other.location(), player.location());
       if (Boolean.TRUE.equals(result.getLeft())) {
-        g2.drawString(other.name(), GamePanel.screenCenterX + result.getMiddle() + 5, GamePanel.screenCenterY + result.getRight() - 15);
+        String name = other.name();
+        g2.drawString(name, getXForCenteredTextForOtherPlayer(g2, result.getMiddle(), name), GamePanel.screenCenterY + result.getRight() - 15);
         g2.drawImage(other.getAnimatedImage(), GamePanel.screenCenterX + result.getMiddle(), GamePanel.screenCenterY + result.getRight(), null);
       }
     });
@@ -163,5 +165,15 @@ public class GamePanel extends JPanel implements Runnable {
     collidableList.add(player);
     collidableList.addAll(worldMap.getTilesFromLocation(willMoveLocation));
     return collidableList;
+  }
+
+  private int getXForCenteredText(Graphics2D g2, String text) {
+    int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+    return GamePanel.screenCenterX + Tile.TILE_SIZE / 2 - length / 2;
+  }
+
+  private int getXForCenteredTextForOtherPlayer(Graphics2D g2, int actorXFromCenter, String text) {
+    int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+    return GamePanel.screenCenterX + actorXFromCenter + Tile.TILE_SIZE / 2 - length / 2;
   }
 }
