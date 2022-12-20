@@ -131,7 +131,7 @@ public class GamePanel extends JPanel implements Runnable {
     // プレイヤー
     if (player.isAnimationReady()) {
       String name = player.name();
-      g2.drawString(name, getXForCenteredText(g2, name), GamePanel.screenCenterY - 15);
+      drawPlayerName(g2, name);
       g2.drawImage(player.getAnimatedImage(), GamePanel.screenCenterX, GamePanel.screenCenterY, null);
     }
 
@@ -141,7 +141,7 @@ public class GamePanel extends JPanel implements Runnable {
       Triple<Boolean, Integer, Integer> result = canDisplayAndDistanceFromPlayer(other.location(), player.location());
       if (Boolean.TRUE.equals(result.getLeft())) {
         String name = other.name();
-        g2.drawString(name, getXForCenteredTextForOtherPlayer(g2, result.getMiddle(), name), GamePanel.screenCenterY + result.getRight() - 15);
+        drawOtherPlayerName(g2, name, result.getMiddle(), result.getRight());
         g2.drawImage(other.getAnimatedImage(), GamePanel.screenCenterX + result.getMiddle(), GamePanel.screenCenterY + result.getRight(), null);
       }
     });
@@ -167,13 +167,28 @@ public class GamePanel extends JPanel implements Runnable {
     return collidableList;
   }
 
-  private int getXForCenteredText(Graphics2D g2, String text) {
-    int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-    return GamePanel.screenCenterX + Tile.TILE_SIZE / 2 - length / 2;
+  private void drawPlayerName(Graphics2D g2, String name) {
+    int width = (int)g2.getFontMetrics().getStringBounds(name, g2).getWidth();
+    int x = GamePanel.screenCenterX + Tile.TILE_SIZE / 2 - width / 2;
+    int height = (int)g2.getFontMetrics().getStringBounds(name, g2).getHeight();
+    int y = GamePanel.screenCenterY - height + 6;
+    drawSubWindow(g2, x - 3, y - height, width + 6, height + 6);
+    g2.setColor(Color.white);
+    g2.drawString(name, x, y);
   }
 
-  private int getXForCenteredTextForOtherPlayer(Graphics2D g2, int actorXFromCenter, String text) {
-    int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-    return GamePanel.screenCenterX + actorXFromCenter + Tile.TILE_SIZE / 2 - length / 2;
+  private void drawOtherPlayerName(Graphics2D g2, String name, int distanceX, int distanceY) {
+    int width = (int)g2.getFontMetrics().getStringBounds(name, g2).getWidth();
+    int x = GamePanel.screenCenterX + distanceX + Tile.TILE_SIZE / 2 - width / 2;
+    int height = (int)g2.getFontMetrics().getStringBounds(name, g2).getHeight();
+    int y = GamePanel.screenCenterY + distanceY - height + 6;
+    drawSubWindow(g2, x - 3, y - height, width + 6, height + 6);
+    g2.setColor(Color.white);
+    g2.drawString(name, x, y);
+  }
+
+  private void drawSubWindow(Graphics2D g2, int x, int y, int width, int height) {
+    g2.setColor(new Color(0, 0, 0, 160));
+    g2.fillRoundRect(x, y, width, height, 3, 3);
   }
 }
