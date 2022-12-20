@@ -71,7 +71,7 @@ public class RegisterPlayerToRedisComponent {
     ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
     HashOperations<String, String, String> stringHashOperations = stringRedisTemplate.opsForHash();
     if (Boolean.FALSE.equals(stringRedisTemplate.hasKey("image_" + grpcPlayer.getId()))) {
-      PlayerImageType playerImageType = new Random().nextBoolean() ? PlayerImageType.BOY : PlayerImageType.OLD_MAN;
+      PlayerImageType playerImageType = PlayerImageType.values()[new Random().nextInt(4)];
       valueOperations.set("image_" + grpcPlayer.getId(), playerImageType.name());
     }
     PlayerImageType playerImageType = PlayerImageType.valueOf(valueOperations.get("image_" + grpcPlayer.getId()));
