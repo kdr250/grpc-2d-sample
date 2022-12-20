@@ -7,7 +7,8 @@ import java.util.stream.Collectors;
 public enum PlayerImageType {
   BOY("boy"),
   OLD_MAN("oldman"),
-  GREEN_SLIME("greenslime");
+  GREEN_SLIME("greenslime"),
+  RED_SLIME("redslime");
 
   private final String partOfFileName;
 
