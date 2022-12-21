@@ -69,7 +69,7 @@ public class TalkResponseObserver implements StreamObserver<TalkResponse> {
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     int bytesRead = 0;
 
-    while (bytesRead < 10000) {
+    while (bytesRead < 4000) {
       numBytesRead = microphone.read(data, 0, CHUNK_SIZE);
       bytesRead += numBytesRead;
 
