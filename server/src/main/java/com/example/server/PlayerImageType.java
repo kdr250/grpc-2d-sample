@@ -8,7 +8,8 @@ public enum PlayerImageType {
   BOY("boy"),
   OLD_MAN("oldman"),
   GREEN_SLIME("greenslime"),
-  RED_SLIME("redslime");
+  RED_SLIME("redslime"),
+  BLUE_SLIME("blueslime");
 
   private final String partOfFileName;
 
