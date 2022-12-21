@@ -18,6 +18,7 @@ private static final long serialVersionUID = 0L;
   private GrpcPlayer() {
     id_ = "";
     name_ = "";
+    characterType_ = 0;
   }
 
   @java.lang.Override
@@ -73,6 +74,12 @@ private static final long serialVersionUID = 0L;
               location_ = subBuilder.buildPartial();
             }
 
+            break;
+          }
+          case 32: {
+            int rawValue = input.readEnum();
+
+            characterType_ = rawValue;
             break;
           }
           default: {
@@ -209,6 +216,25 @@ private static final long serialVersionUID = 0L;
     return getLocation();
   }
 
+  public static final int CHARACTERTYPE_FIELD_NUMBER = 4;
+  private int characterType_;
+  /**
+   * <code>.GrpcPlayerCharacterType characterType = 4;</code>
+   * @return The enum numeric value on the wire for characterType.
+   */
+  @java.lang.Override public int getCharacterTypeValue() {
+    return characterType_;
+  }
+  /**
+   * <code>.GrpcPlayerCharacterType characterType = 4;</code>
+   * @return The characterType.
+   */
+  @java.lang.Override public com.example.shared.GrpcPlayerCharacterType getCharacterType() {
+    @SuppressWarnings("deprecation")
+    com.example.shared.GrpcPlayerCharacterType result = com.example.shared.GrpcPlayerCharacterType.valueOf(characterType_);
+    return result == null ? com.example.shared.GrpcPlayerCharacterType.UNRECOGNIZED : result;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -232,6 +258,9 @@ private static final long serialVersionUID = 0L;
     if (location_ != null) {
       output.writeMessage(3, getLocation());
     }
+    if (characterType_ != com.example.shared.GrpcPlayerCharacterType.BOY.getNumber()) {
+      output.writeEnum(4, characterType_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -250,6 +279,10 @@ private static final long serialVersionUID = 0L;
     if (location_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(3, getLocation());
+    }
+    if (characterType_ != com.example.shared.GrpcPlayerCharacterType.BOY.getNumber()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeEnumSize(4, characterType_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -275,6 +308,7 @@ private static final long serialVersionUID = 0L;
       if (!getLocation()
           .equals(other.getLocation())) return false;
     }
+    if (characterType_ != other.characterType_) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -294,6 +328,8 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + LOCATION_FIELD_NUMBER;
       hash = (53 * hash) + getLocation().hashCode();
     }
+    hash = (37 * hash) + CHARACTERTYPE_FIELD_NUMBER;
+    hash = (53 * hash) + characterType_;
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -437,6 +473,8 @@ private static final long serialVersionUID = 0L;
         location_ = null;
         locationBuilder_ = null;
       }
+      characterType_ = 0;
+
       return this;
     }
 
@@ -470,6 +508,7 @@ private static final long serialVersionUID = 0L;
       } else {
         result.location_ = locationBuilder_.build();
       }
+      result.characterType_ = characterType_;
       onBuilt();
       return result;
     }
@@ -528,6 +567,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasLocation()) {
         mergeLocation(other.getLocation());
+      }
+      if (other.characterType_ != 0) {
+        setCharacterTypeValue(other.getCharacterTypeValue());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -827,6 +869,60 @@ private static final long serialVersionUID = 0L;
         location_ = null;
       }
       return locationBuilder_;
+    }
+
+    private int characterType_ = 0;
+    /**
+     * <code>.GrpcPlayerCharacterType characterType = 4;</code>
+     * @return The enum numeric value on the wire for characterType.
+     */
+    @java.lang.Override public int getCharacterTypeValue() {
+      return characterType_;
+    }
+    /**
+     * <code>.GrpcPlayerCharacterType characterType = 4;</code>
+     * @param value The enum numeric value on the wire for characterType to set.
+     * @return This builder for chaining.
+     */
+    public Builder setCharacterTypeValue(int value) {
+      
+      characterType_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.GrpcPlayerCharacterType characterType = 4;</code>
+     * @return The characterType.
+     */
+    @java.lang.Override
+    public com.example.shared.GrpcPlayerCharacterType getCharacterType() {
+      @SuppressWarnings("deprecation")
+      com.example.shared.GrpcPlayerCharacterType result = com.example.shared.GrpcPlayerCharacterType.valueOf(characterType_);
+      return result == null ? com.example.shared.GrpcPlayerCharacterType.UNRECOGNIZED : result;
+    }
+    /**
+     * <code>.GrpcPlayerCharacterType characterType = 4;</code>
+     * @param value The characterType to set.
+     * @return This builder for chaining.
+     */
+    public Builder setCharacterType(com.example.shared.GrpcPlayerCharacterType value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      
+      characterType_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.GrpcPlayerCharacterType characterType = 4;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearCharacterType() {
+      
+      characterType_ = 0;
+      onChanged();
+      return this;
     }
     @java.lang.Override
     public final Builder setUnknownFields(

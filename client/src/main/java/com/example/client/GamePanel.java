@@ -57,8 +57,8 @@ public class GamePanel extends JPanel implements Runnable {
     worldMap = worldMapService.worldMap();
   }
 
-  public void startThread(String playerName) {
-    playerService.startThread(playerName);
+  public void startThread(String playerName, PlayerCharacterType playerCharacterType) {
+    playerService.startThread(playerName, playerCharacterType);
     talkService.startThread();
     gameThread = new Thread(this);
     gameThread.start();

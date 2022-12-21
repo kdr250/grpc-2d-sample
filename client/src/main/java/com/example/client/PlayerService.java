@@ -3,6 +3,7 @@ package com.example.client;
 import com.example.shared.AddEvent;
 import com.example.shared.GrpcLocation;
 import com.example.shared.GrpcPlayer;
+import com.example.shared.GrpcPlayerCharacterType;
 import com.example.shared.PlayerGrpc.PlayerBlockingStub;
 import com.example.shared.PlayerGrpc.PlayerStub;
 import com.example.shared.PlayerSyncRequest;
@@ -34,13 +35,14 @@ public class PlayerService implements Runnable {
 
   private PlayerSyncResponseObserver playerSyncResponseObserver;
 
-  public void startThread(String playerName) {
+  public void startThread(String playerName, PlayerCharacterType playerCharacterType) {
     player = new Player(playerName, new Location(11 * Tile.TILE_SIZE, 27 * Tile.TILE_SIZE));
 
     GrpcLocation grpcLocation = GrpcLocation.newBuilder().setX(player.location().getX()).setY(player.location().getY()).build();
-    GrpcPlayer grpcPlayer = GrpcPlayer.newBuilder().setId(player.id()).setName(player.name()).setLocation(grpcLocation).build();
-    AddEvent addEvent = playerBlockingStub.initialize(grpcPlayer);
-    PlayerAnimation playerAnimation = PlayerSyncResponseObserver.playerAnimation(addEvent);
+    GrpcPlayerCharacterType grpcPlayerCharacterType = GrpcPlayerCharacterType.valueOf(playerCharacterType.name());
+    GrpcPlayer grpcPlayer = GrpcPlayer.newBuilder().setId(player.id()).setName(player.name()).setLocation(grpcLocation).setCharacterType(grpcPlayerCharacterType).build();
+    AddEvent addEventResponse = playerBlockingStub.initialize(grpcPlayer);
+    PlayerAnimation playerAnimation = PlayerSyncResponseObserver.playerAnimation(addEventResponse);
     player.setPlayerAnimation(playerAnimation);
 
     playerSyncResponseObserver = new PlayerSyncResponseObserver(player, otherPlayers);

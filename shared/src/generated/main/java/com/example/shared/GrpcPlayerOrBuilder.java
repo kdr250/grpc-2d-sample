@@ -45,4 +45,15 @@ public interface GrpcPlayerOrBuilder extends
    * <code>.GrpcLocation location = 3;</code>
    */
   com.example.shared.GrpcLocationOrBuilder getLocationOrBuilder();
+
+  /**
+   * <code>.GrpcPlayerCharacterType characterType = 4;</code>
+   * @return The enum numeric value on the wire for characterType.
+   */
+  int getCharacterTypeValue();
+  /**
+   * <code>.GrpcPlayerCharacterType characterType = 4;</code>
+   * @return The characterType.
+   */
+  com.example.shared.GrpcPlayerCharacterType getCharacterType();
 }
