@@ -4,6 +4,7 @@ import com.example.shared.AddEvent;
 import com.example.shared.GrpcImageType;
 import com.example.shared.GrpcLocation;
 import com.example.shared.GrpcPlayer;
+import com.example.shared.GrpcPlayerCharacterType;
 import com.example.shared.MoveEvent;
 import com.example.shared.PlayerSyncResponse;
 import org.springframework.data.redis.core.HashOperations;
@@ -71,7 +72,7 @@ public class RegisterPlayerToRedisComponent {
     ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
     HashOperations<String, String, String> stringHashOperations = stringRedisTemplate.opsForHash();
     if (Boolean.FALSE.equals(stringRedisTemplate.hasKey("image_" + grpcPlayer.getId()))) {
-      PlayerImageType playerImageType = PlayerImageType.values()[new Random().nextInt(5)];
+      PlayerImageType playerImageType = PlayerImageType.valueOf(grpcPlayer.getCharacterType().name());
       valueOperations.set("image_" + grpcPlayer.getId(), playerImageType.name());
     }
     PlayerImageType playerImageType = PlayerImageType.valueOf(valueOperations.get("image_" + grpcPlayer.getId()));

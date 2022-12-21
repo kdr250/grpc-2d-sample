@@ -65,15 +65,19 @@ public final class PlayerProto {
       "\001(\0132\n.MoveEventH\000B\007\n\005event\"O\n\010AddEvent\022 " +
       "\n\013otherPlayer\030\001 \001(\0132\013.GrpcPlayer\022!\n\timag" +
       "eType\030\002 \003(\0132\016.GrpcImageType\"-\n\tMoveEvent" +
-      "\022 \n\013otherPlayer\030\001 \001(\0132\013.GrpcPlayer\"G\n\nGr" +
+      "\022 \n\013otherPlayer\030\001 \001(\0132\013.GrpcPlayer\"x\n\nGr" +
       "pcPlayer\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\037\n\010lo" +
-      "cation\030\003 \001(\0132\r.GrpcLocation\"$\n\014GrpcLocat" +
-      "ion\022\t\n\001x\030\001 \001(\005\022\t\n\001y\030\002 \001(\005\"2\n\rGrpcImageTy" +
-      "pe\022\014\n\004name\030\001 \001(\t\022\023\n\013base64Image\030\002 \001(\t2c\n" +
-      "\006Player\022$\n\nInitialize\022\013.GrpcPlayer\032\t.Add" +
-      "Event\0223\n\004Sync\022\022.PlayerSyncRequest\032\023.Play" +
-      "erSyncResponse(\0010\001B#\n\022com.example.shared" +
-      "B\013PlayerProtoP\001b\006proto3"
+      "cation\030\003 \001(\0132\r.GrpcLocation\022/\n\rcharacter" +
+      "Type\030\004 \001(\0162\030.GrpcPlayerCharacterType\"$\n\014" +
+      "GrpcLocation\022\t\n\001x\030\001 \001(\005\022\t\n\001y\030\002 \001(\005\"2\n\rGr" +
+      "pcImageType\022\014\n\004name\030\001 \001(\t\022\023\n\013base64Image" +
+      "\030\002 \001(\t*_\n\027GrpcPlayerCharacterType\022\007\n\003BOY" +
+      "\020\000\022\013\n\007OLD_MAN\020\001\022\017\n\013GREEN_SLIME\020\002\022\r\n\tRED_" +
+      "SLIME\020\003\022\016\n\nBLUE_SLIME\020\0042c\n\006Player\022$\n\nIni" +
+      "tialize\022\013.GrpcPlayer\032\t.AddEvent\0223\n\004Sync\022" +
+      "\022.PlayerSyncRequest\032\023.PlayerSyncResponse" +
+      "(\0010\001B#\n\022com.example.sharedB\013PlayerProtoP" +
+      "\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -108,7 +112,7 @@ public final class PlayerProto {
     internal_static_GrpcPlayer_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_GrpcPlayer_descriptor,
-        new java.lang.String[] { "Id", "Name", "Location", });
+        new java.lang.String[] { "Id", "Name", "Location", "CharacterType", });
     internal_static_GrpcLocation_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_GrpcLocation_fieldAccessorTable = new

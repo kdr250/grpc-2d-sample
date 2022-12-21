@@ -36,6 +36,7 @@ message GrpcPlayer {
     string id = 1;
     string name = 2;
     GrpcLocation location = 3;
+    GrpcPlayerCharacterType characterType = 4;
 }
 
 message GrpcLocation {
@@ -46,4 +47,12 @@ message GrpcLocation {
 message GrpcImageType {
     string name = 1;
     string base64Image = 2;
+}
+
+enum GrpcPlayerCharacterType {
+    BOY = 0;
+    OLD_MAN = 1;
+    GREEN_SLIME = 2;
+    RED_SLIME = 3;
+    BLUE_SLIME = 4;
 }
