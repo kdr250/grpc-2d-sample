@@ -128,13 +128,7 @@ public class GamePanel extends JPanel implements Runnable {
       }
     }
 
-    // プレイヤー
-    if (player.isAnimationReady()) {
-      String name = player.name();
-      drawPlayerName(g2, name);
-      g2.drawImage(player.getAnimatedImage(), GamePanel.screenCenterX, GamePanel.screenCenterY, null);
-    }
-
+    // 他のプレイヤー
     OtherPlayers otherPlayers = playerService.otherPlayers();
 
     otherPlayers.values().forEach(other -> {
@@ -145,6 +139,13 @@ public class GamePanel extends JPanel implements Runnable {
         g2.drawImage(other.getAnimatedImage(), GamePanel.screenCenterX + result.getMiddle(), GamePanel.screenCenterY + result.getRight(), null);
       }
     });
+
+    // プレイヤー
+    if (player.isAnimationReady()) {
+      String name = player.name();
+      drawPlayerName(g2, name);
+      g2.drawImage(player.getAnimatedImage(), GamePanel.screenCenterX, GamePanel.screenCenterY, null);
+    }
 
     g2.dispose();
   }
