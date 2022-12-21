@@ -58,6 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
   }
 
   public void startThread(String playerName, PlayerCharacterType playerCharacterType) {
+    this.requestFocusInWindow();
     playerService.startThread(playerName, playerCharacterType);
     talkService.startThread();
     gameThread = new Thread(this);

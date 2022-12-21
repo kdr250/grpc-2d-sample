@@ -32,9 +32,6 @@ public class TitlePanel extends JPanel implements ActionListener {
     panel.add(playerNameLabel);
     panel.add(playerNameField);
 
-    JLabel playerCharacterLabel = new JLabel();
-    playerNameLabel.setText("プレイヤー選択");
-    panel.add(playerCharacterLabel);
     this.radios = new JRadioButton[PlayerCharacterType.length()];
     this.playerCharacterRadioButtonGroup = new ButtonGroup();
     for (PlayerCharacterType characterType : PlayerCharacterType.values()) {
@@ -61,10 +58,10 @@ public class TitlePanel extends JPanel implements ActionListener {
       .findFirst()
       .orElseThrow(RuntimeException::new);
 
-    GamePanel gamePanel = applicationContext.getBean(GamePanel.class);
-    gamePanel.startThread(playerName, playerCharacterType);
-
     GameWindow gameWindow = applicationContext.getBean(GameWindow.class);
     gameWindow.showGamePanel();
+
+    GamePanel gamePanel = applicationContext.getBean(GamePanel.class);
+    gamePanel.startThread(playerName, playerCharacterType);
   }
 }
