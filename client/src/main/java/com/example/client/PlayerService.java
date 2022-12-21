@@ -28,13 +28,15 @@ public class PlayerService implements Runnable {
 
   private Thread playerThread;
 
-  private final Player player = new Player(nameCandidates[new Random().nextInt(5)], new Location(11 * Tile.TILE_SIZE, 27 * Tile.TILE_SIZE));
+  private Player player = new Player(nameCandidates[new Random().nextInt(5)], new Location(11 * Tile.TILE_SIZE, 27 * Tile.TILE_SIZE));
 
   private final OtherPlayers otherPlayers = new OtherPlayers();
 
   private PlayerSyncResponseObserver playerSyncResponseObserver;
 
-  public void startThread() {
+  public void startThread(String playerName) {
+    player = new Player(playerName, new Location(11 * Tile.TILE_SIZE, 27 * Tile.TILE_SIZE));
+
     GrpcLocation grpcLocation = GrpcLocation.newBuilder().setX(player.location().getX()).setY(player.location().getY()).build();
     GrpcPlayer grpcPlayer = GrpcPlayer.newBuilder().setId(player.id()).setName(player.name()).setLocation(grpcLocation).build();
     AddEvent addEvent = playerBlockingStub.initialize(grpcPlayer);
