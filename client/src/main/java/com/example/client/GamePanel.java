@@ -58,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
   }
 
   public void startGameThread() {
-    playerService.startPlayerThread();
+    playerService.startThread();
     talkService.startThread();
     gameThread = new Thread(this);
     gameThread.start();

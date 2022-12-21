@@ -34,7 +34,7 @@ public class PlayerService implements Runnable {
 
   private PlayerSyncResponseObserver playerSyncResponseObserver;
 
-  public void startPlayerThread() {
+  public void startThread() {
     GrpcLocation grpcLocation = GrpcLocation.newBuilder().setX(player.location().getX()).setY(player.location().getY()).build();
     GrpcPlayer grpcPlayer = GrpcPlayer.newBuilder().setId(player.id()).setName(player.name()).setLocation(grpcLocation).build();
     AddEvent addEvent = playerBlockingStub.initialize(grpcPlayer);
