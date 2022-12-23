@@ -23,3 +23,5 @@ docker-compose start
 [Qiita - JavaとgRPCで2Dバーチャルオフィスっぽい何かを作る ①概要編](https://qiita.com/kdr250/items/7a82ceaea3ae4a0ec917)
 <br>
 [Qiita - JavaとgRPCで2Dバーチャルオフィスっぽい何かを作る ②gRPC bidirectional streaming](https://qiita.com/kdr250/items/7eae0cfd31f24ccc0569)
+<br>
+[Qiita - JavaとgRPCで2Dバーチャルオフィスっぽい何かを作る ③音声をストリーミング](https://qiita.com/kdr250/items/6fe1f60330f358824b21)
