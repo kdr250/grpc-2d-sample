@@ -12,7 +12,6 @@ import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class PlayerService implements Runnable {
@@ -25,11 +24,9 @@ public class PlayerService implements Runnable {
 
   private static final double UPDATE_INTERVAL = GamePanel.DRAW_INTERVAL * 10;
 
-  private static String[] nameCandidates = {"太郎", "二郎", "三郎", "花子", "吾朗"};
-
   private Thread playerThread;
 
-  private Player player = new Player(nameCandidates[new Random().nextInt(5)], new Location(11 * Tile.TILE_SIZE, 27 * Tile.TILE_SIZE));
+  private Player player;
 
   private final OtherPlayers otherPlayers = new OtherPlayers();
 
@@ -51,6 +48,11 @@ public class PlayerService implements Runnable {
 
     playerThread = new Thread(this);
     playerThread.start();
+  }
+
+  public void stopThread() {
+    playerThread = null;
+    if (playerSyncResponseObserver != null) playerSyncResponseObserver.onCompleted();
   }
 
   @Override
@@ -77,6 +79,10 @@ public class PlayerService implements Runnable {
 
   public boolean canMove(final List<Collidable> collidableList, final Vector vector) {
     return player.canMove(collidableList, vector);
+  }
+
+  public void refreshOtherPlayers() {
+    otherPlayers.refresh();
   }
 
   public Player player() {

@@ -65,6 +65,12 @@ public class GamePanel extends JPanel implements Runnable {
     gameThread.start();
   }
 
+  public void stopThread() {
+    gameThread = null;
+    playerService.stopThread();
+    talkService.stopThread();
+  }
+
   @Override
   public void run() {
     double delta = 0;
@@ -103,6 +109,7 @@ public class GamePanel extends JPanel implements Runnable {
       return;
     }
     playerService.movePlayer(vector);
+    playerService.refreshOtherPlayers();
   }
 
   public void paintComponent(Graphics g) {

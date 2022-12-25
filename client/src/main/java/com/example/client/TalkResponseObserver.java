@@ -56,6 +56,7 @@ public class TalkResponseObserver implements StreamObserver<TalkResponse> {
     speakers.drain();
     speakers.close();
     microphone.close();
+    talkRequestObserver.onCompleted();
   }
 
   public void setTalkRequestObserver(final StreamObserver<TalkRequest> talkRequestObserver) {

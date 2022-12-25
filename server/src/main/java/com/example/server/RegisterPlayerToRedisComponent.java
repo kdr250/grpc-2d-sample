@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -44,6 +43,12 @@ public class RegisterPlayerToRedisComponent {
     hashOperations.put(player.getId(), "locationX", player.getLocation().getX());
     hashOperations.put(player.getId(), "locationY", player.getLocation().getY());
     objectRedisTemplate.expire(worldId + "_player", 5, TimeUnit.SECONDS);
+  }
+
+  public void deregister(String worldId, GrpcPlayer player) {
+    SetOperations<String, String> setOperations = stringRedisTemplate.opsForSet();
+    setOperations.remove(worldId + "_player", player.getId());
+    objectRedisTemplate.delete(player.getId());
   }
 
   public List<PlayerSyncResponse> get(String worldId, String playerId, List<String> otherPlayerIdList) {

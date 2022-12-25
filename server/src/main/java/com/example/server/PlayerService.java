@@ -33,6 +33,8 @@ public class PlayerService extends PlayerGrpc.PlayerImplBase {
       List<String> otherPlayerIdList = playerSyncRequest.getOtherPlayerIdListList();
       registerPlayerToRedisComponent.register("world1", grpcPlayer);
       return registerPlayerToRedisComponent.get("world1", grpcPlayer.getId(), otherPlayerIdList);
+    }, grpcPlayer -> {
+      registerPlayerToRedisComponent.deregister("world1", grpcPlayer);
     });
   }
 }
