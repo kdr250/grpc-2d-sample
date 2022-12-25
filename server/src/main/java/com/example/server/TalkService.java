@@ -37,6 +37,7 @@ public class TalkService extends TalkGrpc.TalkImplBase {
 
       @Override
       public void onCompleted() {
+        System.out.println("onCompleted!");
         responseObserverSet.remove(responseObserver);
       }
     };
