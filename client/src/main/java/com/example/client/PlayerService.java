@@ -52,7 +52,7 @@ public class PlayerService implements Runnable {
 
   public void stopThread() {
     playerThread = null;
-    playerSyncResponseObserver.onCompleted();
+    if (playerSyncResponseObserver != null) playerSyncResponseObserver.onCompleted();
   }
 
   @Override
