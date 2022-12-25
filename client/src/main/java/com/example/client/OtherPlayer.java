@@ -9,11 +9,15 @@ public class OtherPlayer {
   private Direction direction;
   private PlayerAnimation playerAnimation; // TODO: finalに修正したい
 
+  private static final long MAX_LIFE_SPAN = 5000;
+  private long lastUpdatedTime;
+
   public OtherPlayer(final String id, final String name, final Location location) {
     this.id = id;
     this.name = name;
     this.location = location;
     this.direction = Direction.DOWN;
+    this.lastUpdatedTime = System.currentTimeMillis();
   }
 
   public OtherPlayer(final String id, final String name, final Location location, final PlayerAnimation playerAnimation) {
@@ -22,6 +26,7 @@ public class OtherPlayer {
     this.location = location;
     this.direction = Direction.DOWN;
     this.playerAnimation = playerAnimation;
+    this.lastUpdatedTime = System.currentTimeMillis();
   }
 
   public void move(final Vector vector) {
@@ -31,6 +36,7 @@ public class OtherPlayer {
   public void move(final Location destinationLocation) {
     this.direction = this.location.vector(destinationLocation).direction();
     this.location = destinationLocation;
+    this.lastUpdatedTime = System.currentTimeMillis();
   }
 
   public String name() {
@@ -52,6 +58,10 @@ public class OtherPlayer {
 
   public BufferedImage getAnimatedImage() {
     return playerAnimation.getAnimatedImage(direction);
+  }
+
+  public boolean isAlive() {
+    return System.currentTimeMillis() - lastUpdatedTime < MAX_LIFE_SPAN;
   }
 
   @Override

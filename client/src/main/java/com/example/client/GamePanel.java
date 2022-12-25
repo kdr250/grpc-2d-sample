@@ -109,6 +109,7 @@ public class GamePanel extends JPanel implements Runnable {
       return;
     }
     playerService.movePlayer(vector);
+    playerService.refreshOtherPlayers();
   }
 
   public void paintComponent(Graphics g) {

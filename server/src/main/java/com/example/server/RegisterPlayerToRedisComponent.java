@@ -45,6 +45,12 @@ public class RegisterPlayerToRedisComponent {
     objectRedisTemplate.expire(worldId + "_player", 5, TimeUnit.SECONDS);
   }
 
+  public void deregister(String worldId, GrpcPlayer player) {
+    SetOperations<String, String> setOperations = stringRedisTemplate.opsForSet();
+    setOperations.remove(worldId + "_player", player.getId());
+    objectRedisTemplate.delete(player.getId());
+  }
+
   public List<PlayerSyncResponse> get(String worldId, String playerId, List<String> otherPlayerIdList) {
     SetOperations<String, String> setOperations = stringRedisTemplate.opsForSet();
     HashOperations<String, String, Object> hashOperations = objectRedisTemplate.opsForHash();

@@ -81,6 +81,10 @@ public class PlayerService implements Runnable {
     return player.canMove(collidableList, vector);
   }
 
+  public void refreshOtherPlayers() {
+    otherPlayers.refresh();
+  }
+
   public Player player() {
     return player;
   }
