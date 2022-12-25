@@ -26,8 +26,8 @@ public class TalkService implements Runnable {
   }
 
   public void stopThread() {
-    talkResponseObserver.onCompleted();
     talkThread = null;
+    talkResponseObserver.onCompleted();
   }
 
   @Override
