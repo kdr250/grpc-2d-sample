@@ -39,7 +39,7 @@ public class GameWindow extends JFrame {
     setLocationRelativeTo(null);
     setVisible(true);
 
-    addWindowListener(new WindowListener());
+    addWindowListener(new WindowListener(gamePanel));
   }
 
   public void showGamePanel() {
@@ -47,8 +47,14 @@ public class GameWindow extends JFrame {
   }
 
   static class WindowListener extends WindowAdapter {
+
+    private final GamePanel gamePanel;
+
+    public WindowListener(final GamePanel gamePanel) {
+      this.gamePanel = gamePanel;
+    }
     public void windowClosing(WindowEvent e) {
-      // TODO: gRPCの接続を切ること
+      gamePanel.stopThread();
       System.out.println("windowClosing!");
       System.exit(0);
     }
