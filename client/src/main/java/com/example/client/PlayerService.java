@@ -53,6 +53,11 @@ public class PlayerService implements Runnable {
     playerThread.start();
   }
 
+  public void stopThread() {
+    playerSyncResponseObserver.onCompleted();
+    playerThread = null;
+  }
+
   @Override
   public void run() {
     double delta = 0;

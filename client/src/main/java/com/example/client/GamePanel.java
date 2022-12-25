@@ -65,6 +65,12 @@ public class GamePanel extends JPanel implements Runnable {
     gameThread.start();
   }
 
+  public void stopThread() {
+    playerService.stopThread();
+    talkService.stopThread();
+    gameThread = null;
+  }
+
   @Override
   public void run() {
     double delta = 0;

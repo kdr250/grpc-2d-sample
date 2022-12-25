@@ -25,6 +25,11 @@ public class TalkService implements Runnable {
     talkThread.start();
   }
 
+  public void stopThread() {
+    talkResponseObserver.onCompleted();
+    talkThread = null;
+  }
+
   @Override
   public void run() {
     while (talkThread != null) {
