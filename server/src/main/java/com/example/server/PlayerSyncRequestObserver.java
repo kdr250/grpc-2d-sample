@@ -36,7 +36,7 @@ public class PlayerSyncRequestObserver implements StreamObserver<PlayerSyncReque
 
   @Override
   public void onCompleted() {
-    System.out.println("onCompleted!");
+    System.out.println("Player onCompleted!");
     playerSyncResponseStreamObserver.onCompleted();
   }
 }
